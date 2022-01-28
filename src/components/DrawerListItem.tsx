@@ -1,21 +1,23 @@
 import React from 'react'
-import styled from '@emotion/native'
 import { IMenu } from './DrawerContent/useDrawerContent'
-import { Text } from 'native-base'
-
-const Root = styled.TouchableOpacity`
-  height: 26px;
-  margin: 2px 10px;
-  justify-content: center;
-  border-bottom: 4px solid black;
-`
+import { HStack, Icon, IconButton, Pressable, Text, useContrastText } from 'native-base'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 const DrawerListItem: React.FC<IMenu> = (props) => {
-  const { onPress, title } = props
+  const { onPress, title, icon } = props
+  const color = useContrastText('white')
   return (
-    <Root onPress={onPress}>
-      <Text>{title}</Text>
-    </Root>
+    <Pressable onPress={onPress}>
+      <HStack space="2" alignItems={'center'} mx="2">
+        <Icon as={MaterialIcons} name={icon} color={'gray.700'} />
+        <Text py="1" color={color} flex={1}>
+          {title}
+        </Text>
+        <IconButton>
+          <Icon onPress={onPress} as={MaterialIcons} name={'chevron-right'} color={'gray.700'} />
+        </IconButton>
+      </HStack>
+    </Pressable>
   )
 }
 

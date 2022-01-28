@@ -8,11 +8,15 @@ import { esAr } from './es_ar'
 export type Translations =
   | 'welcome'
   | 'menu.home'
-  | 'menu.about_us'
-  | 'menu.one_to_one_agenda'
+  | 'menu.welcome'
+  | 'menu.maps'
   | 'menu.general_agenda'
-  | 'menu.map'
+  | 'menu.online_agenda'
+  | 'menu.one_to_one_agenda'
+  | 'menu.featured'
   | 'menu.catalogue'
+  | 'menu.notifications'
+  | 'menu.organize'
   | 'header.more_options'
   | 'header.change_event'
   | 'header.login'
@@ -20,6 +24,7 @@ export type Translations =
   | 'download.information'
   | 'download.unzipping'
   | 'download.unzipping_error'
+  | 'event.home.welcome'
 
 export type Translation = Record<Translations, string>
 

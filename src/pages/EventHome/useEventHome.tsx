@@ -1,11 +1,11 @@
 import useSelectedEvent from '../../hooks/useSelectedEvent'
-import { useEventsState } from '../../reducers/eventsReducer'
+import { useT } from '../../translations'
 
 const useEventHome = () => {
-  const selectedEvent = useSelectedEvent()
-  const images = selectedEvent.images
+  const t = useT()
+  const { color, place, date, name } = useSelectedEvent()
 
-  return { selectedEvent, images }
+  return { t, color, place, date, name }
 }
 
 export default useEventHome

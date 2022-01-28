@@ -1,7 +1,6 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
 import { useTheme } from 'native-base'
-import { useState } from 'react'
 import { cleanSelectedEvent } from '../../actions/eventsActions'
 import { useAppDispatch } from '../../hooks/redux'
 import useSelectedEvent from '../../hooks/useSelectedEvent'

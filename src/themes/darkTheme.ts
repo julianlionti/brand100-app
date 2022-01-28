@@ -14,9 +14,6 @@ const darkTheme = extendTheme({
       700: '#0a6d6e',
       800: '#004243',
       900: '#001818'
-    },
-    amber: {
-      400: '#d97706'
     }
   },
   config: {

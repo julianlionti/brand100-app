@@ -1,4 +1,4 @@
-import { Center, Heading, Spinner, Text, VStack } from 'native-base'
+import { Heading, Text, VStack } from 'native-base'
 import React from 'react'
 import PageContainer from '../../components/PageContainer'
 import useDownloadEvent from './useDownloadEvent'
@@ -18,6 +18,7 @@ const DownloadEvent = () => {
             color={isDownloading ? downloadColor : unzippingColor}
             size={180}
             showsText
+            indeterminate={isUnzipping}
           />,
           <Text key="text" textAlign={'center'}>
             {t(isDownloading ? 'download.information' : 'download.unzipping')}

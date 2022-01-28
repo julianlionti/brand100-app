@@ -5,12 +5,13 @@ import EventHelpers from '../utils/eventHelper'
 import { makeRequest } from '../utils/makeRequest'
 import Urls from '../utils/urls'
 import { IDownloadProgress } from '../reducers/eventsReducer'
-import JSZip from 'jszip'
-import { setError } from './loadingActions'
-import fs from 'react-native-fs'
 import { IFullEvent } from '../models/IFullEvent'
 import { IFullOriginalEvent } from '../models/IFullOriginalEvent'
+import RNFetchBlob from 'rn-fetch-blob'
+import Config from '../utils/Config'
+import { unzip } from 'react-native-zip-archive'
 
+const fs = RNFetchBlob.fs
 const prefix = `events/`
 
 export const clearEvent = createAction(`${prefix}clear-event`)
@@ -55,59 +56,37 @@ export const downloadEvent = createAsyncThunk<any, DownloadEventProps>(
     if (isDownloading) return
     dispatch(setIsDownloading(true))
 
-    let progress = 0
-    const response = await makeRequest({
-      method: 'POST',
-      responseType: 'arraybuffer',
-      url: Urls.downloadEvent,
-      data: { id },
-      onDownloadProgress: ({ loaded, total }) => {
-        if (progress % 5 === 0 || loaded === total) {
-          dispatch(setProgress({ loaded, total }))
-        }
-        progress++
-      }
+    const zipPath = `${fs.dirs.CacheDir}/resources.zip`
+    const { path } = await RNFetchBlob.config({
+      fileCache: true,
+      path: zipPath
     })
+      .fetch(
+        'POST',
+        `${Config.BASE_URL}${Urls.downloadEvent}`,
+        { 'Content-Type': 'application/json' },
+        JSON.stringify({ id })
+      )
+      .progress((loaded, total) => {
+        dispatch(setProgress({ loaded, total }))
+      })
+    dispatch(setProgress({ loaded: 1, total: 1 }))
     dispatch(setIsDownloading(false))
-    dispatch(setProgress({ loaded: 0, total: 0 }))
     dispatch(setIsUnzipping(true))
 
-    try {
-      const resPath = EventHelpers.resourcesPath
-      const eventDataDirExists = await fs.exists(resPath)
-      if (!eventDataDirExists) {
-        await fs.mkdir(resPath)
-      }
-
-      const zip = new JSZip()
-      const loaded = await zip.loadAsync(response)
-      const allFiles = Object.keys(loaded.files)
-      const total = allFiles.length
-      dispatch(setProgress({ loaded: 0, total }))
-
-      for await (const filename of allFiles) {
-        const index = allFiles.indexOf(filename)
-        const readZippedFile = zip.file(filename)
-        if (readZippedFile) {
-          const content = await readZippedFile.async('base64')
-          fs.writeFile(`${resPath}${filename}`, content, 'base64')
-          await new Promise((res) => setTimeout(res, 10))
-        }
-        dispatch(setProgress({ loaded: index, total }))
-      }
-
-      const legacyString = await fs.readFile(`${resPath}textos.json`, 'utf8')
-      const legacyEvent = JSON.parse(legacyString) as IFullOriginalEvent
-      const selectedEvent = EventHelpers.legacyToFinalEvent(legacyEvent)
-
-      dispatch(setIsUnzipping(false))
-      dispatch(setSelectedEvent(selectedEvent))
-    } catch (err: any) {
-      dispatch(setIsUnzipping(false))
-      dispatch(setError({ key: 'unziping', error: err.message }))
+    const resPath = EventHelpers.resourcesPath
+    const eventDataDirExists = await fs.exists(resPath)
+    if (!eventDataDirExists) {
+      await fs.mkdir(resPath)
     }
 
-    return
+    await unzip(path(), resPath)
+
+    const legacyString = await fs.readFile(`${resPath}textos.json`, 'utf8')
+    const legacyEvent = JSON.parse(legacyString) as IFullOriginalEvent
+    const selectedEvent = EventHelpers.legacyToFinalEvent(legacyEvent)
+    dispatch(setIsUnzipping(false))
+    dispatch(setSelectedEvent(selectedEvent))
   }
 )
 
