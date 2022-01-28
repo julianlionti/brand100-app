@@ -12,14 +12,16 @@ const LogoImage = styled.Image`
 `
 
 const Drawer: React.FC = () => {
-  const { menuOptions, t, address, contact, socialNetworks } = useDrawerContent()
+  const { menuOptions, t, address, contact, socialNetworks, selected } = useDrawerContent()
   return (
     <View bgColor={'gray.500'} height={'full'}>
       <View bgColor={'white'}>
         <FlatList
           // ItemSeparatorComponent={() => <Divider />}
           data={menuOptions}
-          renderItem={({ item }) => <DrawerListItem {...item} />}
+          renderItem={({ item }) => (
+            <DrawerListItem selected={selected === item.screen} {...item} />
+          )}
         />
       </View>
       <Divider />

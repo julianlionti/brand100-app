@@ -7,6 +7,7 @@ import { injectStore } from './utils/makeRequest'
 import { NativeBaseProvider } from 'native-base'
 import { PersistGate } from 'redux-persist/integration/react'
 import { ActivityIndicator } from 'react-native'
+import PageContainer from './components/PageContainer'
 
 injectStore(store)
 
@@ -14,7 +15,14 @@ const App = () => {
   return (
     <NativeBaseProvider theme={darkTheme}>
       <Provider store={store}>
-        <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
+        <PersistGate
+          loading={
+            <PageContainer>
+              <ActivityIndicator />
+            </PageContainer>
+          }
+          persistor={persistor}
+        >
           <Main />
         </PersistGate>
       </Provider>

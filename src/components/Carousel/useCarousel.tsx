@@ -9,6 +9,7 @@ const useCarousel = () => {
   const interval = useRef<NodeJS.Timer>()
   const { images } = useSelectedEvent()
   const [restart, setRestart] = useState(false)
+  const { color } = useSelectedEvent()
 
   useEffect(() => {
     if (interval.current) clearInterval(interval.current)
@@ -43,7 +44,7 @@ const useCarousel = () => {
     setRestart((e) => !e)
   }, [])
 
-  return { images, page, ref: flatListRef, onScrollList, changePage }
+  return { images, page, ref: flatListRef, onScrollList, changePage, color }
 }
 
 export default useCarousel

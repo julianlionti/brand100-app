@@ -2,6 +2,8 @@ import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import EventHome from '../pages/EventHome/EventHome'
 import DrawerContent from '../components/DrawerContent/DrawerContent'
+import Welcome from '../pages/Welcome/Welcome'
+import Maps from '../pages/Maps/Maps'
 
 export type EventDrawerParamList = {
   Home: undefined
@@ -23,6 +25,8 @@ const EventDrawer = () => {
       screenOptions={{ headerShown: false }}
     >
       <Drawer.Screen name="Home" component={EventHome} />
+      <Drawer.Screen name="Welcome" component={Welcome} />
+      <Drawer.Screen name="Maps" component={Maps} />
     </Drawer.Navigator>
   )
 }

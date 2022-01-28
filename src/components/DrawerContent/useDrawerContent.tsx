@@ -1,16 +1,17 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import useSelectedEvent from '../../hooks/useSelectedEvent'
 import { EventDrawerParamList } from '../../routes/EventDrawer'
 import { Translations, useT } from '../../translations'
 
 type NavigationProps = DrawerNavigationProp<EventDrawerParamList>
 type Screens = keyof EventDrawerParamList
-export type IMenu = { title: string; icon: string; onPress: () => void }
+export type IMenu = { title: string; icon: string; onPress: () => void; screen: Screens }
 
 const useDrawerContent = () => {
   const t = useT()
+  const [selected, setSelected] = useState<Screens>('Home')
   const navigator = useNavigation<NavigationProps>()
   const { menu } = useSelectedEvent()
   const { address, contact, socialNetworks } = menu
@@ -18,8 +19,10 @@ const useDrawerContent = () => {
   const menuOptions = useMemo<IMenu[]>(() => {
     const createMenuItem = (tkey: Translations, icon: string, screen: Screens) => ({
       icon,
+      screen,
       title: t(tkey) as string,
       onPress: () => {
+        setSelected(screen)
         navigator.navigate(screen)
       }
     })
@@ -37,7 +40,7 @@ const useDrawerContent = () => {
     ]
   }, [navigator, t])
 
-  return { t, menuOptions, address, contact, socialNetworks }
+  return { t, menuOptions, address, contact, socialNetworks, selected }
 }
 
 export default useDrawerContent

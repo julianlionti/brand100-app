@@ -4,18 +4,18 @@ import useCarousel from './useCarousel'
 import styled from '@emotion/native'
 import { FlatList } from 'react-native'
 import DotCounter from '../DotCounter'
+import { View } from 'native-base'
 
-const Root = styled.View`
+const Root = styled(View)`
   height: 250px;
-  background: red;
   position: relative;
 `
 
 const Carousel = () => {
-  const { images, ref, onScrollList, page, changePage } = useCarousel()
+  const { images, ref, onScrollList, page, changePage, color } = useCarousel()
 
   return (
-    <Root>
+    <Root bgColor={color}>
       <FlatList
         ref={(e) => (ref.current = e)}
         pagingEnabled

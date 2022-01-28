@@ -1,21 +1,30 @@
 import React from 'react'
 import { IMenu } from './DrawerContent/useDrawerContent'
-import { HStack, Icon, IconButton, Pressable, Text, useContrastText } from 'native-base'
+import { HStack, Icon, Pressable, Text, useContrastText } from 'native-base'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import useSelectedEvent from '../hooks/useSelectedEvent'
 
-const DrawerListItem: React.FC<IMenu> = (props) => {
-  const { onPress, title, icon } = props
-  const color = useContrastText('white')
+interface Props extends IMenu {
+  selected?: boolean
+}
+
+const DrawerListItem: React.FC<Props> = (props) => {
+  const { onPress, title, icon, selected } = props
+  const contrastColor = useContrastText('white')
+  const { color } = useSelectedEvent()
   return (
     <Pressable onPress={onPress}>
-      <HStack space="2" alignItems={'center'} mx="2">
+      <HStack space="2" alignItems={'center'} mx="2" py="1.5">
         <Icon as={MaterialIcons} name={icon} color={'gray.700'} />
-        <Text py="1" color={color} flex={1}>
+        <Text
+          fontWeight={selected ? 'bold' : 'normal'}
+          py="1"
+          color={selected ? color : contrastColor}
+          flex={1}
+        >
           {title}
         </Text>
-        <IconButton>
-          <Icon onPress={onPress} as={MaterialIcons} name={'chevron-right'} color={'gray.700'} />
-        </IconButton>
+        <Icon as={MaterialIcons} name={'chevron-right'} color={'gray.700'} />
       </HStack>
     </Pressable>
   )
