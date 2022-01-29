@@ -61,7 +61,11 @@ const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
   date: ev.fecha,
   duration: ev.duracion,
   endDate: ev.fechaFin,
-  featured: ev.destacados,
+  featured: ev.destacados.map((fea) => ({
+    id: fea.id,
+    image: `${imagePrefix}${fea.imagen}`,
+    name: fea.nombre
+  })),
   generalAgenda: ev.agendaGeneral.map((ag) => ({
     activities: ag.actividades.map(
       (ac): IAgendaActivity => ({

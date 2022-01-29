@@ -95,6 +95,7 @@ export const cleanSelectedEvent = createAsyncThunk(
   async (_, { dispatch }) => {
     try {
       await fs.unlink(EventHelpers.resourcesPath)
+      console.log(await fs.exists(EventHelpers.resourcesPath))
       dispatch(setSelectedEvent(null))
     } catch (err) {
       console.log(err)

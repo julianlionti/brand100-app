@@ -1,12 +1,12 @@
 import React from 'react'
-import useMaps from './useMaps'
+import useFeatured from './useFeatured'
 import MapViewer from '../../components/MapViewer'
 import PageWithTabs from '../../components/TopTabs/TopTabs'
 import PageContainer from '../../components/PageContainer'
 import EventHeader from '../../components/EventHeader/EventHeader'
 
-const Maps = () => {
-  const { tabs } = useMaps()
+const Featured = () => {
+  const { tabs } = useFeatured()
   return (
     <PageContainer>
       <EventHeader />
@@ -15,4 +15,4 @@ const Maps = () => {
   )
 }
 
-export default Maps
+export default Featured

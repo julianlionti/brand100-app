@@ -50,6 +50,12 @@ export interface IOriginalMap {
   imagen: string
 }
 
+export interface IOriginalFeatured {
+  id: number
+  nombre: string
+  imagen: string
+}
+
 export interface IOriginalParticipant {
   foto: string
   mail: string
@@ -99,7 +105,7 @@ export interface IFullOriginalEvent {
   destacadosUltimaActualizacion: string | null
   agendaGeneral: IOriginalAgenda[]
   planos: IOriginalMap[]
-  destacados: any[]
+  destacados: IOriginalFeatured[]
   publicidades: any[]
   catalogo: IOriginalCatalogue[]
   actualizaciones: IOriginalUpdate[]

@@ -50,6 +50,12 @@ export interface IMap {
   image: string
 }
 
+export interface IFeatured {
+  id: number
+  name: string
+  image: string
+}
+
 export interface IParticipant {
   photo: string
   mail: string
@@ -99,7 +105,7 @@ export interface IFullEvent {
   lastUpdateFeature: string | null
   generalAgenda: IAgenda[]
   maps: IMap[]
-  featured: any[]
+  featured: IFeatured[]
   adveryisments: any[]
   catalogue: ICatalogue[]
   updates: IUpdate[]

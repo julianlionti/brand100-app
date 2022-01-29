@@ -27,6 +27,11 @@ export type Translations =
   | 'event.home.welcome'
   | 'agenda.day'
   | 'agenda.detail'
+  | 'tabs.no_data'
+  | 'catalogue.information'
+  | 'catalogue.news'
+  | 'catalogue.paricipants'
+  | 'catalogue.news.no_data'
 
 export type Translation = Record<Translations, string>
 

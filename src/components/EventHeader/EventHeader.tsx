@@ -21,7 +21,7 @@ const EventImage = styled.Image`
 `
 
 interface Props {
-  canGoBack: boolean
+  canGoBack?: boolean
 }
 
 const EventHeader: React.FC<Props> = (props) => {

@@ -1,4 +1,4 @@
-import { ITab } from '../../components/PageWithTabs/PageWithTabs'
+import { ITab } from '../../components/TopTabs/TopTabs'
 import useSelectedEvent from '../../hooks/useSelectedEvent'
 import { useT } from '../../translations'
 

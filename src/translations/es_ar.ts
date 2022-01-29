@@ -25,5 +25,10 @@ export const esAr: Translation = {
   'download.unzipping': 'Descomprimiendo la información del evento, Ya casi está!',
   'event.home.welcome': 'Bienvenidos a la APP Oficial de',
   'agenda.day': 'Día',
-  'agenda.detail': 'Ver detalle'
+  'agenda.detail': 'Ver detalle',
+  'tabs.no_data': 'No hay información para mostrar',
+  'catalogue.information': 'Información',
+  'catalogue.news': 'Noticias',
+  'catalogue.paricipants': 'Asistentes',
+  'catalogue.news.no_data': 'No hay novedades para mostrar'
 }
