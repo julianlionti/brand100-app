@@ -14,7 +14,7 @@ const Title = styled(Text)`
 const EventsSelection = () => {
   const { t, events, isLoading, refreshEvents, selectEvent } = useEventSelection()
   return (
-    <PageContainer noSpace>
+    <PageContainer>
       <Header />
       <Title textAlign="center" bold>
         {t('welcome')}

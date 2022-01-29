@@ -7,7 +7,8 @@ import {
   getEvents,
   setIsDownloading,
   setIsUnzipping,
-  setSelectedEvent
+  setSelectedEvent,
+  setAlreadyShownAds
 } from '../actions/eventsActions'
 import { useAppSelector } from '../hooks/redux'
 import { IEvent } from '../models/IEvent'
@@ -22,6 +23,7 @@ interface EventsState {
   progress: IDownloadProgress
   isDownloading: boolean
   isUnzipping: boolean
+  alreadyShownAds: boolean
 }
 
 const initialState: EventsState = {
@@ -29,7 +31,8 @@ const initialState: EventsState = {
   selectedEvent: null,
   progress: { loaded: 0, total: 0 },
   isDownloading: false,
-  isUnzipping: false
+  isUnzipping: false,
+  alreadyShownAds: false
 }
 
 const reducer = createReducer(initialState, (builder) => {
@@ -53,6 +56,9 @@ const reducer = createReducer(initialState, (builder) => {
   })
   builder.addCase(setIsUnzipping, (state, action) => {
     state.isUnzipping = action.payload
+  })
+  builder.addCase(setAlreadyShownAds, (state, action) => {
+    state.alreadyShownAds = action.payload
   })
 })
 

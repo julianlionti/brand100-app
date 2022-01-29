@@ -79,6 +79,13 @@ export interface IOriginalUpdate {
   ultimaActualizacion: string
 }
 
+export interface IOriginalAd {
+  horizontal: string
+  idPublicidad: number
+  link: string
+  vertical: string
+}
+
 export interface IFullOriginalEvent {
   id: number
   idioma: number
@@ -106,7 +113,7 @@ export interface IFullOriginalEvent {
   agendaGeneral: IOriginalAgenda[]
   planos: IOriginalMap[]
   destacados: IOriginalFeatured[]
-  publicidades: any[]
+  publicidades: IOriginalAd[]
   catalogo: IOriginalCatalogue[]
   actualizaciones: IOriginalUpdate[]
 }

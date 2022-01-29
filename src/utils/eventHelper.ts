@@ -36,13 +36,22 @@ const filterEventBy =
 const filePrefix = `file://`
 const resourcesPath = `${fs.CachesDirectoryPath}/event-data/`
 const imagePrefix = `${filePrefix}${resourcesPath}`
+
+const prepareImage = (path: string) => {
+  const tick = Date.now()
+  return `${imagePrefix}${path}?time?${tick}`
+}
+
 const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
   active: ev.activo,
-  adveryisments: ev.publicidades,
+  adveryisments: ev.publicidades.map((ad) => ({
+    ...ad,
+    vertical: prepareImage(ad.vertical)
+  })),
   agendaPhtosUrl: ev.urlAgendaFotos,
   catalogue: ev.catalogo.map((ca) => ({
     name: ca.nombre,
-    logo: `${imagePrefix}${ca.logo}`,
+    logo: prepareImage(ca.logo),
     information: ca.informacion,
     idCatalogue: ca.idCatalogo,
     news: ca.novedades,
@@ -51,7 +60,7 @@ const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
         name: pa.nombre,
         gender: pa.genero,
         mail: pa.mail,
-        photo: `${imagePrefix}${pa.foto}`,
+        photo: prepareImage(pa.foto),
         position: pa.cargo,
         surname: pa.apellido
       })
@@ -63,7 +72,7 @@ const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
   endDate: ev.fechaFin,
   featured: ev.destacados.map((fea) => ({
     id: fea.id,
-    image: `${imagePrefix}${fea.imagen}`,
+    image: prepareImage(fea.imagen),
     name: fea.nombre
   })),
   generalAgenda: ev.agendaGeneral.map((ag) => ({
@@ -76,7 +85,7 @@ const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
             description: de.descripcion,
             idDetail: de.idDetalle,
             ids: de.ids,
-            images: de.imagenes.map((img) => `${imagePrefix}${img}`),
+            images: de.imagenes.map((img) => prepareImage(img)),
             title: de.titulo
           })
         ),
@@ -88,7 +97,7 @@ const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
         sponsors: ac.auspiciantes.map(
           (sp): IAgendaSponsor => ({
             idSponsor: sp.idAuspiciante,
-            image: `${imagePrefix}${sp.imagen}`,
+            image: prepareImage(sp.imagen),
             name: sp.nombre
           })
         )
@@ -99,16 +108,16 @@ const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
   })),
   hasSponsor: ev.existeSponsor,
   id: ev.id,
-  images: ev.imagenes.map((img) => `${imagePrefix}${img}`),
+  images: ev.imagenes.map((img) => prepareImage(img)),
   information: ev.informacion,
   lang: ev.idioma,
   lastUpdate: ev.ultimaActualizacion,
   lastUpdateFeature: ev.destacadosUltimaActualizacion,
   lastUpdateMaps: ev.planosUltimaActualizacion,
-  logo: `${imagePrefix}${ev.logo}`,
+  logo: prepareImage(ev.logo),
   maps: ev.planos.map((ma) => ({
     id: ma.id,
-    image: `${imagePrefix}${ma.imagen}`,
+    image: prepareImage(ma.imagen),
     name: ma.nombre
   })),
   menu: {
@@ -120,7 +129,7 @@ const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
   name: ev.nombre,
   oneToOneAgendaUrl: ev.urlAgendaPersonal,
   place: ev.lugar,
-  sponsors: `${imagePrefix}${ev.sponsors}`,
+  sponsors: prepareImage(ev.sponsors),
   startDate: ev.fechaInicio,
   type: ev.tipo,
   updates: ev.actualizaciones.map((up) => ({
@@ -129,7 +138,7 @@ const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
   })),
   welcome: {
     hasImage: ev.bienvenida.existeImagen,
-    image: `${imagePrefix}${ev.bienvenida.imagen}`,
+    image: prepareImage(ev.bienvenida.imagen),
     title: ev.bienvenida.titulo,
     welcome: ev.bienvenida.bienvenida
   }

@@ -79,6 +79,13 @@ export interface IUpdate {
   lastUpdate: string
 }
 
+export interface IAd {
+  horizontal: string
+  idPublicidad: number
+  link: string
+  vertical: string
+}
+
 export interface IFullEvent {
   id: number
   lang: number
@@ -106,7 +113,7 @@ export interface IFullEvent {
   generalAgenda: IAgenda[]
   maps: IMap[]
   featured: IFeatured[]
-  adveryisments: any[]
+  adveryisments: IAd[]
   catalogue: ICatalogue[]
   updates: IUpdate[]
 }

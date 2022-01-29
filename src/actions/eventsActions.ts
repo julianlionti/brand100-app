@@ -19,6 +19,7 @@ export const setSelectedEvent = createAction<IFullEvent | null>(`${prefix}set-se
 export const setProgress = createAction<IDownloadProgress>(`${prefix}download-progress`)
 export const setIsDownloading = createAction<boolean>(`${prefix}set-is-downloading`)
 export const setIsUnzipping = createAction<boolean>(`${prefix}set-is-unzipping`)
+export const setAlreadyShownAds = createAction<boolean>(`${prefix}set-already-shown-ads`)
 
 type GetEventProps = { refresh?: boolean }
 type GetEventsReturn = IEvent[]
@@ -95,7 +96,6 @@ export const cleanSelectedEvent = createAsyncThunk(
   async (_, { dispatch }) => {
     try {
       await fs.unlink(EventHelpers.resourcesPath)
-      console.log(await fs.exists(EventHelpers.resourcesPath))
       dispatch(setSelectedEvent(null))
     } catch (err) {
       console.log(err)
