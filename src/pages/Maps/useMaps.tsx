@@ -1,4 +1,5 @@
 import { useContrastText, useTheme } from 'native-base'
+import { ITab } from '../../components/PageWithTabs/PageWithTabs'
 import useSelectedEvent from '../../hooks/useSelectedEvent'
 
 const useMaps = () => {
@@ -9,7 +10,10 @@ const useMaps = () => {
   const constrantTextColor = useContrastText(tabBackgroundColor)
 
   const tabIndicatorColor = color
-  return { maps, tabBackgroundColor, tabIndicatorColor, constrantTextColor }
+
+  const tabs = maps.map((m): ITab<typeof m> => ({ data: m, id: m.id.toString(), title: m.name }))
+
+  return { tabs, tabBackgroundColor, tabIndicatorColor, constrantTextColor }
 }
 
 export default useMaps

@@ -23,5 +23,7 @@ export const esAr: Translation = {
   'download.information': 'Estamos descargando los archivos necesarios del evento seleccionado',
   'download.unzipping_error': 'No se pudo descomprimir el archivo',
   'download.unzipping': 'Descomprimiendo la información del evento, Ya casi está!',
-  'event.home.welcome': 'Bienvenidos a la APP Oficial de'
+  'event.home.welcome': 'Bienvenidos a la APP Oficial de',
+  'agenda.day': 'Día',
+  'agenda.detail': 'Ver detalle'
 }

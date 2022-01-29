@@ -12,7 +12,7 @@ type NavigationProps = DrawerNavigationProp<EventDrawerParamList>
 const useEventHeader = () => {
   const dispatch = useAppDispatch()
   const { colors } = useTheme()
-  const { openDrawer } = useNavigation<NavigationProps>()
+  const { openDrawer, goBack } = useNavigation<NavigationProps>()
   const { logo } = useSelectedEvent()
   const t = useT()
 
@@ -20,6 +20,6 @@ const useEventHeader = () => {
     dispatch(cleanSelectedEvent())
   }
 
-  return { t, colors, openDrawer, logoUrl: logo, cleanEvent }
+  return { t, colors, openDrawer, logoUrl: logo, cleanEvent, goBack }
 }
 export default useEventHeader

@@ -25,6 +25,8 @@ export type Translations =
   | 'download.unzipping'
   | 'download.unzipping_error'
   | 'event.home.welcome'
+  | 'agenda.day'
+  | 'agenda.detail'
 
 export type Translation = Record<Translations, string>
 

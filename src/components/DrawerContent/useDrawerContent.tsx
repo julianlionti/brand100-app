@@ -1,6 +1,7 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
 import { useMemo, useState } from 'react'
+import { Linking } from 'react-native'
 import useSelectedEvent from '../../hooks/useSelectedEvent'
 import { EventDrawerParamList } from '../../routes/EventDrawer'
 import { Translations, useT } from '../../translations'
@@ -13,17 +14,26 @@ const useDrawerContent = () => {
   const t = useT()
   const [selected, setSelected] = useState<Screens>('Home')
   const navigator = useNavigation<NavigationProps>()
-  const { menu } = useSelectedEvent()
+  const { menu, oneToOneAgendaUrl } = useSelectedEvent()
   const { address, contact, socialNetworks } = menu
 
   const menuOptions = useMemo<IMenu[]>(() => {
-    const createMenuItem = (tkey: Translations, icon: string, screen: Screens) => ({
+    const createMenuItem = (
+      tkey: Translations,
+      icon: string,
+      screen: Screens,
+      onPress?: () => void
+    ) => ({
       icon,
       screen,
       title: t(tkey) as string,
       onPress: () => {
-        setSelected(screen)
-        navigator.navigate(screen)
+        if (!onPress) {
+          setSelected(screen)
+          navigator.navigate(screen)
+        } else {
+          onPress()
+        }
       }
     })
 
@@ -32,13 +42,16 @@ const useDrawerContent = () => {
       createMenuItem('menu.welcome', 'info', 'Welcome'),
       createMenuItem('menu.maps', 'place', 'Maps'),
       createMenuItem('menu.general_agenda', 'calendar-today', 'GeneralAgenda'),
-      createMenuItem('menu.online_agenda', 'web', 'OnlineAgenda'),
+      createMenuItem('menu.online_agenda', 'web', 'OnlineAgenda', async () => {
+        const canOpen = await Linking.canOpenURL(oneToOneAgendaUrl)
+        if (canOpen) Linking.openURL(oneToOneAgendaUrl)
+      }),
       createMenuItem('menu.one_to_one_agenda', 'person-pin', 'OneToOneAgenda'),
       createMenuItem('menu.featured', 'featured-play-list', 'Featured'),
       createMenuItem('menu.catalogue', 'local-library', 'Catalogue'),
       createMenuItem('menu.notifications', 'notifications', 'Notifications')
     ]
-  }, [navigator, t])
+  }, [navigator, t, oneToOneAgendaUrl])
 
   return { t, menuOptions, address, contact, socialNetworks, selected }
 }

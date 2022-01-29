@@ -20,8 +20,13 @@ const EventImage = styled.Image`
   width: 90%;
 `
 
-const EventHeader = () => {
-  const { t, colors, logoUrl, cleanEvent, openDrawer } = useEventHeader()
+interface Props {
+  canGoBack: boolean
+}
+
+const EventHeader: React.FC<Props> = (props) => {
+  const { canGoBack } = props
+  const { t, colors, logoUrl, cleanEvent, openDrawer, goBack } = useEventHeader()
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor={colors.gray[800]} />
@@ -29,22 +34,31 @@ const EventHeader = () => {
       <HStack bg="gray.700" px="1" justifyContent="space-between" alignItems="center">
         <HStack alignItems="center">
           <IconButton
-            onPress={openDrawer}
-            icon={<Icon size="sm" as={MaterialIcons} name="menu" color="white" />}
+            onPress={canGoBack ? goBack : openDrawer}
+            icon={
+              <Icon
+                size="sm"
+                as={MaterialIcons}
+                name={canGoBack ? 'arrow-back' : 'menu'}
+                color="white"
+              />
+            }
           />
           <View flex={1} alignItems={'center'} background={'transparent'}>
             <EventImage resizeMode="contain" source={{ uri: logoUrl }} />
           </View>
-          <Menu
-            trigger={(triggerProps) => (
-              <Pressable accessibilityLabel="More options menu" {...triggerProps}>
-                <Icon as={MaterialIcons} name="more-vert" size="sm" color="white" />
-              </Pressable>
-            )}
-          >
-            <Menu.Item onPress={cleanEvent}>{t('header.change_event') as string}</Menu.Item>
-            <Menu.Item>{t('header.login') as string}</Menu.Item>
-          </Menu>
+          {!canGoBack && (
+            <Menu
+              trigger={(triggerProps) => (
+                <Pressable accessibilityLabel="More options menu" {...triggerProps}>
+                  <Icon as={MaterialIcons} name="more-vert" size="sm" color="white" />
+                </Pressable>
+              )}
+            >
+              <Menu.Item onPress={cleanEvent}>{t('header.change_event') as string}</Menu.Item>
+              <Menu.Item>{t('header.login') as string}</Menu.Item>
+            </Menu>
+          )}
         </HStack>
       </HStack>
       <Divider />
