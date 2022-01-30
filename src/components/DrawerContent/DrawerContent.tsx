@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Divider, FlatList, Image, View, VStack } from 'native-base'
+import { Box, Divider, FlatList, View, VStack } from 'native-base'
 import useDrawerContent from './useDrawerContent'
 import DrawerListItem from '../DrawerListItem'
 import { Text } from 'native-base'

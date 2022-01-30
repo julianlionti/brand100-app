@@ -1,5 +1,5 @@
 import React from 'react'
-import { Center, Heading, Text } from 'native-base'
+import { Center, Heading } from 'native-base'
 import useFavoriteAgendaSection from './useFavoriteAgendaSection'
 import { SectionFavoriteType } from '../../reducers/eventsReducer'
 

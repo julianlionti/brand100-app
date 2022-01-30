@@ -1,4 +1,4 @@
-import { Heading, Text, View } from 'native-base'
+import { Heading, View } from 'native-base'
 import React from 'react'
 import EventHeader from '../../components/EventHeader/EventHeader'
 import HasToUpdate from '../../components/HasToUpdate/HasToUpdate'
@@ -11,6 +11,7 @@ const CatalogueDetail: React.FC = () => {
   return (
     <PageContainer bgColor={'white'}>
       <EventHeader canGoBack setFavorite={setFavorite} isFavorite={isFavorite} />
+      <HasToUpdate />
       <View alignItems={'center'} justifyContent={'center'} height={45}>
         <Heading>{name}</Heading>
       </View>

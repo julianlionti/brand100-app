@@ -3,7 +3,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import DrawerContent from '../components/DrawerContent/DrawerContent'
 import Loading from '../components/Loading'
 import EventHeader from '../components/EventHeader/EventHeader'
-import OneToOneAgendaStack from './OneToOneAgendaStack'
 
 const EventHome = lazy(() => import('../pages/EventHome/EventHome'))
 const Welcome = lazy(() => import('../pages/Welcome/Welcome'))
@@ -11,7 +10,7 @@ const Maps = lazy(() => import('../pages/Maps/Maps'))
 const GeneralAgendaStack = lazy(() => import('./GeneralAgendaStack'))
 const Featured = lazy(() => import('../pages/Featured/Featured'))
 const CatalogueStack = lazy(() => import('./CatalogueStack'))
-const OneToOneAgenda = lazy(() => import('../pages/OneToOneAgenda/OneToOneAgenda'))
+const OneToOneAgendaStack = lazy(() => import('./OneToOneAgendaStack'))
 
 export type EventDrawerParamList = {
   Home: undefined
@@ -87,12 +86,6 @@ const EventDrawer = () => {
           </WithSuspense>
         )}
       </Drawer.Screen>
-      {/* <Drawer.Screen name="Welcome" component={Welcome} />
-      <Drawer.Screen name="Maps" component={Maps} />
-      <Drawer.Screen name="GeneralAgenda" component={GeneralAgendaStack} />
-      <Drawer.Screen name="OneToOneAgenda" component={OneToOneAgenda} />
-      <Drawer.Screen name="Featured" component={Featured} />
-      <Drawer.Screen name="Catalogue" component={CatalogueStack} /> */}
     </Drawer.Navigator>
   )
 }

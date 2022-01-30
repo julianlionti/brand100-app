@@ -1,4 +1,4 @@
-import { Box, HStack, Icon, Image, Pressable, Text, View } from 'native-base'
+import { HStack, Icon, Image, Pressable, Text } from 'native-base'
 import React from 'react'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { ICatalogue } from '../../models/IFullEvent'

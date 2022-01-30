@@ -7,7 +7,7 @@ const useFavoriteAgendaTab = () => {
   const sections = favoriteAgenda.reduce((acc, it) => {
     const exists = acc.find((fav) => fav.date === it.date)
     if (exists) {
-      exists.data.push(it)
+      exists.data = [...exists.data, it]
       return acc
     }
 

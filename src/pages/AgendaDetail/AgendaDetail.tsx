@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, Text } from 'native-base'
+import { FlatList } from 'native-base'
 import PageContainer from '../../components/PageContainer'
 import EventHeader from '../../components/EventHeader/EventHeader'
 import useAgeDetail from './useAgeDetail'
