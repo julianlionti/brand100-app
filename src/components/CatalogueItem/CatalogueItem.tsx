@@ -4,7 +4,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { ICatalogue } from '../../models/IFullEvent'
 
 interface Props extends ICatalogue {
-  onPress: () => void
+  onPress?: () => void
 }
 
 const CatalogueItem: React.FC<Props> = (props) => {

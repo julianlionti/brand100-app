@@ -4,13 +4,13 @@ import { IAgenda } from '../../models/IFullEvent'
 import AgendaActivityItem from '../AgendaActivityItem/AgendaActivityItem'
 
 const AgendaActivity: React.FC<IAgenda> = (props) => {
-  const { activities } = props
+  const { activities, date, day } = props
   return (
     <FlatList
       data={activities}
       ItemSeparatorComponent={() => <Divider />}
       keyExtractor={(item) => item.idActivity.toString()}
-      renderItem={({ item }) => <AgendaActivityItem {...item} />}
+      renderItem={({ item }) => <AgendaActivityItem date={date} day={day} {...item} />}
     />
   )
 }

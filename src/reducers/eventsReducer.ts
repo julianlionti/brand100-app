@@ -16,11 +16,12 @@ import {
 } from '../actions/eventsActions'
 import { useAppSelector } from '../hooks/redux'
 import { IEvent } from '../models/IEvent'
-import { IAgendaActivity, ICatalogue, IFullEvent } from '../models/IFullEvent'
+import { IAgenda, IAgendaActivity, ICatalogue, IFullEvent } from '../models/IFullEvent'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export type IDownloadProgress = { loaded: number; total: number }
-
+export type SectionFavoriteType = Omit<IAgenda, 'activities'>
+export type FavoriteAgendaType = IAgendaActivity & SectionFavoriteType
 interface EventsState {
   events: IEvent[]
   progress: IDownloadProgress
@@ -28,7 +29,7 @@ interface EventsState {
   isUnzipping: boolean
   alreadyShownAds: boolean
   selectedEvent: IFullEvent | null
-  favoriteAgenda: IAgendaActivity[]
+  favoriteAgenda: FavoriteAgendaType[]
   favoriteCatalogue: ICatalogue[]
   hasToUpdate: boolean
   showHasToUpdate: boolean
@@ -70,6 +71,8 @@ const reducer = createReducer(initialState, (builder) => {
   })
   builder.addCase(cleanSelectedEvent.fulfilled, (state) => {
     state.selectedEvent = null
+    state.favoriteAgenda = []
+    state.favoriteCatalogue = []
   })
   builder.addCase(setAlreadyShownAds, (state, action) => {
     state.alreadyShownAds = action.payload

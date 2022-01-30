@@ -1,12 +1,13 @@
 import React from 'react'
 import { Box, Button, Heading, HStack, Icon, IconButton, Text, VStack } from 'native-base'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import { IAgendaActivity } from '../../models/IFullEvent'
+import { IAgenda, IAgendaActivity } from '../../models/IFullEvent'
 import { parseHtml } from '../../utils/textUtils'
 import useAgendaActivityItem from './useAgendaActivityItem'
 import AgendaSponsorItem from '../AgendaSponsorItem/AgendaSponsorItem'
 
-const AgendaActivityItem: React.FC<IAgendaActivity> = (props) => {
+export type AgendaActivityItemProps = Omit<IAgenda, 'activities'> & IAgendaActivity
+const AgendaActivityItem: React.FC<AgendaActivityItemProps> = (props) => {
   const {
     t,
     color,

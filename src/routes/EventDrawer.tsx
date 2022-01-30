@@ -3,6 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import DrawerContent from '../components/DrawerContent/DrawerContent'
 import Loading from '../components/Loading'
 import EventHeader from '../components/EventHeader/EventHeader'
+import OneToOneAgendaStack from './OneToOneAgendaStack'
 
 const EventHome = lazy(() => import('../pages/EventHome/EventHome'))
 const Welcome = lazy(() => import('../pages/Welcome/Welcome'))
@@ -68,7 +69,7 @@ const EventDrawer = () => {
       <Drawer.Screen name="OneToOneAgenda">
         {() => (
           <WithSuspense>
-            <OneToOneAgenda />
+            <OneToOneAgendaStack />
           </WithSuspense>
         )}
       </Drawer.Screen>

@@ -1,12 +1,12 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import { Center, Skeleton, Text, View } from 'native-base'
+import { Center, Text, View } from 'native-base'
 import React, { Suspense } from 'react'
-import { ActivityIndicator } from 'react-native'
+import Loading from '../Loading'
 import useTopTabs from './useTopTabs'
 
 export type ITab<T> = { id: string; title: string; data: T }
 interface Props<T> {
-  render: (tab: T, id: string) => JSX.Element
+  render: (tab: T, id: string) => JSX.Element | null
   tabs: ITab<T>[]
   noHeader?: boolean
 }
@@ -31,14 +31,12 @@ const TopTabs = <T,>(props: Props<T>) => {
             tabBarIndicatorStyle: { backgroundColor: tabIndicatorColor, height: 4 },
             tabBarItemStyle: {},
             lazy: true,
-            lazyPlaceholder: () => <ActivityIndicator />
+            lazyPlaceholder: () => <Loading full />
           }}
         >
           {tabs.map((tab) => (
             <Tab.Screen key={tab.id} name={tab.id} options={{ title: tab.title }}>
-              {() => (
-                <Suspense fallback={<ActivityIndicator />}>{render(tab.data, tab.id)}</Suspense>
-              )}
+              {() => <Suspense fallback={null}>{render(tab.data, tab.id)}</Suspense>}
             </Tab.Screen>
           ))}
         </Tab.Navigator>

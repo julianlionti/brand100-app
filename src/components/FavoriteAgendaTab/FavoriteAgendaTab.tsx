@@ -1,13 +1,17 @@
 import React from 'react'
-import { SectionList, Text } from 'native-base'
-import AgendaDetailItem from '../AgendaDetailItem'
+import { SectionList } from 'native-base'
+import useFavoriteAgendaTab from './useFavoriteAgendaTab'
+import FavoriteAgendaSection from '../FavoriteAgendaSection/FavoriteAgendaSection'
+import AgendaActivityItem from '../AgendaActivityItem/AgendaActivityItem'
 
 const FavoriteAgendaTab = () => {
+  const { sections } = useFavoriteAgendaTab()
+
   return (
     <SectionList
-      sections={[{ name: 'Section', data: [] }]}
-      renderSectionHeader={({ section }) => <Text>{section.name}</Text>}
-      renderItem={({ item }) => <AgendaDetailItem {...item} />}
+      sections={sections}
+      renderSectionHeader={({ section }) => <FavoriteAgendaSection {...section} />}
+      renderItem={({ item }) => <AgendaActivityItem {...item} />}
     />
   )
 }

@@ -8,10 +8,11 @@ import { IAgendaActivity } from '../../models/IFullEvent'
 import { useEventsState } from '../../reducers/eventsReducer'
 import { GeneralAgendaStackParamList } from '../../routes/GeneralAgendaStack'
 import { useT } from '../../translations'
+import { AgendaActivityItemProps } from './AgendaActivityItem'
 
 type NavigationProps = StackNavigationProp<GeneralAgendaStackParamList>
 
-const useAgendaActivityItem = (props: IAgendaActivity) => {
+const useAgendaActivityItem = (props: AgendaActivityItemProps) => {
   const t = useT()
   const dispatch = useAppDispatch()
   const { color } = useSelectedEvent()
