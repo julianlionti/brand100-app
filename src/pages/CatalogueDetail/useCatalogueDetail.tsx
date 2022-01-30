@@ -1,15 +1,18 @@
-import React, { useMemo } from 'react'
+import React, { lazy, useMemo } from 'react'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { ITab } from '../../components/TopTabs/TopTabs'
 import { IParticipant } from '../../models/IFullEvent'
 import { CatalogueStackParamList } from '../../routes/CatalogueStack'
 import { Translations, useT } from '../../translations'
-import SimpleCatalogueTab from '../../components/SimpleCatalogueTab'
 import { Text } from 'native-base'
-import ParicipantsCatalogueTab from '../../components/ParicipantsCatalogueTab/ParicipantsCatalogueTab'
 import { useAppDispatch } from '../../hooks/redux'
 import { setCatelogueItemFavorite } from '../../actions/eventsActions'
 import { useEventsState } from '../../reducers/eventsReducer'
+
+const SimpleCatalogueTab = lazy(() => import('../../components/SimpleCatalogueTab'))
+const ParicipantsCatalogueTab = lazy(
+  () => import('../../components/ParicipantsCatalogueTab/ParicipantsCatalogueTab')
+)
 
 export type CatalogueDetialTabs =
   | 'catalogue.information'

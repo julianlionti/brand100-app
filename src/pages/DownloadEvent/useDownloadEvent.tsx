@@ -14,17 +14,19 @@ const useDownloadEvent = () => {
   const dispatch = useAppDispatch()
   const { show, isActive } = useToast()
   const { params } = useRoute<RouteProps>()
-  const { progress, isDownloading, isUnzipping } = useEventsState()
+  const { progress, isDownloading, isUnzipping, selectedEvent } = useEventsState()
   const { errors } = useLoadingState()
   const { colors } = useTheme()
 
   const t = useT()
-  const { event } = params
+  const { event } = params || {}
+  const finalEvent = event || selectedEvent
   const { unziping } = errors
+  const { id } = finalEvent
 
   useEffect(() => {
-    dispatch(downloadEvent({ event }))
-  }, [dispatch, event])
+    dispatch(downloadEvent({ id }))
+  }, [dispatch, id])
 
   useEffect(() => {
     if (unziping) {
@@ -45,7 +47,7 @@ const useDownloadEvent = () => {
   const unzippingColor = colors.orange[500]
 
   return {
-    event,
+    event: finalEvent,
     t,
     isDownloading,
     isUnzipping,

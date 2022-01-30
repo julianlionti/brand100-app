@@ -7,6 +7,9 @@ export const esAr: Translation = {
       ? 'Bienvenidos #Brand100\nGrandes decisores en la compra de espacios publicitarios.\nPara empezar, seleccione el evento del que participa. Si lo desea podrá cambiarlo luego.'
       : `Bienvenidos al evento ${'Retial 100'}. Para empezar, seleccione el evento del que participa. Si lo desea podrá cambiarlo luego.`,
   'home.ads_see_more': 'Ver más',
+  'home.has_to_update': 'Es necesario descargar la nueva información del evento',
+  'home.has_to_update_title': 'Información importante',
+  'home.has_to_update_button': 'Actualizar',
   'menu.catalogue': 'Catálogo',
   'menu.featured': 'Destacados',
   'menu.maps': 'Planos',

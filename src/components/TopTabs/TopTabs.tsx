@@ -1,6 +1,6 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { Center, Skeleton, Text, View } from 'native-base'
-import React from 'react'
+import React, { Suspense } from 'react'
 import { ActivityIndicator } from 'react-native'
 import useTopTabs from './useTopTabs'
 
@@ -36,7 +36,9 @@ const TopTabs = <T,>(props: Props<T>) => {
         >
           {tabs.map((tab) => (
             <Tab.Screen key={tab.id} name={tab.id} options={{ title: tab.title }}>
-              {() => render(tab.data, tab.id)}
+              {() => (
+                <Suspense fallback={<ActivityIndicator />}>{render(tab.data, tab.id)}</Suspense>
+              )}
             </Tab.Screen>
           ))}
         </Tab.Navigator>

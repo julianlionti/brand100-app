@@ -5,11 +5,11 @@ import NoEventStack from './NoEventStack'
 import EventDrawer from './EventDrawer'
 
 const Main = () => {
-  const { selectedEvent } = useEventsState()
+  const { selectedEvent, hasToUpdate } = useEventsState()
   return (
     <NavigationContainer>
-      {!selectedEvent && <NoEventStack />}
-      {selectedEvent && <EventDrawer />}
+      {(!selectedEvent || hasToUpdate) && <NoEventStack />}
+      {selectedEvent && !hasToUpdate && <EventDrawer />}
     </NavigationContainer>
   )
 }

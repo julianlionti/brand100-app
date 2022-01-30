@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Linking } from 'react-native'
-import { setAlreadyShownAds } from '../../actions/eventsActions'
+import { checkForUpdates, setAlreadyShownAds } from '../../actions/eventsActions'
 import { useAppDispatch } from '../../hooks/redux'
 import useSelectedEvent from '../../hooks/useSelectedEvent'
 import { useEventsState } from '../../reducers/eventsReducer'
@@ -11,7 +11,7 @@ const useEventHome = () => {
   const dispatch = useAppDispatch()
   const { alreadyShownAds } = useEventsState()
   const { color, place, date, name, adveryisments } = useSelectedEvent()
-  const [showAd, setShowAdd] = useState(false)
+  const [showAd, setShowAdd] = useState(true)
 
   const selectedAd = useMemo(
     () => adveryisments[Math.floor(Math.random() * adveryisments.length)],
@@ -19,8 +19,8 @@ const useEventHome = () => {
   )
 
   useEffect(() => {
-    if (!alreadyShownAds) {
-      setShowAdd(true)
+    if (alreadyShownAds) {
+      setShowAdd(false)
     }
   }, [alreadyShownAds])
 
@@ -37,6 +37,10 @@ const useEventHome = () => {
       Linking.openURL(link)
     }
   }, [link, closeAd])
+
+  useEffect(() => {
+    dispatch(checkForUpdates())
+  }, [dispatch])
 
   return {
     t,

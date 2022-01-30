@@ -1,6 +1,7 @@
 import { Heading, Text, View } from 'native-base'
 import React from 'react'
 import EventHeader from '../../components/EventHeader/EventHeader'
+import HasToUpdate from '../../components/HasToUpdate/HasToUpdate'
 import PageContainer from '../../components/PageContainer'
 import TopTabs from '../../components/TopTabs/TopTabs'
 import useCatalogueDetail, { CatalogueDetialTabs } from './useCatalogueDetail'

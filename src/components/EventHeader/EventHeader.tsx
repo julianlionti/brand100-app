@@ -13,11 +13,12 @@ const EventImage = styled.Image`
 interface Props {
   canGoBack?: boolean
   setFavorite?: () => void
-  isFavorite: boolean
+  isFavorite?: boolean
+  loading?: boolean
 }
 
 const EventHeader: React.FC<Props> = (props) => {
-  const { canGoBack, setFavorite, isFavorite } = props
+  const { canGoBack, setFavorite, isFavorite, loading } = props
   const { t, colors, logoUrl, cleanEvent, openDrawer, goBack } = useEventHeader()
   return (
     <>
@@ -26,6 +27,7 @@ const EventHeader: React.FC<Props> = (props) => {
       <HStack bg="gray.700" px="1" justifyContent="space-between" alignItems="center">
         <HStack alignItems="center">
           <IconButton
+            disabled={loading}
             onPress={canGoBack ? goBack : openDrawer}
             icon={<MaterialIcon size="sm" name={canGoBack ? 'arrow-back' : 'menu'} color="white" />}
           />
@@ -33,7 +35,7 @@ const EventHeader: React.FC<Props> = (props) => {
             <EventImage resizeMode="contain" source={{ uri: logoUrl }} />
           </View>
           {setFavorite && (
-            <IconButton onPress={setFavorite}>
+            <IconButton onPress={setFavorite} disabled={loading}>
               <MaterialIcon name={`star${isFavorite ? '' : '-border'}`} size="sm" color="white" />
             </IconButton>
           )}
@@ -41,7 +43,7 @@ const EventHeader: React.FC<Props> = (props) => {
             <Menu
               trigger={(triggerProps) => (
                 <Pressable accessibilityLabel="More options menu" {...triggerProps}>
-                  <MaterialIcon name="more-vert" size="sm" color="white" />
+                  <MaterialIcon disabled={loading} name="more-vert" size="sm" color="white" />
                 </Pressable>
               )}
             >

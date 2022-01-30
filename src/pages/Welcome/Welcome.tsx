@@ -4,12 +4,15 @@ import PageContainer from '../../components/PageContainer'
 import EventHeader from '../../components/EventHeader/EventHeader'
 import useWelcome from './useWelcome'
 import { parseHtml } from '../../utils/textUtils'
+import HasToUpdate from '../../components/HasToUpdate/HasToUpdate'
 
 const Welcome = () => {
   const { title, welcome, hasImage, image } = useWelcome()
   return (
     <PageContainer>
       <EventHeader />
+      <HasToUpdate />
+
       <ScrollView>
         <VStack space="2">
           {hasImage && (

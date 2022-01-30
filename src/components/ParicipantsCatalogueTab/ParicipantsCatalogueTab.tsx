@@ -2,6 +2,7 @@ import React from 'react'
 import { FlatList } from 'native-base'
 import PaticipantsItem from '../PaticipantsItem'
 import { IParticipant } from '../../models/IFullEvent'
+import HasToUpdate from '../HasToUpdate/HasToUpdate'
 
 interface Props {
   participants: IParticipant[]
@@ -10,11 +11,14 @@ interface Props {
 const ParicipantsCatalogueTab: React.FC<Props> = (props) => {
   const { participants } = props
   return (
-    <FlatList
-      data={participants}
-      numColumns={2}
-      renderItem={({ item }) => <PaticipantsItem {...item} />}
-    />
+    <>
+      <HasToUpdate />
+      <FlatList
+        data={participants}
+        numColumns={2}
+        renderItem={({ item }) => <PaticipantsItem {...item} />}
+      />
+    </>
   )
 }
 

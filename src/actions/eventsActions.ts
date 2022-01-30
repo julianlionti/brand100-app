@@ -6,7 +6,7 @@ import { makeRequest } from '../utils/makeRequest'
 import Urls from '../utils/urls'
 import { IDownloadProgress } from '../reducers/eventsReducer'
 import { IAgendaActivity, ICatalogue, IFullEvent } from '../models/IFullEvent'
-import { IFullOriginalEvent } from '../models/IFullOriginalEvent'
+import { IFullOriginalEvent, IOriginalUpdate } from '../models/IFullOriginalEvent'
 import RNFetchBlob from 'rn-fetch-blob'
 import Config from '../utils/Config'
 import { unzip } from 'react-native-zip-archive'
@@ -14,8 +14,7 @@ import { unzip } from 'react-native-zip-archive'
 const fs = RNFetchBlob.fs
 const prefix = `events/`
 
-export const clearEvent = createAction(`${prefix}clear-event`)
-export const setSelectedEvent = createAction<IFullEvent | null>(`${prefix}set-selected-event`)
+export const setHasToUpdate = createAction<boolean>(`${prefix}set-show-has-to-update`)
 export const setProgress = createAction<IDownloadProgress>(`${prefix}download-progress`)
 export const setIsDownloading = createAction<boolean>(`${prefix}set-is-downloading`)
 export const setIsUnzipping = createAction<boolean>(`${prefix}set-is-unzipping`)
@@ -48,15 +47,14 @@ export const getEvents = createAsyncThunk<GetEventsReturn, GetEventProps | undef
   }
 )
 
-type DownloadEventProps = { event: IEvent }
-export const downloadEvent = createAsyncThunk<any, DownloadEventProps>(
+type DownloadEventProps = { id: number }
+export const downloadEvent = createAsyncThunk<IFullEvent | null, DownloadEventProps>(
   `${prefix}download-event`,
-  async ({ event }, { dispatch, getState }) => {
-    const { id } = event
+  async ({ id }, { dispatch, getState }) => {
     const { eventsReducer } = getState() as RootState
     const { isDownloading } = eventsReducer
 
-    if (isDownloading) return
+    if (isDownloading) return eventsReducer.selectedEvent
     dispatch(setIsDownloading(true))
 
     const zipPath = `${fs.dirs.CacheDir}/resources.zip`
@@ -89,14 +87,33 @@ export const downloadEvent = createAsyncThunk<any, DownloadEventProps>(
     const legacyEvent = JSON.parse(legacyString) as IFullOriginalEvent
     const selectedEvent = EventHelpers.legacyToFinalEvent(legacyEvent)
     dispatch(setIsUnzipping(false))
-    dispatch(setSelectedEvent(selectedEvent))
+    return selectedEvent
   }
 )
 
-export const cleanSelectedEvent = createAsyncThunk(
+export const cleanSelectedEvent = createAsyncThunk<null>(
   `${prefix}clean-selected-event`,
-  async (_, { dispatch }) => {
+  async () => {
     await fs.unlink(EventHelpers.resourcesPath)
-    dispatch(setSelectedEvent(null))
+    return null
+  }
+)
+
+export const checkForUpdates = createAsyncThunk<boolean>(
+  `${prefix}check-for-updates`,
+  async (_, { getState }) => {
+    const { eventsReducer } = getState() as RootState
+    const { selectedEvent } = eventsReducer
+    if (!selectedEvent) throw Error('Method must be called inside event')
+    const data = {
+      id: selectedEvent.id,
+      codigoIdioma: selectedEvent.lang,
+      actualizaciones: selectedEvent.updates.map(
+        (up): IOriginalUpdate => ({ codigo: up.code, ultimaActualizacion: up.lastUpdate })
+      )
+    }
+
+    const response = await makeRequest({ url: Urls.checkUpdates, method: 'POST', data })
+    return response.Actualizar && response.Exitoso
   }
 )
