@@ -7,7 +7,6 @@ import useEventHome from './useEventHome'
 
 const EventHome = () => {
   const { t, name, date, place, color, showAd, closeAd, ad, openAd } = useEventHome()
-  console.log(ad, showAd)
   return (
     <PageContainer>
       <EventHeader />

@@ -8,7 +8,6 @@ type Navigation = StackNavigationProp<CatalogueStackParamList, 'Agenda'>
 const useCatalogue = () => {
   const { catalogue } = useSelectedEvent()
   const navigation = useNavigation<Navigation>()
-  console.log(navigation)
   const openDetail = (item: ICatalogue) => {
     navigation.push('Detail', item)
   }

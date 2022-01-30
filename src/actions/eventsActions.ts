@@ -5,7 +5,7 @@ import EventHelpers from '../utils/eventHelper'
 import { makeRequest } from '../utils/makeRequest'
 import Urls from '../utils/urls'
 import { IDownloadProgress } from '../reducers/eventsReducer'
-import { IFullEvent } from '../models/IFullEvent'
+import { IAgendaActivity, ICatalogue, IFullEvent } from '../models/IFullEvent'
 import { IFullOriginalEvent } from '../models/IFullOriginalEvent'
 import RNFetchBlob from 'rn-fetch-blob'
 import Config from '../utils/Config'
@@ -20,6 +20,8 @@ export const setProgress = createAction<IDownloadProgress>(`${prefix}download-pr
 export const setIsDownloading = createAction<boolean>(`${prefix}set-is-downloading`)
 export const setIsUnzipping = createAction<boolean>(`${prefix}set-is-unzipping`)
 export const setAlreadyShownAds = createAction<boolean>(`${prefix}set-already-shown-ads`)
+export const setAgendaItemFavorite = createAction<IAgendaActivity>(`${prefix}set-agenda-favorite`)
+export const setCatelogueItemFavorite = createAction<ICatalogue>(`${prefix}set-catalogue-favorite`)
 
 type GetEventProps = { refresh?: boolean }
 type GetEventsReturn = IEvent[]
@@ -94,11 +96,7 @@ export const downloadEvent = createAsyncThunk<any, DownloadEventProps>(
 export const cleanSelectedEvent = createAsyncThunk(
   `${prefix}clean-selected-event`,
   async (_, { dispatch }) => {
-    try {
-      await fs.unlink(EventHelpers.resourcesPath)
-      dispatch(setSelectedEvent(null))
-    } catch (err) {
-      console.log(err)
-    }
+    await fs.unlink(EventHelpers.resourcesPath)
+    dispatch(setSelectedEvent(null))
   }
 )

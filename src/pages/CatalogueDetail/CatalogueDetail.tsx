@@ -6,10 +6,10 @@ import TopTabs from '../../components/TopTabs/TopTabs'
 import useCatalogueDetail, { CatalogueDetialTabs } from './useCatalogueDetail'
 
 const CatalogueDetail: React.FC = () => {
-  const { name, tabs, renderTab } = useCatalogueDetail()
+  const { name, tabs, renderTab, setFavorite, isFavorite } = useCatalogueDetail()
   return (
     <PageContainer bgColor={'white'}>
-      <EventHeader canGoBack />
+      <EventHeader canGoBack setFavorite={setFavorite} isFavorite={isFavorite} />
       <View alignItems={'center'} justifyContent={'center'} height={45}>
         <Heading>{name}</Heading>
       </View>

@@ -1,17 +1,7 @@
 import styled from '@emotion/native'
-import {
-  Box,
-  Divider,
-  HStack,
-  Icon,
-  IconButton,
-  Menu,
-  Pressable,
-  StatusBar,
-  View
-} from 'native-base'
+import { Box, Divider, HStack, IconButton, Menu, Pressable, StatusBar, View } from 'native-base'
 import React from 'react'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import MaterialIcon from '../MaterialIcon'
 import useEventHeader from './useEventHeader'
 
 const EventImage = styled.Image`
@@ -22,10 +12,12 @@ const EventImage = styled.Image`
 
 interface Props {
   canGoBack?: boolean
+  setFavorite?: () => void
+  isFavorite: boolean
 }
 
 const EventHeader: React.FC<Props> = (props) => {
-  const { canGoBack } = props
+  const { canGoBack, setFavorite, isFavorite } = props
   const { t, colors, logoUrl, cleanEvent, openDrawer, goBack } = useEventHeader()
   return (
     <>
@@ -35,23 +27,21 @@ const EventHeader: React.FC<Props> = (props) => {
         <HStack alignItems="center">
           <IconButton
             onPress={canGoBack ? goBack : openDrawer}
-            icon={
-              <Icon
-                size="sm"
-                as={MaterialIcons}
-                name={canGoBack ? 'arrow-back' : 'menu'}
-                color="white"
-              />
-            }
+            icon={<MaterialIcon size="sm" name={canGoBack ? 'arrow-back' : 'menu'} color="white" />}
           />
           <View flex={1} alignItems={'center'} background={'transparent'}>
             <EventImage resizeMode="contain" source={{ uri: logoUrl }} />
           </View>
+          {setFavorite && (
+            <IconButton onPress={setFavorite}>
+              <MaterialIcon name={`star${isFavorite ? '' : '-border'}`} size="sm" color="white" />
+            </IconButton>
+          )}
           {!canGoBack && (
             <Menu
               trigger={(triggerProps) => (
                 <Pressable accessibilityLabel="More options menu" {...triggerProps}>
-                  <Icon as={MaterialIcons} name="more-vert" size="sm" color="white" />
+                  <MaterialIcon name="more-vert" size="sm" color="white" />
                 </Pressable>
               )}
             >

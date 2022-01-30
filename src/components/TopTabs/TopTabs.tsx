@@ -1,6 +1,7 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import { Center, Text, View } from 'native-base'
+import { Center, Skeleton, Text, View } from 'native-base'
 import React from 'react'
+import { ActivityIndicator } from 'react-native'
 import useTopTabs from './useTopTabs'
 
 export type ITab<T> = { id: string; title: string; data: T }
@@ -28,7 +29,9 @@ const TopTabs = <T,>(props: Props<T>) => {
             tabBarScrollEnabled: tabs.length > 4,
             tabBarStyle: { backgroundColor: tabBackgroundColor },
             tabBarIndicatorStyle: { backgroundColor: tabIndicatorColor, height: 4 },
-            tabBarItemStyle: {}
+            tabBarItemStyle: {},
+            lazy: true,
+            lazyPlaceholder: () => <ActivityIndicator />
           }}
         >
           {tabs.map((tab) => (

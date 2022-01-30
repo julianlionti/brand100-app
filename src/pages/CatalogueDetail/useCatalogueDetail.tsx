@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { ITab } from '../../components/TopTabs/TopTabs'
 import { IParticipant } from '../../models/IFullEvent'
@@ -7,6 +7,9 @@ import { Translations, useT } from '../../translations'
 import SimpleCatalogueTab from '../../components/SimpleCatalogueTab'
 import { Text } from 'native-base'
 import ParicipantsCatalogueTab from '../../components/ParicipantsCatalogueTab/ParicipantsCatalogueTab'
+import { useAppDispatch } from '../../hooks/redux'
+import { setCatelogueItemFavorite } from '../../actions/eventsActions'
+import { useEventsState } from '../../reducers/eventsReducer'
 
 export type CatalogueDetialTabs =
   | 'catalogue.information'
@@ -17,6 +20,8 @@ type TabsData = string | IParticipant[]
 type Route = RouteProp<CatalogueStackParamList, 'Detail'>
 const useCatalogueDetail = () => {
   const { params } = useRoute<Route>()
+  const dispatch = useAppDispatch()
+  const { favoriteCatalogue } = useEventsState()
   const t = useT()
 
   const idTabs: CatalogueDetialTabs[] = [
@@ -54,7 +59,17 @@ const useCatalogueDetail = () => {
     }
   }
 
-  return { ...params, tabs, renderTab }
+  const setFavorite = () => {
+    dispatch(setCatelogueItemFavorite(params))
+  }
+
+  const { idCatalogue } = params
+  const isFavorite = useMemo(
+    () => favoriteCatalogue.some((cata) => cata.idCatalogue === idCatalogue),
+    [favoriteCatalogue, idCatalogue]
+  )
+
+  return { ...params, tabs, renderTab, setFavorite, isFavorite }
 }
 
 export default useCatalogueDetail

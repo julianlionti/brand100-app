@@ -8,22 +8,26 @@ import {
   setIsDownloading,
   setIsUnzipping,
   setSelectedEvent,
-  setAlreadyShownAds
+  setAlreadyShownAds,
+  setAgendaItemFavorite,
+  setCatelogueItemFavorite
 } from '../actions/eventsActions'
 import { useAppSelector } from '../hooks/redux'
 import { IEvent } from '../models/IEvent'
-import { IFullEvent } from '../models/IFullEvent'
+import { IAgendaActivity, ICatalogue, IFullEvent } from '../models/IFullEvent'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export type IDownloadProgress = { loaded: number; total: number }
 
 interface EventsState {
   events: IEvent[]
-  selectedEvent: IFullEvent | null
   progress: IDownloadProgress
   isDownloading: boolean
   isUnzipping: boolean
   alreadyShownAds: boolean
+  selectedEvent: IFullEvent | null
+  favoriteAgenda: IAgendaActivity[]
+  favoriteCatalogue: ICatalogue[]
 }
 
 const initialState: EventsState = {
@@ -32,7 +36,9 @@ const initialState: EventsState = {
   progress: { loaded: 0, total: 0 },
   isDownloading: false,
   isUnzipping: false,
-  alreadyShownAds: false
+  alreadyShownAds: false,
+  favoriteAgenda: [],
+  favoriteCatalogue: []
 }
 
 const reducer = createReducer(initialState, (builder) => {
@@ -60,13 +66,31 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(setAlreadyShownAds, (state, action) => {
     state.alreadyShownAds = action.payload
   })
+  builder.addCase(setAgendaItemFavorite, (state, action) => {
+    const { idActivity } = action.payload
+    const index = state.favoriteAgenda.find((e) => e.idActivity === idActivity)
+    if (index) {
+      state.favoriteAgenda = state.favoriteAgenda.filter((e) => e.idActivity !== idActivity)
+    } else {
+      state.favoriteAgenda.push(action.payload)
+    }
+  })
+  builder.addCase(setCatelogueItemFavorite, (state, action) => {
+    const { idCatalogue } = action.payload
+    const index = state.favoriteCatalogue.find((e) => e.idCatalogue === idCatalogue)
+    if (index) {
+      state.favoriteCatalogue = state.favoriteCatalogue.filter((e) => e.idCatalogue !== idCatalogue)
+    } else {
+      state.favoriteCatalogue.push(action.payload)
+    }
+  })
 })
 
 const persistConfig: PersistConfig<EventsState> = {
   key: 'root',
   version: 1,
   storage: AsyncStorage,
-  whitelist: ['selectedEvent']
+  whitelist: ['selectedEvent', 'favoriteAgenda', 'favoriteCatalogue']
 }
 const eventsReducer = persistReducer(persistConfig, reducer)
 

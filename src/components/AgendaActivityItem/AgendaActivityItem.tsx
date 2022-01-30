@@ -7,12 +7,22 @@ import useAgendaActivityItem from './useAgendaActivityItem'
 import AgendaSponsorItem from '../AgendaSponsorItem/AgendaSponsorItem'
 
 const AgendaActivityItem: React.FC<IAgendaActivity> = (props) => {
-  const { t, color, description, sponsors, hasDetail, name, schedule, openDetail } =
-    useAgendaActivityItem(props)
+  const {
+    t,
+    color,
+    description,
+    sponsors,
+    hasDetail,
+    name,
+    schedule,
+    openDetail,
+    setFavorite,
+    isFavorite
+  } = useAgendaActivityItem(props)
   return (
     <HStack alignItems={'center'} py="2">
-      <IconButton>
-        <Icon as={MaterialIcons} name="star-border" color={color} />
+      <IconButton onPress={setFavorite}>
+        <Icon as={MaterialIcons} name={isFavorite ? 'star' : 'star-border'} color={color} />
       </IconButton>
       <VStack flex={1} mr="4" space="1">
         <HStack alignItems={'center'} justifyContent={'space-between'}>

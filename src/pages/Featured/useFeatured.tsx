@@ -10,7 +10,6 @@ const useFeatured = () => {
       title: m.name.replace(/\.[^.]*$/, '')
     })
   )
-  console.log(tabs)
   return { tabs }
 }
 
