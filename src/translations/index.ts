@@ -7,6 +7,7 @@ import { esAr } from './es_ar'
 
 export type Translations =
   | 'welcome'
+  | 'home.ads_see_more'
   | 'menu.home'
   | 'menu.welcome'
   | 'menu.maps'
@@ -32,6 +33,9 @@ export type Translations =
   | 'catalogue.news'
   | 'catalogue.paricipants'
   | 'catalogue.news.no_data'
+  | 'onetoone.favorite_agenda'
+  | 'onetoone.favorite_catalogue'
+  | 'onetoone.online_access'
 
 export type Translation = Record<Translations, string>
 

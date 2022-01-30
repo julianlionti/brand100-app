@@ -7,6 +7,7 @@ import Maps from '../pages/Maps/Maps'
 import GeneralAgendaStack from './GeneralAgendaStack'
 import Featured from '../pages/Featured/Featured'
 import CatalogueStack from './CatalogueStack'
+import OneToOneAgenda from '../pages/OneToOneAgenda/OneToOneAgenda'
 
 export type EventDrawerParamList = {
   Home: undefined
@@ -31,6 +32,7 @@ const EventDrawer = () => {
       <Drawer.Screen name="Welcome" component={Welcome} />
       <Drawer.Screen name="Maps" component={Maps} />
       <Drawer.Screen name="GeneralAgenda" component={GeneralAgendaStack} />
+      <Drawer.Screen name="OneToOneAgenda" component={OneToOneAgenda} />
       <Drawer.Screen name="Featured" component={Featured} />
       <Drawer.Screen name="Catalogue" component={CatalogueStack} />
     </Drawer.Navigator>

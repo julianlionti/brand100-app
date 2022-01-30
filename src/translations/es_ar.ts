@@ -6,6 +6,7 @@ export const esAr: Translation = {
     Config.APP_NAME === 'BRAND'
       ? 'Bienvenidos #Brand100\nGrandes decisores en la compra de espacios publicitarios.\nPara empezar, seleccione el evento del que participa. Si lo desea podrá cambiarlo luego.'
       : `Bienvenidos al evento ${'Retial 100'}. Para empezar, seleccione el evento del que participa. Si lo desea podrá cambiarlo luego.`,
+  'home.ads_see_more': 'Ver más',
   'menu.catalogue': 'Catálogo',
   'menu.featured': 'Destacados',
   'menu.maps': 'Planos',
@@ -30,5 +31,8 @@ export const esAr: Translation = {
   'catalogue.information': 'Información',
   'catalogue.news': 'Noticias',
   'catalogue.paricipants': 'Asistentes',
-  'catalogue.news.no_data': 'No hay novedades para mostrar'
+  'catalogue.news.no_data': 'No hay novedades para mostrar',
+  'onetoone.favorite_agenda': 'Fav. Agenda',
+  'onetoone.favorite_catalogue': 'Fav. Catálogo',
+  'onetoone.online_access': 'Agenda Acceso Online'
 }

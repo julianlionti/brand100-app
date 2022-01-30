@@ -24,7 +24,8 @@ const darkTheme = extendTheme({
       baseStyle: {
         backgroundColor: 'gray.800'
       }
-    }
+    },
+    Button: {}
   }
 })
 

@@ -29,6 +29,7 @@
     "react": "17.0.2",
     "react-i18next": "^11.15.3",
     "react-native": "0.66.4",
+    "react-native-clear-cache": "sowlutions/react-native-clear-cache",
     "react-native-dotenv": "^3.3.1",
     "react-native-fs": "^2.18.0",
     "react-native-gesture-handler": "^2.1.1",
@@ -43,7 +44,6 @@
     "react-native-zip-archive": "^6.0.6",
     "react-redux": "^7.2.6",
     "redux-persist": "^6.0.0",
-    "react-native-clear-cache": "sowlutions/react-native-clear-cache",
     "rn-fetch-blob": "^0.12.0"
   },
   "devDependencies": {

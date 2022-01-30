@@ -1,6 +1,5 @@
-import { Heading, View, Image, Modal, VStack } from 'native-base'
+import { Heading, View, Image, Modal, VStack, Pressable, Button } from 'native-base'
 import React from 'react'
-import { Pressable } from 'react-native'
 import Carousel from '../../components/Carousel/Carousel'
 import EventHeader from '../../components/EventHeader/EventHeader'
 import PageContainer from '../../components/PageContainer'
@@ -26,12 +25,25 @@ const EventHome = () => {
       <Modal isOpen={showAd} onClose={closeAd}>
         <Modal.Content>
           <Modal.CloseButton />
-          <Modal.Header>Contact Us</Modal.Header>
           <Modal.Body>
-            <Pressable onPress={openAd}>
-              <View>
-                <Image width={'80%'} height={'80%'} alt={ad.link} source={{ uri: ad.image }} />
-              </View>
+            <Pressable position={'relative'} onPress={openAd}>
+              <Image
+                width={350}
+                height={500}
+                resizeMode="cover"
+                alt={ad.link}
+                source={{ uri: ad.image }}
+              />
+              <Button
+                variant="link"
+                color={'primary.900'}
+                onPress={openAd}
+                position="absolute"
+                right={4}
+                bottom={4}
+              >
+                {t('home.ads_see_more')?.toUpperCase()}
+              </Button>
             </Pressable>
           </Modal.Body>
         </Modal.Content>
