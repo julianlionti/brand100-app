@@ -1,28 +1,28 @@
 import { useNavigation } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
 import { useCallback, useMemo } from 'react'
 import { setAgendaItemFavorite } from '../../actions/eventsActions'
 import { useAppDispatch } from '../../hooks/redux'
 import useSelectedEvent from '../../hooks/useSelectedEvent'
 import { useEventsState } from '../../reducers/eventsReducer'
-import { GeneralAgendaStackParamList } from '../../routes/GeneralAgendaStack'
 import { useT } from '../../translations'
 import { AgendaActivityItemProps } from './AgendaActivityItem'
-
-type NavigationProps = StackNavigationProp<GeneralAgendaStackParamList>
 
 const useAgendaActivityItem = (props: AgendaActivityItemProps) => {
   const t = useT()
   const dispatch = useAppDispatch()
   const { color } = useSelectedEvent()
   const { favoriteAgenda } = useEventsState()
-  const { details, idActivity } = props
+  const { details, idActivity, isFromFav } = props
   const hasDetail = !!details.length
-  const navigation = useNavigation<NavigationProps>()
+  const navigation = useNavigation<any>()
 
   const openDetail = useCallback(() => {
-    navigation.push('Detail', details)
-  }, [navigation, details])
+    if (isFromFav) {
+      navigation.push('AgendaDetail', details)
+    } else {
+      navigation.push('Detail', details)
+    }
+  }, [navigation, details, isFromFav])
 
   const setFavorite = useCallback(() => {
     dispatch(setAgendaItemFavorite(props))

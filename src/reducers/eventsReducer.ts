@@ -8,11 +8,13 @@ import {
   setIsUnzipping,
   setAlreadyShownAds,
   setAgendaItemFavorite,
-  setCatelogueItemFavorite,
+  setCatalogueItemFavorite,
   checkForUpdates,
   downloadEvent,
   cleanSelectedEvent,
-  setHasToUpdate
+  setHasToUpdate,
+  emptyFavorites,
+  createOwnEvent
 } from '../actions/eventsActions'
 import { useAppSelector } from '../hooks/redux'
 import { IEvent } from '../models/IEvent'
@@ -31,6 +33,7 @@ interface EventsState {
   selectedEvent: IFullEvent | null
   favoriteAgenda: FavoriteAgendaType[]
   favoriteCatalogue: ICatalogue[]
+  ownEvents: FavoriteAgendaType[]
   hasToUpdate: boolean
   showHasToUpdate: boolean
 }
@@ -44,6 +47,7 @@ const initialState: EventsState = {
   alreadyShownAds: false,
   favoriteAgenda: [],
   favoriteCatalogue: [],
+  ownEvents: [],
   hasToUpdate: false,
   showHasToUpdate: false
 }
@@ -86,7 +90,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.favoriteAgenda.push(action.payload)
     }
   })
-  builder.addCase(setCatelogueItemFavorite, (state, action) => {
+  builder.addCase(setCatalogueItemFavorite, (state, action) => {
     const { idCatalogue } = action.payload
     const index = state.favoriteCatalogue.find((e) => e.idCatalogue === idCatalogue)
     if (index) {
@@ -101,13 +105,24 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(setHasToUpdate, (state, action) => {
     state.hasToUpdate = action.payload
   })
+  builder.addCase(emptyFavorites, (state, action) => {
+    if (action.payload === 'Agenda') {
+      state.favoriteAgenda = []
+      state.ownEvents = []
+    } else {
+      state.favoriteCatalogue = []
+    }
+  })
+  builder.addCase(createOwnEvent, (state, action) => {
+    state.ownEvents.push(action.payload)
+  })
 })
 
 const persistConfig: PersistConfig<EventsState> = {
   key: 'root',
   version: 1,
   storage: AsyncStorage,
-  whitelist: ['selectedEvent', 'favoriteAgenda', 'favoriteCatalogue']
+  whitelist: ['selectedEvent', 'favoriteAgenda', 'favoriteCatalogue', 'ownEvents']
 }
 const eventsReducer = persistReducer(persistConfig, reducer)
 

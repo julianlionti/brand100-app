@@ -26,32 +26,34 @@ const EventHome = () => {
           </VStack>
         </VStack>
       </ScrollView>
-      <Modal isOpen={showAd} onClose={closeAd}>
-        <Modal.Content>
-          <Modal.CloseButton />
-          <Modal.Body>
-            <Pressable position={'relative'} onPress={openAd}>
-              <Image
-                width={350}
-                height={500}
-                resizeMode="cover"
-                alt={ad.link}
-                source={{ uri: ad.image }}
-              />
-              <Button
-                variant="link"
-                color={'primary.900'}
-                onPress={openAd}
-                position="absolute"
-                right={4}
-                bottom={4}
-              >
-                {t('home.ads_see_more')?.toUpperCase()}
-              </Button>
-            </Pressable>
-          </Modal.Body>
-        </Modal.Content>
-      </Modal>
+      {ad && (
+        <Modal isOpen={showAd} onClose={closeAd}>
+          <Modal.Content>
+            <Modal.CloseButton />
+            <Modal.Body>
+              <Pressable position={'relative'} onPress={openAd}>
+                <Image
+                  width={350}
+                  height={500}
+                  resizeMode="cover"
+                  alt={ad.link}
+                  source={{ uri: ad.image }}
+                />
+                <Button
+                  variant="link"
+                  color={'primary.900'}
+                  onPress={openAd}
+                  position="absolute"
+                  right={4}
+                  bottom={4}
+                >
+                  {t('home.ads_see_more')?.toUpperCase()}
+                </Button>
+              </Pressable>
+            </Modal.Body>
+          </Modal.Content>
+        </Modal>
+      )}
     </PageContainer>
   )
 }

@@ -2,7 +2,6 @@ import React, { lazy } from 'react'
 import { useMemo } from 'react'
 import FavoriteCatalogueTab from '../../components/FavoriteCatalogueTab/FavoriteCatalogueTab'
 import { ITab } from '../../components/TopTabs/TopTabs'
-import { IAgendaActivity, ICatalogue } from '../../models/IFullEvent'
 import { useT } from '../../translations'
 
 const FavoriteAgendaTab = lazy(() => import('../../components/FavoriteAgendaTab/FavoriteAgendaTab'))
@@ -12,6 +11,8 @@ export type OneToOneTabs =
   | 'onetoone.favorite_catalogue'
   | 'onetoone.online_access'
 type TabsType = null
+export type FabActions = 'Delete' | 'Create'
+export type FavoriteType = 'Agenda' | 'Catalogue'
 
 const useOneToOneAgenda = () => {
   const t = useT()
@@ -43,7 +44,11 @@ const useOneToOneAgenda = () => {
     }
   }
 
-  return { t, tabs, renderTab }
+  return {
+    t,
+    tabs,
+    renderTab
+  }
 }
 
 export default useOneToOneAgenda

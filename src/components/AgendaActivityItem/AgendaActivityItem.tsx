@@ -6,7 +6,11 @@ import { parseHtml } from '../../utils/textUtils'
 import useAgendaActivityItem from './useAgendaActivityItem'
 import AgendaSponsorItem from '../AgendaSponsorItem/AgendaSponsorItem'
 
-export type AgendaActivityItemProps = Omit<IAgenda, 'activities'> & IAgendaActivity
+type MergedTypes = Omit<IAgenda, 'activities'> & IAgendaActivity
+export interface AgendaActivityItemProps extends MergedTypes {
+  isFromFav?: boolean
+}
+
 const AgendaActivityItem: React.FC<AgendaActivityItemProps> = (props) => {
   const {
     t,

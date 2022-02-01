@@ -16,6 +16,7 @@ const AgendaDetailItem: React.FC<IActivityDetail> = (props) => {
           <Image
             height={250}
             key={img}
+            my="1"
             resizeMode="cover"
             source={{ uri: img }}
             alt={`Image from ${title} number ${i}`}

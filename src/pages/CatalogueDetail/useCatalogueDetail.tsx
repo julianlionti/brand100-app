@@ -6,7 +6,7 @@ import { CatalogueStackParamList } from '../../routes/CatalogueStack'
 import { Translations, useT } from '../../translations'
 import { Text } from 'native-base'
 import { useAppDispatch } from '../../hooks/redux'
-import { setCatelogueItemFavorite } from '../../actions/eventsActions'
+import { setCatalogueItemFavorite } from '../../actions/eventsActions'
 import { useEventsState } from '../../reducers/eventsReducer'
 
 const SimpleCatalogueTab = lazy(() => import('../../components/SimpleCatalogueTab'))
@@ -63,7 +63,7 @@ const useCatalogueDetail = () => {
   }
 
   const setFavorite = () => {
-    dispatch(setCatelogueItemFavorite(params))
+    dispatch(setCatalogueItemFavorite(params))
   }
 
   const { idCatalogue } = params

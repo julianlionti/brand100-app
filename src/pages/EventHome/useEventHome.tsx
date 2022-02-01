@@ -29,14 +29,15 @@ const useEventHome = () => {
     setShowAdd(false)
   }, [dispatch])
 
-  const { link } = selectedAd
+  const { link } = selectedAd || {}
   const openAd = useCallback(async () => {
-    closeAd()
-    const canOpen = await Linking.canOpenURL(link)
-    if (canOpen) {
-      Linking.openURL(link)
+    if (link) {
+      const canOpen = await Linking.canOpenURL(link)
+      if (canOpen) {
+        Linking.openURL(link)
+      }
     }
-  }, [link, closeAd])
+  }, [link])
 
   useEffect(() => {
     dispatch(checkForUpdates())
@@ -51,7 +52,7 @@ const useEventHome = () => {
     showAd,
     closeAd,
     openAd,
-    ad: { link: selectedAd.link, image: selectedAd.vertical }
+    ad: selectedAd ? { link: selectedAd.link, image: selectedAd.vertical } : undefined
   }
 }
 

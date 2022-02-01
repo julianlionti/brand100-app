@@ -10,6 +10,7 @@ import { IFullOriginalEvent, IOriginalUpdate } from '../models/IFullOriginalEven
 import RNFetchBlob from 'rn-fetch-blob'
 import Config from '../utils/Config'
 import { unzip } from 'react-native-zip-archive'
+import { FavoriteType } from '../pages/OneToOneAgenda/useOneToOneAgenda'
 
 const fs = RNFetchBlob.fs
 const prefix = `events/`
@@ -22,7 +23,10 @@ export const setAlreadyShownAds = createAction<boolean>(`${prefix}set-already-sh
 export const setAgendaItemFavorite = createAction<FavoriteAgendaType>(
   `${prefix}set-agenda-favorite`
 )
-export const setCatelogueItemFavorite = createAction<ICatalogue>(`${prefix}set-catalogue-favorite`)
+export const setCatalogueItemFavorite = createAction<ICatalogue>(`${prefix}set-catalogue-favorite`)
+export const emptyFavorites = createAction<FavoriteType>(`${prefix}empty-favorite`)
+export const createOwnEvent = createAction<FavoriteAgendaType>(`${prefix}create-own-favorite`)
+export const deleteOwnEvent = createAction<FavoriteAgendaType>(`${prefix}delete-own-favorite`)
 
 type GetEventProps = { refresh?: boolean }
 type GetEventsReturn = IEvent[]

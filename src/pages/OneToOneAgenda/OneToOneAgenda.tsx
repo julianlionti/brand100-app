@@ -6,6 +6,7 @@ import TopTabs from '../../components/TopTabs/TopTabs'
 
 const OneToOneAgenda = () => {
   const { tabs, renderTab } = useOneToOneAgenda()
+
   return (
     <PageContainer>
       <EventHeader />
