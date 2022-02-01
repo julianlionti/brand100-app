@@ -4,7 +4,7 @@ import { RootState } from '../store/store'
 import EventHelpers from '../utils/eventHelper'
 import { makeRequest } from '../utils/makeRequest'
 import Urls from '../utils/urls'
-import { FavoriteAgendaType, IDownloadProgress } from '../reducers/eventsReducer'
+import { CreateOwnEvent, FavoriteAgendaType, IDownloadProgress } from '../reducers/eventsReducer'
 import { ICatalogue, IFullEvent } from '../models/IFullEvent'
 import { IFullOriginalEvent, IOriginalUpdate } from '../models/IFullOriginalEvent'
 import RNFetchBlob from 'rn-fetch-blob'
@@ -25,7 +25,7 @@ export const setAgendaItemFavorite = createAction<FavoriteAgendaType>(
 )
 export const setCatalogueItemFavorite = createAction<ICatalogue>(`${prefix}set-catalogue-favorite`)
 export const emptyFavorites = createAction<FavoriteType>(`${prefix}empty-favorite`)
-export const createOwnEvent = createAction<FavoriteAgendaType>(`${prefix}create-own-favorite`)
+export const createOwnEvent = createAction<CreateOwnEvent>(`${prefix}create-own-favorite`)
 export const deleteOwnEvent = createAction<FavoriteAgendaType>(`${prefix}delete-own-favorite`)
 
 type GetEventProps = { refresh?: boolean }

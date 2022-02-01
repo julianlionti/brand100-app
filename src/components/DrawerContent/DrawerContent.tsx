@@ -17,6 +17,7 @@ const Drawer: React.FC = () => {
     <View bgColor={'gray.500'} height={'full'}>
       <View bgColor={'white'}>
         <FlatList
+          keyExtractor={(item) => item.title}
           // ItemSeparatorComponent={() => <Divider />}
           data={menuOptions}
           renderItem={({ item }) => (

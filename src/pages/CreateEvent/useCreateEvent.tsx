@@ -3,11 +3,18 @@ import useSelectedEvent from '../../hooks/useSelectedEvent'
 import { useT } from '../../translations'
 import * as Yup from 'yup'
 import { DateOrEmpty } from '../../components/TimeRange/useTimeRange'
+import { useAppDispatch } from '../../hooks/redux'
+import { createOwnEvent } from '../../actions/eventsActions'
+import { useEventsState } from '../../reducers/eventsReducer'
+import { useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import moment from 'moment'
 
-interface CreateEventValues {
+export interface CreateEventValues {
   title: string
   description: string
   day: string
+  date: string
   range: {
     start: DateOrEmpty
     end: DateOrEmpty
@@ -19,6 +26,7 @@ const initialValues: CreateEventValues = {
   title: '',
   description: '',
   day: '',
+  date: '',
   range: {
     start: '',
     end: ''
@@ -42,18 +50,51 @@ const validationSchema = Yup.object().shape({
 
 const useCreateEvent = () => {
   const t = useT()
+  const dispatch = useAppDispatch()
   const { generalAgenda } = useSelectedEvent()
+  const { ownEvents } = useEventsState()
+  const [alreadyExists, setAlreadyExits] = useState(false)
+  const navigation = useNavigation()
 
   const onSubmitEvent = (values: CreateEventValues) => {
-    console.log(values)
+    const { day, range } = values
+    const numberDay = parseInt(day)
+    const finalRange = {
+      end: range.end ? moment(range.end).format('HH:mm') : '',
+      start: range.start ? moment(range.start).format('HH:mm') : ''
+    }
+
+    const exists = ownEvents.find(
+      (ev) => ev.beginning === finalRange.start && ev.end === finalRange.end && ev.day === numberDay
+    )
+    if (exists) {
+      setAlreadyExits(true)
+    } else {
+      setAlreadyExits(false)
+      dispatch(createOwnEvent({ ...values, range: finalRange }))
+      navigation.goBack()
+    }
   }
 
   const days: Option[] = generalAgenda.map((ag) => ({
     label: `${t('agenda.day')} ${ag.day} - ${ag.date}`,
-    value: ag.day.toString()
+    value: ag.day.toString(),
+    data: { day: ag.day, date: ag.date }
   }))
 
-  return { t, initialValues, validationSchema, onSubmitEvent, days }
+  const closeAlreadyExists = () => {
+    setAlreadyExits(false)
+  }
+
+  return {
+    t,
+    initialValues,
+    validationSchema,
+    onSubmitEvent,
+    days,
+    alreadyExists,
+    closeAlreadyExists
+  }
 }
 
 export default useCreateEvent

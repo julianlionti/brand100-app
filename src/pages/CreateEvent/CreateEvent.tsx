@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Heading, HStack, ScrollView, VStack } from 'native-base'
+import { Button, Heading, ScrollView, VStack } from 'native-base'
 import PageContainer from '../../components/PageContainer'
 import EventHeader from '../../components/EventHeader/EventHeader'
 import useCreateEvent from './useCreateEvent'
@@ -9,11 +9,19 @@ import Switch from '../../components/Switch/Switch'
 import TextArea from '../../components/TextArea/TextArea'
 import FormButtons from '../../components/FormButtons/FormButtons'
 import Dropdown from '../../components/Dropdown/Dropdown'
-import DateTimeInput from '../../components/DateTimeInput/DateTimeInput'
 import TimeRange from '../../components/TimeRange/TimeRange'
+import CustomModal from '../../components/CustomModal/CustomModal'
 
 const CreateEvent = () => {
-  const { t, initialValues, onSubmitEvent, days, validationSchema } = useCreateEvent()
+  const {
+    t,
+    initialValues,
+    onSubmitEvent,
+    days,
+    validationSchema,
+    alreadyExists,
+    closeAlreadyExists
+  } = useCreateEvent()
   return (
     <PageContainer>
       <EventHeader canGoBack />
@@ -38,13 +46,33 @@ const CreateEvent = () => {
               title={t('onetoone.event_description')}
               placeholder={t('onetoone.event_description_placehoder')}
             />
-            <Dropdown id="day" title={t('onetoone.choose_day')} options={days} />
+            <Dropdown
+              id="day"
+              title={t('onetoone.choose_day')}
+              options={days}
+              onChange={(opt, setFieldValue) => {
+                setFieldValue('day', opt.data.day)
+                setFieldValue('date', opt.data.date)
+              }}
+            />
             <TimeRange id="range" />
             <Switch id="eventAlarm" title={t('onetoone.create_calendar_event')} />
             <FormButtons />
           </VStack>
         </ScrollView>
       </Formik>
+      <CustomModal
+        title={t('onetoone.already_exists_title')}
+        description={t('onetoone.already_exists_description')}
+        isOpen={alreadyExists}
+        onClose={closeAlreadyExists}
+        actionBtn={
+          <Button color="primary.500" onPress={closeAlreadyExists}>
+            OK
+          </Button>
+        }
+        noCancel
+      />
     </PageContainer>
   )
 }

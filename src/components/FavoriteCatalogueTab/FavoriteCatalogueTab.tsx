@@ -11,6 +11,7 @@ const FavoriteCatalogueTab = () => {
       <HasToUpdate />
       <FlatList
         data={data}
+        keyExtractor={(item) => item.idCatalogue.toString()}
         ItemSeparatorComponent={() => <Divider />}
         renderItem={({ item }) => <CatalogueItem onPress={() => openDetail(item)} {...item} />}
       />

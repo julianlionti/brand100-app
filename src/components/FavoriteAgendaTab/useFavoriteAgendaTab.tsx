@@ -14,7 +14,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 type Navigation = StackNavigationProp<OneToOneAgendaParamList>
 const useFavoriteAgendaTab = () => {
-  const { favoriteAgenda } = useEventsState()
+  const { favoriteAgenda, ownEvents } = useEventsState()
   const dispatch = useAppDispatch()
   const t = useT()
   const { colors } = useTheme()
@@ -22,10 +22,13 @@ const useFavoriteAgendaTab = () => {
   const navigation = useNavigation<Navigation>()
 
   const initialAgendaSection: { date: string; day: number; data: FavoriteAgendaType[] }[] = []
-  const sections = favoriteAgenda.reduce((acc, it) => {
+
+  const sections = [...ownEvents, ...favoriteAgenda].reduce((acc, it) => {
     const exists = acc.find((fav) => fav.date === it.date)
     if (exists) {
-      exists.data = [...exists.data, it]
+      exists.data = [...exists.data, it].sort(
+        (a, b) => parseInt(a.beginning || '0') - parseInt(b.beginning || '0')
+      )
       return acc
     }
 

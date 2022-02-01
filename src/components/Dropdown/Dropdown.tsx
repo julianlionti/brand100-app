@@ -3,12 +3,16 @@ import { CheckIcon, FormControl, ISelectProps, Select } from 'native-base'
 import useDropdown from './useDropdown'
 import { StringMap, TOptions } from 'i18next'
 
-export type Option = { label: string; value: string }
+export type Option = { label: string; value: string; data?: any }
 export interface DropdownProps extends Omit<ISelectProps, 'placeholder'> {
   id: string
   title: string | TOptions<StringMap> | undefined
   placeholder?: string | TOptions<StringMap> | undefined
   options: Option[]
+  onChange?: (
+    option: Option,
+    setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void
+  ) => void
 }
 
 const Dropdown: React.FC<DropdownProps> = (props) => {

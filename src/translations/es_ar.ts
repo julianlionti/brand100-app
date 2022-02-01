@@ -6,6 +6,8 @@ export const esAr: Translation = {
     Config.APP_NAME === 'BRAND'
       ? 'Bienvenidos #Brand100\nGrandes decisores en la compra de espacios publicitarios.\nPara empezar, seleccione el evento del que participa. Si lo desea podrá cambiarlo luego.'
       : `Bienvenidos al evento ${'Retial 100'}. Para empezar, seleccione el evento del que participa. Si lo desea podrá cambiarlo luego.`,
+  yes: '¡Si!',
+  cancel: 'Cancelar',
   'home.ads_see_more': 'Ver más',
   'home.has_to_update': 'Es necesario descargar la nueva información del evento',
   'home.has_to_update_title': 'Información importante',
@@ -61,5 +63,14 @@ export const esAr: Translation = {
   'onetoone.save': 'Grabar evento',
   'onetoone.reset': 'Limpiar formulario',
   'onetoone.minutes': 'Minuto',
-  'onetoone.hours': 'Hora'
+  'onetoone.hours': 'Hora',
+  'onetoone.already_exists_description':
+    'El evento que intenta agregar ya existe. Cambíe el día o el horario para poder continuar',
+  'onetoone.already_exists_title': 'Ya existe el evento',
+  'onetoone.delete_confirmation_title': 'Importante!',
+  'onetoone.delete_confirmation_description':
+    'Estás a punto de borrar el evento "{{name}}", ¿Desea continuar?',
+  'onetoone.fav_confirmation_title': 'Favoritos',
+  'onetoone.fav_confirmation_description':
+    'Estás a punto de sacar "{{name}}" de favoritos, ¿Desea continuar?'
 }

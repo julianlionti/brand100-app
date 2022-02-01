@@ -20,6 +20,7 @@ const EventsSelection = () => {
         {t('welcome')}
       </Title>
       <FlatList
+        keyExtractor={(item) => item.name}
         refreshControl={<RefreshControl refreshing={isLoading} onRefresh={refreshEvents} />}
         data={events}
         ItemSeparatorComponent={() => <Divider my="2" />}

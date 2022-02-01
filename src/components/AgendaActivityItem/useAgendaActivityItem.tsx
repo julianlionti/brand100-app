@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
-import { useCallback, useMemo } from 'react'
-import { setAgendaItemFavorite } from '../../actions/eventsActions'
+import { useCallback, useMemo, useState } from 'react'
+import { deleteOwnEvent, setAgendaItemFavorite } from '../../actions/eventsActions'
 import { useAppDispatch } from '../../hooks/redux'
 import useSelectedEvent from '../../hooks/useSelectedEvent'
 import { useEventsState } from '../../reducers/eventsReducer'
@@ -8,11 +8,13 @@ import { useT } from '../../translations'
 import { AgendaActivityItemProps } from './AgendaActivityItem'
 
 const useAgendaActivityItem = (props: AgendaActivityItemProps) => {
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false)
+  const [favConfirmation, setFavConfirmation] = useState(false)
   const t = useT()
   const dispatch = useAppDispatch()
   const { color } = useSelectedEvent()
   const { favoriteAgenda } = useEventsState()
-  const { details, idActivity, isFromFav } = props
+  const { details, idActivity, isFromFav, isOwn } = props
   const hasDetail = !!details.length
   const navigation = useNavigation<any>()
 
@@ -24,6 +26,26 @@ const useAgendaActivityItem = (props: AgendaActivityItemProps) => {
     }
   }, [navigation, details, isFromFav])
 
+  const pressDelete = () => {
+    setDeleteConfirmation(true)
+  }
+
+  const closeDeleteDlg = () => {
+    setDeleteConfirmation(false)
+  }
+
+  const pressFavorite = () => {
+    if (isFavorite) {
+      setFavConfirmation(true)
+    } else {
+      setFavorite()
+    }
+  }
+
+  const closeFavDlg = () => {
+    setFavConfirmation(false)
+  }
+
   const setFavorite = useCallback(() => {
     dispatch(setAgendaItemFavorite(props))
   }, [dispatch, props])
@@ -33,7 +55,27 @@ const useAgendaActivityItem = (props: AgendaActivityItemProps) => {
     [favoriteAgenda, idActivity]
   )
 
-  return { ...props, color, t, hasDetail, openDetail, setFavorite, isFavorite }
+  const removeOwn = useCallback(() => {
+    dispatch(deleteOwnEvent(props))
+  }, [dispatch, props])
+
+  return {
+    ...props,
+    color,
+    t,
+    hasDetail,
+    openDetail,
+    setFavorite,
+    isFavorite,
+    isOwn,
+    removeOwn,
+    closeDeleteDlg,
+    deleteConfirmation,
+    pressDelete,
+    favConfirmation,
+    pressFavorite,
+    closeFavDlg
+  }
 }
 
 export default useAgendaActivityItem

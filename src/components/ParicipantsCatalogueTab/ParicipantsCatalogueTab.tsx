@@ -14,6 +14,7 @@ const ParicipantsCatalogueTab: React.FC<Props> = (props) => {
     <>
       <HasToUpdate />
       <FlatList
+        keyExtractor={(item) => item.name + item.surname + item.position}
         data={participants}
         numColumns={2}
         renderItem={({ item }) => <PaticipantsItem {...item} />}

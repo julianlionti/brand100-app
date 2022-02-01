@@ -7,6 +7,8 @@ import { esAr } from './es_ar'
 
 export type Translations =
   | 'welcome'
+  | 'yes'
+  | 'cancel'
   | 'home.ads_see_more'
   | 'home.has_to_update_title'
   | 'home.has_to_update'
@@ -62,6 +64,12 @@ export type Translations =
   | 'onetoone.reset'
   | 'onetoone.minutes'
   | 'onetoone.hours'
+  | 'onetoone.already_exists_title'
+  | 'onetoone.already_exists_description'
+  | 'onetoone.delete_confirmation_title'
+  | 'onetoone.delete_confirmation_description'
+  | 'onetoone.fav_confirmation_title'
+  | 'onetoone.fav_confirmation_description'
 
 export type Translation = Record<Translations, string>
 

@@ -12,7 +12,11 @@ const AgendaDetail = () => {
     <PageContainer bgColor={'white'}>
       <EventHeader canGoBack />
       <HasToUpdate />
-      <FlatList data={data} renderItem={({ item }) => <AgendaDetailItem {...item} />} />
+      <FlatList
+        keyExtractor={(item) => item.idDetail.toString()}
+        data={data}
+        renderItem={({ item }) => <AgendaDetailItem {...item} />}
+      />
     </PageContainer>
   )
 }

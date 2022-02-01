@@ -43,7 +43,7 @@ const TimeRange: React.FC<TimeRangeProps> = (props) => {
       </HStack>
       {!!showPicker && (
         <DateTimePicker
-          value={new Date()}
+          value={start || new Date()}
           mode="time"
           is24Hour
           onChange={(ev: any, date: any) => {

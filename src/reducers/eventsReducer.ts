@@ -14,16 +14,24 @@ import {
   cleanSelectedEvent,
   setHasToUpdate,
   emptyFavorites,
-  createOwnEvent
+  createOwnEvent,
+  deleteOwnEvent
 } from '../actions/eventsActions'
 import { useAppSelector } from '../hooks/redux'
 import { IEvent } from '../models/IEvent'
 import { IAgenda, IAgendaActivity, ICatalogue, IFullEvent } from '../models/IFullEvent'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { CreateEventValues } from '../pages/CreateEvent/useCreateEvent'
 
+export interface CreateOwnEvent extends Omit<CreateEventValues, 'range'> {
+  range: {
+    start: string
+    end: string
+  }
+}
 export type IDownloadProgress = { loaded: number; total: number }
 export type SectionFavoriteType = Omit<IAgenda, 'activities'>
-export type FavoriteAgendaType = IAgendaActivity & SectionFavoriteType
+export type FavoriteAgendaType = IAgendaActivity & SectionFavoriteType & { isOwn?: boolean }
 interface EventsState {
   events: IEvent[]
   progress: IDownloadProgress
@@ -77,6 +85,7 @@ const reducer = createReducer(initialState, (builder) => {
     state.selectedEvent = null
     state.favoriteAgenda = []
     state.favoriteCatalogue = []
+    state.ownEvents = []
   })
   builder.addCase(setAlreadyShownAds, (state, action) => {
     state.alreadyShownAds = action.payload
@@ -114,7 +123,27 @@ const reducer = createReducer(initialState, (builder) => {
     }
   })
   builder.addCase(createOwnEvent, (state, action) => {
-    state.ownEvents.push(action.payload)
+    const { date, day, description, range, title } = action.payload
+    const numberDay = parseInt(day)
+    const baseId = 999900
+
+    state.ownEvents.push({
+      date,
+      day: numberDay,
+      beginning: range.start,
+      end: range.end,
+      description,
+      details: [],
+      idActivity: baseId + state.ownEvents.length,
+      name: title,
+      schedule: `${range.start} ${range.end}`,
+      sponsors: [],
+      order: 10,
+      isOwn: true
+    })
+  })
+  builder.addCase(deleteOwnEvent, (state, action) => {
+    state.ownEvents = state.ownEvents.filter((own) => own.idActivity !== action.payload.idActivity)
   })
 })
 
