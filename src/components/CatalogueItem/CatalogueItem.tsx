@@ -17,7 +17,7 @@ const CatalogueItem: React.FC<Props> = (props) => {
           height={75}
           width={150}
           resizeMode="center"
-          source={{ uri: logo }}
+          source={logo ? { uri: logo } : undefined}
           alt={`Image from catalogue for brand ${name}`}
         />
         <Text color="darkText" flex={1}>

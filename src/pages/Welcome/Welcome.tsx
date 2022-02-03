@@ -25,7 +25,7 @@ const Welcome = () => {
               />
             </Box>
           )}
-          {title && <Heading textAlign={'center'}>{title}</Heading>}
+          {title && <Heading textAlign={'center'}>{parseHtml(title)}</Heading>}
           <Text p="4">{parseHtml(welcome)}</Text>
         </VStack>
       </ScrollView>

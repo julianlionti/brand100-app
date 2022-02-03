@@ -9,6 +9,7 @@ interface Props<T> {
   render: (tab: T, id: string) => JSX.Element | null
   tabs: ITab<T>[]
   noHeader?: boolean
+  NoDataComponent?: JSX.Element
 }
 
 const Tab = createMaterialTopTabNavigator()
@@ -19,7 +20,7 @@ const TopTabs = <T,>(props: Props<T>) => {
     <View bgColor={'white'} flex={1}>
       {!tabs.length && (
         <Center py="1">
-          <Text>{t('tabs.no_data')}</Text>
+          <Text color={'darkText'}>{t('tabs.no_data')}</Text>
         </Center>
       )}
       {!!tabs.length && (

@@ -5,6 +5,8 @@ import { useAppDispatch } from '../../hooks/redux'
 import useSelectedEvent from '../../hooks/useSelectedEvent'
 import { useEventsState } from '../../reducers/eventsReducer'
 import { useT } from '../../translations'
+import chroma from 'chroma-js'
+import { generateColors } from '../../utils/colorUtils'
 
 const useEventHome = () => {
   const t = useT()
@@ -41,7 +43,7 @@ const useEventHome = () => {
 
   useEffect(() => {
     dispatch(checkForUpdates())
-  }, [dispatch])
+  }, [dispatch, color])
 
   return {
     t,

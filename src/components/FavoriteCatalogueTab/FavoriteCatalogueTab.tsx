@@ -1,11 +1,23 @@
 import React from 'react'
-import { Divider, FlatList } from 'native-base'
+import { Divider, FlatList, Heading } from 'native-base'
 import CatalogueItem from '../CatalogueItem/CatalogueItem'
 import useFavoriteCatalogueTab from './useFavoriteCatalogueTab'
 import HasToUpdate from '../HasToUpdate/HasToUpdate'
+import EmptyListRoot from '../EmptyListRoot'
 
 const FavoriteCatalogueTab = () => {
-  const { data, openDetail } = useFavoriteCatalogueTab()
+  const { t, data, openDetail, goToCatalogue, Fab } = useFavoriteCatalogueTab()
+
+  if (!data.length) {
+    return (
+      <EmptyListRoot fab={Fab} onPressAdd={goToCatalogue}>
+        <Heading textAlign={'center'} color={'darkText'}>
+          {t('onetoone.empty_catalogue')}
+        </Heading>
+      </EmptyListRoot>
+    )
+  }
+
   return (
     <>
       <HasToUpdate />
@@ -15,6 +27,7 @@ const FavoriteCatalogueTab = () => {
         ItemSeparatorComponent={() => <Divider />}
         renderItem={({ item }) => <CatalogueItem onPress={() => openDetail(item)} {...item} />}
       />
+      {Fab}
     </>
   )
 }

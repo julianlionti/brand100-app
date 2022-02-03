@@ -13,7 +13,6 @@ const useDateTimeInput = (props: DateTimeInputProps) => {
 
   const onChangeDate = useCallback(
     (newDate: Date | '') => {
-      console.log(newDate)
       setValue(newDate)
       setOpenPicker(false)
     },

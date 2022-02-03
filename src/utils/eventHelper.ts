@@ -8,6 +8,8 @@ import {
   IParticipant
 } from '../models/IFullEvent'
 import { IFullOriginalEvent } from '../models/IFullOriginalEvent'
+import { IOnlineAgenda } from '../models/IOnlineAgenda'
+import { IOriginalOnlineAgenda } from '../models/IOriginalOnlineAgenda'
 import Config, { APPS_TYPE } from './Config'
 
 const getTitle = () => {
@@ -38,6 +40,8 @@ const resourcesPath = `${fs.CachesDirectoryPath}/event-data/`
 const imagePrefix = `${filePrefix}${resourcesPath}`
 
 const prepareImage = (path: string) => {
+  const lastChar = path.slice(path.length - 1)
+  if (!path || lastChar === '/') return ''
   const tick = Date.now()
   return `${imagePrefix}${path}?time?${tick}`
 }
@@ -128,6 +132,7 @@ const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
   },
   name: ev.nombre,
   oneToOneAgendaUrl: ev.urlAgendaPersonal,
+  eventUrl: ev.urlAgendaPersonal.substring(0, ev.urlAgendaPersonal.indexOf('/agenda')),
   place: ev.lugar,
   sponsors: prepareImage(ev.sponsors),
   startDate: ev.fechaInicio,
@@ -144,10 +149,64 @@ const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
   }
 })
 
+const legacyToFinalAgenda = (ag: IOriginalOnlineAgenda): IOnlineAgenda => ({
+  businessName: ag.ContraparteRazonSocial,
+  buyerId: ag.IDComprador,
+  endDate: ag.FechaFin,
+  endHour: ag.HoraFin,
+  eventDay: ag.DiaEvento,
+  meetingId: ag.IDReunion,
+  name: ag.ContraparteNombre,
+  originator: ag.Originante,
+  photoUrl: ag.ContraparteFotoFile,
+  selectable: ag.Seleccionable,
+  sellerId: ag.IDVendedor,
+  stand: ag.Stand,
+  startDate: ag.FechaFin,
+  startHour: ag.HoraInicio,
+  state: ag.Estado,
+  stateId: ag.IDEstado,
+  surname: ag.ContraparteApellido
+})
+
+const getColorPallete = (event: APPS_TYPE) => {
+  switch (event) {
+    default:
+    case 'BRAND':
+      return {
+        50: '#ddfefe',
+        100: '#b7f5f5',
+        200: '#8eeced',
+        300: '#66e5e6',
+        400: '#40dedf',
+        500: '#28c4c5',
+        600: '#199899',
+        700: '#0a6d6e',
+        800: '#004243',
+        900: '#001818'
+      }
+    case 'RETAIL':
+      return {
+        50: '#fef5df',
+        100: '#f3e1bc',
+        200: '#e9cd94',
+        300: '#deb86c',
+        400: '#d5a444',
+        500: '#bb8b2a',
+        600: '#926c1f',
+        700: '#694d14',
+        800: '#3f2e08',
+        900: '#1a0e00'
+      }
+  }
+}
+
 const EventHelpers = {
   getTitle,
   filterEventBy,
   legacyToFinalEvent,
+  legacyToFinalAgenda,
+  getColorPallete,
   resourcesPath
 }
 

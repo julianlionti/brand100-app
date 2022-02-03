@@ -39,17 +39,17 @@ export const getEvents = createAsyncThunk<GetEventsReturn, GetEventProps | undef
     if (events.length > 0 && !refresh) return events
 
     const data = await makeRequest({ url: Urls.events, method: 'POST' })
-    return (data.Eventos as IEventOriginal[])
-      .map(
-        (ev): IEvent => ({
-          active: ev.activo,
-          id: ev.id,
-          name: ev.nombre,
-          lang: ev.idiomas,
-          image: ev.imagen
-        })
-      )
-      .filter(EventHelpers.filterEventBy('BRAND'))
+    if (!data) return []
+    return (data.Eventos as IEventOriginal[]).map(
+      (ev): IEvent => ({
+        active: ev.activo,
+        id: ev.id,
+        name: ev.nombre,
+        lang: ev.idiomas,
+        image: ev.imagen
+      })
+    )
+    // .filter(EventHelpers.filterEventBy(Config.APP_NAME))
   }
 )
 

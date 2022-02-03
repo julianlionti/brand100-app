@@ -30,7 +30,7 @@ export interface CreateOwnEvent extends Omit<CreateEventValues, 'range'> {
   }
 }
 export type IDownloadProgress = { loaded: number; total: number }
-export type SectionFavoriteType = Omit<IAgenda, 'activities'>
+export type SectionFavoriteType = Omit<IAgenda, 'activities' | 'date'> & { date?: string }
 export type FavoriteAgendaType = IAgendaActivity & SectionFavoriteType & { isOwn?: boolean }
 interface EventsState {
   events: IEvent[]
@@ -148,7 +148,7 @@ const reducer = createReducer(initialState, (builder) => {
 })
 
 const persistConfig: PersistConfig<EventsState> = {
-  key: 'root',
+  key: 'events',
   version: 1,
   storage: AsyncStorage,
   whitelist: ['selectedEvent', 'favoriteAgenda', 'favoriteCatalogue', 'ownEvents']

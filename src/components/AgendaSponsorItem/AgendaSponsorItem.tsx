@@ -7,7 +7,7 @@ const AgendaSponsorItem: React.FC<IAgendaSponsor> = (props) => {
   return (
     <VStack space={'2'}>
       <Text color={'darkText'}>{name}</Text>
-      <Image height={150} source={{ uri: image }} resizeMode="center" alt={`Image from ${name}`} />
+      <Image height={150} source={{ uri: image }} resizeMode="contain" alt={`Image from ${name}`} />
     </VStack>
   )
 }

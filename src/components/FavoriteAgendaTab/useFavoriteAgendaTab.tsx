@@ -80,12 +80,15 @@ const useFavoriteAgendaTab = () => {
     onCloseDelete()
   }
 
-  const Fab = (
-    <FloatingAction
-      color={fabColor}
-      actions={fabActions}
-      onPressItem={(item) => onPressFab(item as FabActions)}
-    />
+  const Fab = useMemo(
+    () => (
+      <FloatingAction
+        color={fabColor}
+        actions={fabActions}
+        onPressItem={(item) => onPressFab(item as FabActions)}
+      />
+    ),
+    [fabActions, fabColor, onPressFab]
   )
 
   return {

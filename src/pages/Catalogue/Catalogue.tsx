@@ -7,10 +7,11 @@ import CatalogueItem from '../../components/CatalogueItem/CatalogueItem'
 import HasToUpdate from '../../components/HasToUpdate/HasToUpdate'
 
 const Catalogue = () => {
-  const { catalogue, openDetail } = useCatalogue()
+  const { catalogue, openDetail, goBack } = useCatalogue()
+
   return (
     <PageContainer bgColor={'white'}>
-      <EventHeader />
+      <EventHeader goBack={goBack} />
       <HasToUpdate />
       <FlatList
         data={catalogue}

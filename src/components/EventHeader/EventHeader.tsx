@@ -1,12 +1,24 @@
 import styled from '@emotion/native'
-import { Box, Divider, HStack, IconButton, Menu, Pressable, StatusBar, View } from 'native-base'
+import {
+  Box,
+  Button,
+  Divider,
+  HStack,
+  IconButton,
+  Menu,
+  Pressable,
+  StatusBar,
+  View
+} from 'native-base'
 import React from 'react'
+import { eventHeaderHeight } from '../../themes/darkTheme'
+import CustomModal from '../CustomModal/CustomModal'
 import MaterialIcon from '../MaterialIcon'
 import useEventHeader from './useEventHeader'
 
-const EventImage = styled.Image`
-  height: 90px;
-  margin: 10px;
+const EventImage = styled.Image<{ eventHeaderHeight: number }>`
+  height: ${() => `${eventHeaderHeight}px`};
+  padding: 10px;
   width: 90%;
 `
 
@@ -15,11 +27,22 @@ interface Props {
   setFavorite?: () => void
   isFavorite?: boolean
   loading?: boolean
+  goBack?: () => void
 }
 
 const EventHeader: React.FC<Props> = (props) => {
   const { canGoBack, setFavorite, isFavorite, loading } = props
-  const { t, colors, logoUrl, cleanEvent, openDrawer, goBack } = useEventHeader()
+  const {
+    t,
+    colors,
+    logoUrl,
+    cleanEvent,
+    openDrawer,
+    goBack,
+    changeEventConfirmation,
+    toggleEventConfirmation,
+    goToLogin
+  } = useEventHeader()
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor={colors.gray[800]} />
@@ -28,11 +51,21 @@ const EventHeader: React.FC<Props> = (props) => {
         <HStack alignItems="center">
           <IconButton
             disabled={loading}
-            onPress={canGoBack ? goBack : openDrawer}
-            icon={<MaterialIcon size="sm" name={canGoBack ? 'arrow-back' : 'menu'} color="white" />}
+            onPress={props.goBack ? props.goBack : canGoBack ? goBack : openDrawer}
+            icon={
+              <MaterialIcon
+                size="sm"
+                name={props.goBack || canGoBack ? 'arrow-back' : 'menu'}
+                color="white"
+              />
+            }
           />
           <View flex={1} alignItems={'center'} background={'transparent'}>
-            <EventImage resizeMode="contain" source={{ uri: logoUrl }} />
+            <EventImage
+              eventHeaderHeight={eventHeaderHeight}
+              resizeMode="contain"
+              source={{ uri: logoUrl }}
+            />
           </View>
           {setFavorite && (
             <IconButton onPress={setFavorite} disabled={loading}>
@@ -47,13 +80,22 @@ const EventHeader: React.FC<Props> = (props) => {
                 </Pressable>
               )}
             >
-              <Menu.Item onPress={cleanEvent}>{t('header.change_event') as string}</Menu.Item>
-              <Menu.Item>{t('header.login') as string}</Menu.Item>
+              <Menu.Item onPress={toggleEventConfirmation}>
+                {t('header.change_event') as string}
+              </Menu.Item>
+              <Menu.Item onPress={goToLogin}>{t('header.login') as string}</Menu.Item>
             </Menu>
           )}
         </HStack>
       </HStack>
       <Divider />
+      <CustomModal
+        isOpen={changeEventConfirmation}
+        onClose={toggleEventConfirmation}
+        title={t('header.change_event_title')}
+        description={t('header.change_event_description')}
+        actionBtn={<Button onPress={cleanEvent}>{t('yes')}</Button>}
+      />
     </>
   )
 }

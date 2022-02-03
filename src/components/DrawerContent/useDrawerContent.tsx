@@ -48,7 +48,7 @@ const useDrawerContent = () => {
       }),
       createMenuItem('menu.one_to_one_agenda', 'person-pin', 'OneToOneAgenda'),
       createMenuItem('menu.featured', 'featured-play-list', 'Featured'),
-      createMenuItem('menu.catalogue', 'local-library', 'Catalogue'),
+      createMenuItem('menu.catalogue', 'local-library', 'CatalogueStack'),
       createMenuItem('menu.notifications', 'notifications', 'Notifications')
     ]
   }, [navigator, t, oneToOneAgendaUrl])

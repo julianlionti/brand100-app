@@ -8,6 +8,7 @@ export const esAr: Translation = {
       : `Bienvenidos al evento ${'Retial 100'}. Para empezar, seleccione el evento del que participa. Si lo desea podrá cambiarlo luego.`,
   yes: '¡Si!',
   cancel: 'Cancelar',
+  scheduled: '{{start}} a {{end}}',
   'home.ads_see_more': 'Ver más',
   'home.has_to_update': 'Es necesario descargar la nueva información del evento',
   'home.has_to_update_title': 'Información importante',
@@ -21,10 +22,12 @@ export const esAr: Translation = {
   'menu.welcome': 'Bienvenida',
   'menu.home': 'Inicio',
   'menu.organize': 'Organiza',
-  'menu.one_to_one_agenda': 'Agenda one to one',
+  'menu.one_to_one_agenda': 'Favoritos/One to One agenda',
   'header.change_event': 'Cambiar de evento',
   'header.login': 'Iniciar sesión',
   'header.more_options': 'Más opciones',
+  'header.change_event_title': '¿Está seguro de cambiar de evento?',
+  'header.change_event_description': 'Al confirmar perderá toda la información guardada',
   'download.title': '',
   'download.information': 'Estamos descargando los archivos necesarios del evento seleccionado',
   'download.unzipping_error': 'No se pudo descomprimir el archivo',
@@ -39,7 +42,7 @@ export const esAr: Translation = {
   'catalogue.news.no_data': 'No hay novedades para mostrar',
   'onetoone.favorite_agenda': 'Fav. Agenda',
   'onetoone.favorite_catalogue': 'Fav. Catálogo',
-  'onetoone.online_access': 'Agenda Acceso Online',
+  'onetoone.online_access': 'One to One agenda',
   'onetoone.delete_all': 'Borrar favoritos',
   'onetoone.create_event': 'Crear evento',
   'onetoone.choose_day': 'Elegí un dia',
@@ -72,5 +75,11 @@ export const esAr: Translation = {
     'Estás a punto de borrar el evento "{{name}}", ¿Desea continuar?',
   'onetoone.fav_confirmation_title': 'Favoritos',
   'onetoone.fav_confirmation_description':
-    'Estás a punto de sacar "{{name}}" de favoritos, ¿Desea continuar?'
+    'Estás a punto de sacar "{{name}}" de favoritos, ¿Desea continuar?',
+  'onetoone.login_title': 'Iniciá sesión para vincular la agenda',
+  'onetoone.password': 'Contraseña',
+  'onetoone.username': 'Usuario',
+  'onetoone.login': 'Iniciar sesión',
+  'onetoone.confirm': 'Confirmada',
+  'onetoone.pending': 'Pendiente'
 }

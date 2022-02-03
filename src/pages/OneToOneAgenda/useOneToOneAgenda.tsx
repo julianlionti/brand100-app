@@ -1,6 +1,7 @@
 import React, { lazy } from 'react'
 import { useMemo } from 'react'
 import FavoriteCatalogueTab from '../../components/FavoriteCatalogueTab/FavoriteCatalogueTab'
+import OnlineAgendaTab from '../../components/OnlineAgendaTab/OnlineAgendaTab'
 import { ITab } from '../../components/TopTabs/TopTabs'
 import { useT } from '../../translations'
 
@@ -40,7 +41,7 @@ const useOneToOneAgenda = () => {
       case 'onetoone.favorite_catalogue':
         return <FavoriteCatalogueTab />
       case 'onetoone.online_access':
-        return null
+        return <OnlineAgendaTab />
     }
   }
 

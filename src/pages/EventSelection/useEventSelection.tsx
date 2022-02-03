@@ -8,16 +8,19 @@ import { useEventsState } from '../../reducers/eventsReducer'
 import { useLoadingState } from '../../reducers/loadingReducer'
 import { NoEventStackParamList } from '../../routes/NoEventStack'
 import { useT } from '../../translations'
+import Urls from '../../utils/urls'
 
 type NavigationProps = NativeStackNavigationProp<NoEventStackParamList, 'EventsSelection'>
 const useEventSelection = () => {
   const navigation = useNavigation<NavigationProps>()
   const dispatch = useAppDispatch()
   const { events } = useEventsState()
-  const { requests } = useLoadingState()
+  const { requests, errors } = useLoadingState()
   const t = useT()
 
-  const isLoading = requests.includes('a')
+  const isLoading = requests.includes(Urls.events)
+
+  console.log(errors)
 
   useEffect(() => {
     dispatch(getEvents())

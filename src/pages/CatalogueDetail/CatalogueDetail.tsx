@@ -13,7 +13,7 @@ const CatalogueDetail: React.FC = () => {
       <EventHeader canGoBack setFavorite={setFavorite} isFavorite={isFavorite} />
       <HasToUpdate />
       <View alignItems={'center'} justifyContent={'center'} height={45}>
-        <Heading>{name}</Heading>
+        <Heading isTruncated>{name}</Heading>
       </View>
       <TopTabs
         noHeader

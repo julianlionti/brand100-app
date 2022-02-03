@@ -107,6 +107,7 @@ export interface IFullEvent {
   welcome: IWelcome
   menu: IMenu
   oneToOneAgendaUrl: string
+  eventUrl: string
   agendaPhtosUrl: string
   lastUpdateMaps: string | null
   lastUpdateFeature: string | null

@@ -3,10 +3,12 @@ import eventsReducer from '../reducers/eventsReducer'
 import loadingReducer from '../reducers/loadingReducer'
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import persistStore from 'redux-persist/es/persistStore'
+import userReducer from '../reducers/userReducer'
 
 const reducer = {
   eventsReducer,
-  loadingReducer
+  loadingReducer,
+  userReducer
 }
 
 export const store = configureStore({

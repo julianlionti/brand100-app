@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, Heading, HStack, IconButton, Text, VStack } from 'native-base'
+import { Button, Heading, HStack, IconButton, Text, Box, VStack } from 'native-base'
 import { IAgenda, IAgendaActivity } from '../../models/IFullEvent'
 import { parseHtml } from '../../utils/textUtils'
 import useAgendaActivityItem from './useAgendaActivityItem'
@@ -49,12 +49,22 @@ const AgendaActivityItem: React.FC<AgendaActivityItemProps> = (props) => {
           </IconButton>
         )}
         <VStack flex={1} mr="4" space="1">
-          <HStack alignItems={'center'} justifyContent={'space-between'}>
-            <Heading size={'sm'} color="darkText">
+          {/* <HStack alignItems={'center'} space={2} pr={2} justifyContent={'space-between'}>
+            <Heading size={'sm'} color="darkText" isTruncated>
               {name}
             </Heading>
-            <Text color="darkText">{schedule}</Text>
-          </HStack>
+            <Text minW={90} textAlign={'right'} color="darkText">
+              {schedule}
+            </Text>
+          </HStack> */}
+          <Box flexDirection={'row'}>
+            <Heading size={'sm'} flex={1} color="darkText">
+              {name}
+            </Heading>
+            <Text textAlign={'right'} color="darkText">
+              {schedule}
+            </Text>
+          </Box>
           <Text color="darkText">{parseHtml(description)}</Text>
           <VStack pt="2" mx="2">
             {sponsors?.map((spo) => (

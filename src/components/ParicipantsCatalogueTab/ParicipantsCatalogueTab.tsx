@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList } from 'native-base'
-import PaticipantsItem from '../PaticipantsItem'
+import ParticipantsItem from '../ParticipantsItem'
 import { IParticipant } from '../../models/IFullEvent'
 import HasToUpdate from '../HasToUpdate/HasToUpdate'
 
@@ -17,7 +17,7 @@ const ParicipantsCatalogueTab: React.FC<Props> = (props) => {
         keyExtractor={(item) => item.name + item.surname + item.position}
         data={participants}
         numColumns={2}
-        renderItem={({ item }) => <PaticipantsItem {...item} />}
+        renderItem={({ item }) => <ParticipantsItem {...item} />}
       />
     </>
   )

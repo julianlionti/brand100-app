@@ -9,6 +9,7 @@ export type Translations =
   | 'welcome'
   | 'yes'
   | 'cancel'
+  | 'scheduled'
   | 'home.ads_see_more'
   | 'home.has_to_update_title'
   | 'home.has_to_update'
@@ -26,6 +27,8 @@ export type Translations =
   | 'header.more_options'
   | 'header.change_event'
   | 'header.login'
+  | 'header.change_event_title'
+  | 'header.change_event_description'
   | 'download.title'
   | 'download.information'
   | 'download.unzipping'
@@ -70,6 +73,12 @@ export type Translations =
   | 'onetoone.delete_confirmation_description'
   | 'onetoone.fav_confirmation_title'
   | 'onetoone.fav_confirmation_description'
+  | 'onetoone.login_title'
+  | 'onetoone.username'
+  | 'onetoone.password'
+  | 'onetoone.login'
+  | 'onetoone.confirm'
+  | 'onetoone.pending'
 
 export type Translation = Record<Translations, string>
 

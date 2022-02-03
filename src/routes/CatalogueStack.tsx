@@ -5,7 +5,7 @@ import Catalogue from '../pages/Catalogue/Catalogue'
 import CatalogueDetail from '../pages/CatalogueDetail/CatalogueDetail'
 
 export type CatalogueStackParamList = {
-  Agenda: undefined
+  Catalogue: { canGoBack: boolean }
   Detail: ICatalogue
 }
 
@@ -13,7 +13,7 @@ const Stack = createStackNavigator<CatalogueStackParamList>()
 const CatalogueStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Agenda" component={Catalogue} />
+      <Stack.Screen name="Catalogue" component={Catalogue} />
       <Stack.Screen name="Detail" component={CatalogueDetail} />
     </Stack.Navigator>
   )

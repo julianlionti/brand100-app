@@ -35,7 +35,7 @@ const EventHome = () => {
                 <Image
                   width={350}
                   height={500}
-                  resizeMode="cover"
+                  resizeMode="center"
                   alt={ad.link}
                   source={{ uri: ad.image }}
                 />

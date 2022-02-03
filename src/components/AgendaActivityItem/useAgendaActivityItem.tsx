@@ -48,6 +48,7 @@ const useAgendaActivityItem = (props: AgendaActivityItemProps) => {
 
   const setFavorite = useCallback(() => {
     dispatch(setAgendaItemFavorite(props))
+    closeFavDlg()
   }, [dispatch, props])
 
   const isFavorite = useMemo(

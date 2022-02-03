@@ -1,19 +1,39 @@
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import React, { useCallback, useMemo } from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { ICatalogue } from '../../models/IFullEvent'
 import { useEventsState } from '../../reducers/eventsReducer'
-import { OneToOneAgendaParamList } from '../../routes/OneToOneAgendaStack'
-
-type Navigation = NavigationProp<OneToOneAgendaParamList>
+import { useT } from '../../translations'
+import MaterialIcon from '../MaterialIcon'
+import { Fab } from 'native-base'
 
 const useFavoriteCatalogueTab = () => {
+  const t = useT()
   const { favoriteCatalogue } = useEventsState()
-  const { navigate } = useNavigation<Navigation>()
+  const { navigate } = useNavigation<any>()
   const data = favoriteCatalogue
 
   const openDetail = (detail: ICatalogue) => {
     navigate('CatalogueDetail', detail)
   }
-  return { data, openDetail }
+
+  const goToCatalogue = useCallback(() => {
+    navigate('CatalogueStack', { screen: 'Catalogue', params: { canGoBack: true } })
+  }, [navigate])
+
+  const Floating = useMemo(() => {
+    return (
+      <Fab
+        renderInPortal={false}
+        shadow={2}
+        size="sm"
+        onPress={goToCatalogue}
+        bgColor={'primary.600'}
+        icon={<MaterialIcon name="add" size="sm" />}
+      />
+    )
+  }, [goToCatalogue])
+
+  return { t, data, openDetail, goToCatalogue, Fab: Floating }
 }
 
 export default useFavoriteCatalogueTab

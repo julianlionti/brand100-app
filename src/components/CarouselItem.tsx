@@ -13,7 +13,7 @@ const Root = styled.Image`
 
 const CaourselItem: React.FC<Props> = memo((props) => {
   const { image } = props
-  return <Root source={{ uri: image }} />
+  return <Root resizeMode="contain" source={{ uri: image }} />
 })
 
 export default CaourselItem

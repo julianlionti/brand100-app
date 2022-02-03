@@ -20,7 +20,7 @@ export type EventDrawerParamList = {
   OneToOneAgenda: undefined
   OnlineAgenda: undefined
   Featured: undefined
-  Catalogue: undefined
+  CatalogueStack: undefined
   Notifications: undefined
 }
 
@@ -79,7 +79,7 @@ const EventDrawer = () => {
           </WithSuspense>
         )}
       </Drawer.Screen>
-      <Drawer.Screen name="Catalogue">
+      <Drawer.Screen name="CatalogueStack">
         {() => (
           <WithSuspense>
             <CatalogueStack />
