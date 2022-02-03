@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useCallback, useEffect } from 'react'
+import SplashScreen from 'react-native-splash-screen'
 import { getEvents } from '../../actions/eventsActions'
 import { useAppDispatch } from '../../hooks/redux'
 import { IEvent } from '../../models/IEvent'
@@ -15,12 +16,10 @@ const useEventSelection = () => {
   const navigation = useNavigation<NavigationProps>()
   const dispatch = useAppDispatch()
   const { events } = useEventsState()
-  const { requests, errors } = useLoadingState()
+  const { requests } = useLoadingState()
   const t = useT()
 
   const isLoading = requests.includes(Urls.events)
-
-  console.log(errors)
 
   useEffect(() => {
     dispatch(getEvents())
@@ -36,6 +35,10 @@ const useEventSelection = () => {
     },
     [navigation]
   )
+
+  useEffect(() => {
+    SplashScreen.hide()
+  }, [])
 
   return { t, events, isLoading, refreshEvents, selectEvent }
 }

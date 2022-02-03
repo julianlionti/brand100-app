@@ -83,6 +83,10 @@ export type Translations =
   | 'onetoone.pending'
   | 'onetoone.error_title'
   | 'onetoone.error_description'
+  | 'notifications.no_data'
+  | 'notifications.delete_all_confirmation_title'
+  | 'notifications.delete_all_confirmation_description'
+  | 'notifications.delete_confirmation_description'
 
 export type Translation = Record<Translations, string>
 

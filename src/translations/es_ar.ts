@@ -85,5 +85,11 @@ export const esAr: Translation = {
   'onetoone.confirm': 'Confirmada',
   'onetoone.pending': 'Pendiente',
   'onetoone.error_description': 'El usuario o la contraseña son incorrectos',
-  'onetoone.error_title': 'Error al iniciar sesión'
+  'onetoone.error_title': 'Error al iniciar sesión',
+  'notifications.no_data': 'No hay notificaciones para mostrar',
+  'notifications.delete_all_confirmation_title': '¡Atención!',
+  'notifications.delete_all_confirmation_description':
+    '¿Desea eliminar todas las notificaciones recibidas?',
+  'notifications.delete_confirmation_description':
+    'Estás por borrar la notificacion "{{name}}". Desea continuar?'
 }
