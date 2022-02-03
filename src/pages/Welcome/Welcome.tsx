@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Heading, Image, ScrollView, Text, View, VStack } from 'native-base'
+import { Box, Heading, Image, ScrollView, Text, VStack } from 'native-base'
 import PageContainer from '../../components/PageContainer'
 import EventHeader from '../../components/EventHeader/EventHeader'
 import useWelcome from './useWelcome'

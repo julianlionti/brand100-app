@@ -3,7 +3,7 @@ import persistReducer from 'redux-persist/es/persistReducer'
 import { PersistConfig } from 'redux-persist/es/types'
 import { useAppSelector } from '../hooks/redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { getUserAgenda, login, logout } from '../actions/userActions'
+import { cleanError, getUserAgenda, login, logout } from '../actions/userActions'
 import { IOnlineAgenda } from '../models/IOnlineAgenda'
 
 export interface UserState {
@@ -21,10 +21,24 @@ const initialState: UserState = {
 }
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(login, (_, action) => ({ ...initialState, ...action.payload }))
+  builder.addCase(login, (_, action) => ({
+    ...initialState,
+    username: action.payload.username.trim(),
+    password: action.payload.password.trim()
+  }))
   builder.addCase(logout, () => initialState)
+  builder.addCase(cleanError, (state) => {
+    state.errorLogin = ''
+  })
   builder.addCase(getUserAgenda.fulfilled, (state, action) => {
     state.agenda = action.payload
+    state.errorLogin = ''
+  })
+  builder.addCase(getUserAgenda.rejected, (state, action) => {
+    state.errorLogin = action.payload as string
+    state.username = ''
+    state.password = ''
+    state.agenda = []
   })
 })
 

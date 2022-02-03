@@ -10,12 +10,13 @@ import { makeRequest } from '../utils/makeRequest'
 const prefix = `user/`
 
 export const login = createAction<LoginState>(`${prefix}login`)
-export const logout = createAction<null>(`${prefix}logout`)
+export const logout = createAction(`${prefix}logout`)
+export const cleanError = createAction(`${prefix}clean-error`)
 
 type GetUserAgendaProps = { refresh?: boolean } | undefined
 export const getUserAgenda = createAsyncThunk<IOnlineAgenda[], GetUserAgendaProps>(
   `${prefix}get-user-agenda`,
-  async (props, { getState }) => {
+  async (props, { getState, rejectWithValue }) => {
     const { refresh } = props || {}
     const { eventsReducer, userReducer } = getState() as RootState
     const { selectedEvent } = eventsReducer
@@ -23,7 +24,7 @@ export const getUserAgenda = createAsyncThunk<IOnlineAgenda[], GetUserAgendaProp
     if (agenda.length > 0 && !refresh) return agenda
 
     if (!selectedEvent) throw Error('No selected event')
-    const { oneToOneAgendaUrl, eventUrl } = selectedEvent
+    const { eventUrl } = selectedEvent
     // const eventUrl = oneToOneAgendaUrl.substring(0, oneToOneAgendaUrl.indexOf('/agenda'))
     const finalUrl = `${eventUrl}${Config.AGENDA_SUFFIX}`
     const response = await makeRequest({
@@ -31,8 +32,10 @@ export const getUserAgenda = createAsyncThunk<IOnlineAgenda[], GetUserAgendaProp
       url: finalUrl,
       params: { pPass: password, pUser: username }
     })
+    if (response.Retorno && response.Modulos.length === 0) {
+      return rejectWithValue(response.Retorno)
+    }
     const modules = response.Modulos as IOriginalOnlineAgenda[]
-
     return modules.map(EventHelpers.legacyToFinalAgenda)
   }
 )

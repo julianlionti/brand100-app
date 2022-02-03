@@ -12,6 +12,7 @@ const axiosInstance = axios.create({
   baseURL: Config.BASE_URL
 })
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type MakeRequestFunc = <T = any>(config: AxiosRequestConfig) => Promise<T>
 export const makeRequest: MakeRequestFunc = async (config) => {
   if (!store) throw Error('Store must be injected')

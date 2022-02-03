@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { getUserAgenda } from '../../actions/userActions'
 import { useAppDispatch } from '../../hooks/redux'
 import { IOnlineAgenda } from '../../models/IOnlineAgenda'
@@ -7,7 +7,7 @@ import { useT } from '../../translations'
 
 const useOnlineAgenda = () => {
   const t = useT()
-  const { agenda } = useUserState()
+  const { agenda, username } = useUserState()
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -30,7 +30,13 @@ const useOnlineAgenda = () => {
     }, initialSection)
   }, [agenda, t])
 
-  return { agenda: sections }
+  const isLoading = !!username && !agenda.length
+
+  const refreshItems = useCallback(() => {
+    dispatch(getUserAgenda({ refresh: true }))
+  }, [dispatch])
+
+  return { agenda: sections, username, isLoading, refreshItems }
 }
 
 export default useOnlineAgenda

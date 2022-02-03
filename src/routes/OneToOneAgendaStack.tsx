@@ -5,7 +5,6 @@ import CatalogueDetail from '../pages/CatalogueDetail/CatalogueDetail'
 import { IActivityDetail, ICatalogue } from '../models/IFullEvent'
 import AgendaDetail from '../pages/AgendaDetail/AgendaDetail'
 import CreateEvent from '../pages/CreateEvent/CreateEvent'
-import Catalogue from '../pages/Catalogue/Catalogue'
 
 export type OneToOneAgendaParamList = {
   Tabs: undefined

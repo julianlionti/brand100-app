@@ -16,6 +16,7 @@ const useAgendaActivityItem = (props: AgendaActivityItemProps) => {
   const { favoriteAgenda } = useEventsState()
   const { details, idActivity, isFromFav, isOwn } = props
   const hasDetail = !!details.length
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const navigation = useNavigation<any>()
 
   const openDetail = useCallback(() => {

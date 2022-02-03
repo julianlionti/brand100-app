@@ -3,6 +3,7 @@ import { CheckIcon, FormControl, ISelectProps, Select } from 'native-base'
 import useDropdown from './useDropdown'
 import { StringMap, TOptions } from 'i18next'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Option = { label: string; value: string; data?: any }
 export interface DropdownProps extends Omit<ISelectProps, 'placeholder'> {
   id: string
@@ -11,6 +12,7 @@ export interface DropdownProps extends Omit<ISelectProps, 'placeholder'> {
   options: Option[]
   onChange?: (
     option: Option,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void
   ) => void
 }

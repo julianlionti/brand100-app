@@ -25,6 +25,8 @@ export const esAr: Translation = {
   'menu.one_to_one_agenda': 'Favoritos/One to One agenda',
   'header.change_event': 'Cambiar de evento',
   'header.login': 'Iniciar sesión',
+  'header.logout': 'Cerrar sesión',
+  'header.gotoonetoone': 'Ir a agenda One to One',
   'header.more_options': 'Más opciones',
   'header.change_event_title': '¿Está seguro de cambiar de evento?',
   'header.change_event_description': 'Al confirmar perderá toda la información guardada',
@@ -81,5 +83,7 @@ export const esAr: Translation = {
   'onetoone.username': 'Usuario',
   'onetoone.login': 'Iniciar sesión',
   'onetoone.confirm': 'Confirmada',
-  'onetoone.pending': 'Pendiente'
+  'onetoone.pending': 'Pendiente',
+  'onetoone.error_description': 'El usuario o la contraseña son incorrectos',
+  'onetoone.error_title': 'Error al iniciar sesión'
 }

@@ -1,5 +1,4 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
 import { useMemo } from 'react'
 import useSelectedEvent from '../../hooks/useSelectedEvent'
 import { ICatalogue } from '../../models/IFullEvent'
@@ -10,6 +9,7 @@ type Routes = RouteProp<CatalogueStackParamList, 'Catalogue'>
 const useCatalogue = () => {
   const { catalogue } = useSelectedEvent()
   const { params } = useRoute<Routes>()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const navigation = useNavigation<any>()
   const openDetail = (item: ICatalogue) => {
     navigation.push('Detail', item)

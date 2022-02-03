@@ -27,6 +27,8 @@ export type Translations =
   | 'header.more_options'
   | 'header.change_event'
   | 'header.login'
+  | 'header.logout'
+  | 'header.gotoonetoone'
   | 'header.change_event_title'
   | 'header.change_event_description'
   | 'download.title'
@@ -79,6 +81,8 @@ export type Translations =
   | 'onetoone.login'
   | 'onetoone.confirm'
   | 'onetoone.pending'
+  | 'onetoone.error_title'
+  | 'onetoone.error_description'
 
 export type Translation = Record<Translations, string>
 

@@ -1,22 +1,22 @@
-import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
 import { useTheme } from 'native-base'
 import { useState } from 'react'
 import { cleanSelectedEvent } from '../../actions/eventsActions'
+import { logout } from '../../actions/userActions'
 import { useAppDispatch } from '../../hooks/redux'
 import useSelectedEvent from '../../hooks/useSelectedEvent'
-import { EventDrawerParamList } from '../../routes/EventDrawer'
+import { useUserState } from '../../reducers/userReducer'
 import { useT } from '../../translations'
-
-type NavigationProps = DrawerNavigationProp<EventDrawerParamList>
 
 const useEventHeader = () => {
   const [changeEventConfirmation, setChangeEventConfirmation] = useState(false)
   const dispatch = useAppDispatch()
   const { colors } = useTheme()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { openDrawer, goBack, navigate } = useNavigation<any>()
   const { logo } = useSelectedEvent()
   const t = useT()
+  const { username } = useUserState()
 
   const cleanEvent = () => {
     dispatch(cleanSelectedEvent())
@@ -34,6 +34,10 @@ const useEventHeader = () => {
 
   const toggleEventConfirmation = () => setChangeEventConfirmation((e) => !e)
 
+  const onLogout = () => {
+    dispatch(logout())
+  }
+
   return {
     t,
     colors,
@@ -43,7 +47,9 @@ const useEventHeader = () => {
     goBack,
     toggleEventConfirmation,
     changeEventConfirmation,
-    goToLogin
+    goToLogin,
+    isLogged: !!username,
+    onLogout
   }
 }
 export default useEventHeader

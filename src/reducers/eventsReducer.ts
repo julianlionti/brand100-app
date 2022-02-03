@@ -124,7 +124,7 @@ const reducer = createReducer(initialState, (builder) => {
   })
   builder.addCase(createOwnEvent, (state, action) => {
     const { date, day, description, range, title } = action.payload
-    const numberDay = parseInt(day)
+    const numberDay = parseInt(day, 10)
     const baseId = 999900
 
     state.ownEvents.push({

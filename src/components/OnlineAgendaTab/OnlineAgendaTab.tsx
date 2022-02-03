@@ -4,8 +4,8 @@ import OnlineAgenda from '../OnlineAgenda/OnlineAgenda'
 import OnlineAgendaLogin from '../OnlineAgendaLogin/OnlineAgendaLogin'
 
 const OnlineAgendaTab = () => {
-  const { username } = useUserState()
-  if (username) return <OnlineAgenda />
+  const { username, errorLogin } = useUserState()
+  if (username && !errorLogin) return <OnlineAgenda />
 
   return <OnlineAgendaLogin />
 }

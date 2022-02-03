@@ -46,6 +46,7 @@ const TimeRange: React.FC<TimeRangeProps> = (props) => {
           value={start || new Date()}
           mode="time"
           is24Hour
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onChange={(ev: any, date: any) => {
             onChangePicker(date)
           }}

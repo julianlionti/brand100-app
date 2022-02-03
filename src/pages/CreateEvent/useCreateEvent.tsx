@@ -58,7 +58,7 @@ const useCreateEvent = () => {
 
   const onSubmitEvent = (values: CreateEventValues) => {
     const { day, range } = values
-    const numberDay = parseInt(day)
+    const numberDay = parseInt(day, 10)
     const finalRange = {
       end: range.end ? moment(range.end).format('HH:mm') : '',
       start: range.start ? moment(range.start).format('HH:mm') : ''

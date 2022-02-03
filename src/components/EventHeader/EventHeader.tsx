@@ -41,7 +41,9 @@ const EventHeader: React.FC<Props> = (props) => {
     goBack,
     changeEventConfirmation,
     toggleEventConfirmation,
-    goToLogin
+    goToLogin,
+    isLogged,
+    onLogout
   } = useEventHeader()
   return (
     <>
@@ -83,7 +85,12 @@ const EventHeader: React.FC<Props> = (props) => {
               <Menu.Item onPress={toggleEventConfirmation}>
                 {t('header.change_event') as string}
               </Menu.Item>
-              <Menu.Item onPress={goToLogin}>{t('header.login') as string}</Menu.Item>
+              <Menu.Item onPress={isLogged ? onLogout : goToLogin}>
+                {t(isLogged ? 'header.logout' : 'header.login') as string}
+              </Menu.Item>
+              {isLogged && (
+                <Menu.Item onPress={goToLogin}>{t('header.gotoonetoone') as string}</Menu.Item>
+              )}
             </Menu>
           )}
         </HStack>

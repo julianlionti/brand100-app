@@ -9,6 +9,7 @@ import { Fab } from 'native-base'
 const useFavoriteCatalogueTab = () => {
   const t = useT()
   const { favoriteCatalogue } = useEventsState()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { navigate } = useNavigation<any>()
   const data = favoriteCatalogue
 

@@ -1,6 +1,6 @@
-import { FormikValues } from 'formik'
 import { useDispatch } from 'react-redux'
-import { login } from '../../actions/userActions'
+import { cleanError, login } from '../../actions/userActions'
+import { useUserState } from '../../reducers/userReducer'
 import { useT } from '../../translations'
 
 export interface LoginState {
@@ -15,13 +15,18 @@ const initialState: LoginState = {
 
 const useOnlineAgendaLogin = () => {
   const t = useT()
+  const { errorLogin } = useUserState()
   const dispatch = useDispatch()
 
   const onLoginSubmit = (values: LoginState) => {
     dispatch(login(values))
   }
 
-  return { t, initialState, onLoginSubmit }
+  const closeError = () => {
+    dispatch(cleanError())
+  }
+
+  return { t, initialState, onLoginSubmit, errorLogin, closeError }
 }
 
 export default useOnlineAgendaLogin

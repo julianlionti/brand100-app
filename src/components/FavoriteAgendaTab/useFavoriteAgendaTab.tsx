@@ -21,13 +21,17 @@ const useFavoriteAgendaTab = () => {
   const [showDelete, setShowDelete] = useState(false)
   const navigation = useNavigation<Navigation>()
 
-  const initialAgendaSection: { date: string; day: number; data: FavoriteAgendaType[] }[] = []
+  const initialAgendaSection: {
+    date: string | undefined
+    day: number
+    data: FavoriteAgendaType[]
+  }[] = []
 
   const sections = [...ownEvents, ...favoriteAgenda].reduce((acc, it) => {
     const exists = acc.find((fav) => fav.date === it.date)
     if (exists) {
       exists.data = [...exists.data, it].sort(
-        (a, b) => parseInt(a.beginning || '0') - parseInt(b.beginning || '0')
+        (a, b) => parseInt(a.beginning || '0', 10) - parseInt(b.beginning || '0', 10)
       )
       return acc
     }

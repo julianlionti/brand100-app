@@ -2,29 +2,30 @@ import React from 'react'
 import { Text, View } from 'native-base'
 import { parseDocument, ElementType } from 'htmlparser2'
 
-const parseTag = (regex: RegExp, para: string, paraIndex: number) => {
-  const tags: JSX.Element[] = []
-  const onlyBold = para.match(regex)
-  if (onlyBold) {
-    const [, onlyText] = onlyBold
-    para.split(regex).forEach((boldpara, x) => {
-      const key = `${para}-${boldpara}-${paraIndex}-${x}`
-      if (boldpara === onlyText) {
-        tags.push(
-          <Text fontWeight={'bold'} key={key}>
-            {onlyText}
-          </Text>
-        )
-      } else {
-        tags.push(<Text key={key}>{boldpara}</Text>)
-      }
-    })
-  } else {
-    tags.push(<Text key={`${para}-${paraIndex}`}>{para || '\n'}</Text>)
-  }
-  return tags
-}
+// const parseTag = (regex: RegExp, para: string, paraIndex: number) => {
+//   const tags: JSX.Element[] = []
+//   const onlyBold = para.match(regex)
+//   if (onlyBold) {
+//     const [, onlyText] = onlyBold
+//     para.split(regex).forEach((boldpara, x) => {
+//       const key = `${para}-${boldpara}-${paraIndex}-${x}`
+//       if (boldpara === onlyText) {
+//         tags.push(
+//           <Text fontWeight={'bold'} key={key}>
+//             {onlyText}
+//           </Text>
+//         )
+//       } else {
+//         tags.push(<Text key={key}>{boldpara}</Text>)
+//       }
+//     })
+//   } else {
+//     tags.push(<Text key={`${para}-${paraIndex}`}>{para || '\n'}</Text>)
+//   }
+//   return tags
+// }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseHtml = (text: string): any[] => {
   // const boldRegex = /<b>(.*?)<\/b>/
   // const final: JSX.Element[] = []
@@ -35,6 +36,7 @@ export const parseHtml = (text: string): any[] => {
   //   final.push(...tags)
   // })
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderTextNode = (c: any, i: number) => {
     return (
       <Text
@@ -46,11 +48,14 @@ export const parseHtml = (text: string): any[] => {
       </Text>
     )
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderElement = (c: any, i: number) => {
     const Wrapper = ['strong', 'b', 'br', 'p', 'i'].indexOf(c.name) > -1 ? Text : View
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return <Wrapper key={i}>{c.children.map((ce: any, ie: any) => renderNode(ce, ie))}</Wrapper>
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderNode = (c: any, i: number) => {
     switch (c.type) {
       case ElementType.Text:
