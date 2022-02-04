@@ -1,6 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import Main from './routes/Main'
+import Main from './routes/Main/Main'
 import { persistor, store } from './store/store'
 import darkTheme from './themes/darkTheme'
 import { injectStore } from './utils/makeRequest'

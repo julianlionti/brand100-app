@@ -1,4 +1,4 @@
-package com.brand100;
+package com.focusmedia.brand100;
 
 import android.os.Bundle;
 

@@ -1,11 +1,11 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { useEventsState } from '../reducers/eventsReducer'
-import NoEventStack from './NoEventStack'
-import EventDrawer from './EventDrawer'
+import NoEventStack from '../NoEventStack'
+import EventDrawer from '../EventDrawer'
+import useMain from './useMain'
 
 const Main = () => {
-  const { selectedEvent, hasToUpdate } = useEventsState()
+  const { selectedEvent, hasToUpdate } = useMain()
   return (
     <NavigationContainer>
       {(!selectedEvent || hasToUpdate) && <NoEventStack />}

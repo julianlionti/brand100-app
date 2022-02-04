@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Divider, Fab, FlatList, Text } from 'native-base'
+import { Button, Divider, Fab, FlatList, Pressable, Text, View } from 'native-base'
 import useNotifications from './useNotifications'
 import PageContainer from '../../components/PageContainer'
 import EventHeader from '../../components/EventHeader/EventHeader'
@@ -8,10 +8,18 @@ import NotificationItem from '../../components/NotificationItem'
 import EmptyListRoot from '../../components/EmptyListRoot'
 import MaterialIcon from '../../components/MaterialIcon'
 import CustomModal from '../../components/CustomModal/CustomModal'
+import { SwipeListView } from 'react-native-swipe-list-view'
+import SwipeRemoveItem from '../../components/SwipeRemoveItem'
 
 const Notifications = () => {
-  const { t, notifications, openConfirmationAll, toggleConfirmation, cleanNotifications } =
-    useNotifications()
+  const {
+    t,
+    notifications,
+    openConfirmationAll,
+    toggleConfirmation,
+    cleanNotifications,
+    removeNotification
+  } = useNotifications()
   return (
     <PageContainer bgColor={'white'}>
       <EventHeader />
@@ -21,10 +29,14 @@ const Notifications = () => {
           <Text color="darkText">{t('notifications.no_data')}</Text>
         </EmptyListRoot>
       )}
-      <FlatList
+      <SwipeListView
         ItemSeparatorComponent={() => <Divider />}
         data={notifications}
         renderItem={({ item }) => <NotificationItem {...item} />}
+        renderHiddenItem={({ item }) => (
+          <SwipeRemoveItem onDeleteRow={() => removeNotification(item)} />
+        )}
+        rightOpenValue={-70}
       />
       <Fab
         renderInPortal={false}

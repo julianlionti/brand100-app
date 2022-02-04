@@ -87,6 +87,7 @@ export type Translations =
   | 'notifications.delete_all_confirmation_title'
   | 'notifications.delete_all_confirmation_description'
   | 'notifications.delete_confirmation_description'
+  | 'notifications.delete'
 
 export type Translation = Record<Translations, string>
 

@@ -91,5 +91,6 @@ export const esAr: Translation = {
   'notifications.delete_all_confirmation_description':
     '¿Desea eliminar todas las notificaciones recibidas?',
   'notifications.delete_confirmation_description':
-    'Estás por borrar la notificacion "{{name}}". Desea continuar?'
+    'Estás por borrar la notificacion "{{name}}". Desea continuar?',
+  'notifications.delete': 'Eliminar'
 }

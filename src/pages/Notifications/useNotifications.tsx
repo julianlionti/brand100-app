@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { cleanAllNotifications } from '../../actions/userActions'
+import { cleanAllNotifications, setNotification } from '../../actions/userActions'
+import { INotification } from '../../models/INotification'
 import { useUserState } from '../../reducers/userReducer'
 import { useT } from '../../translations'
 
@@ -19,7 +20,18 @@ const useNotifications = () => {
     setOpenConfirmationAll(false)
   }
 
-  return { t, notifications, openConfirmationAll, toggleConfirmation, cleanNotifications }
+  const removeNotification = (noti: INotification) => {
+    dispatch(setNotification(noti))
+  }
+
+  return {
+    t,
+    notifications,
+    openConfirmationAll,
+    toggleConfirmation,
+    cleanNotifications,
+    removeNotification
+  }
 }
 
 export default useNotifications

@@ -27,26 +27,7 @@ const initialState: UserState = {
   password: '',
   errorLogin: '',
   agenda: [],
-  notifications: [
-    {
-      title: 'Bienvenida',
-      date: '20/01/2022',
-      id: 23984298,
-      message: 'Bienvenidos a Brand 100. Vamos la academia!'
-    },
-    {
-      title: 'Otra cosa',
-      date: '22/01/2022',
-      id: 2398232298,
-      message: 'a kdlsa ñlsak dñlask dñlask dñlask dasdlsajdaksldja lkaslkj laks dlaks aljks d'
-    },
-    {
-      title: 'Tercera',
-      date: '28/01/2022',
-      id: 2398422328,
-      message: 'sad ad adaskd asñlk ñas kdlañk dasñd añdad kañld kañ dkña sñl!'
-    }
-  ]
+  notifications: []
 }
 
 const reducer = createReducer(initialState, (builder) => {
@@ -70,7 +51,7 @@ const reducer = createReducer(initialState, (builder) => {
   })
   builder.addCase(setNotification, (state, action) => {
     if (state.notifications.some((noti) => noti.id === action.payload.id)) {
-      state.notifications.filter((noti) => noti.id !== action.payload.id)
+      state.notifications = state.notifications.filter((noti) => noti.id !== action.payload.id)
     } else {
       state.notifications.push(action.payload)
     }
@@ -84,7 +65,7 @@ const persistConfig: PersistConfig<UserState> = {
   key: 'user',
   version: 1,
   storage: AsyncStorage,
-  whitelist: ['username', 'password']
+  whitelist: ['username', 'password', 'notifications']
 }
 const userReducer = persistReducer(persistConfig, reducer)
 

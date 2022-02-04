@@ -43,7 +43,7 @@ const prepareImage = (path: string) => {
   const lastChar = path.slice(path.length - 1)
   if (!path || lastChar === '/') return ''
   const tick = Date.now()
-  return `${imagePrefix}${path}?time?${tick}`
+  return `${imagePrefix}${path}?time=${tick}`
 }
 
 const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
@@ -169,6 +169,16 @@ const legacyToFinalAgenda = (ag: IOriginalOnlineAgenda): IOnlineAgenda => ({
   surname: ag.ContraparteApellido
 })
 
+const getPrimaryColor = (event: APPS_TYPE) => {
+  switch (event) {
+    default:
+    case 'BRAND':
+      return '#28c4c5'
+    case 'RETAIL':
+      return '#bb8b2a'
+  }
+}
+
 const getColorPallete = (event: APPS_TYPE) => {
   switch (event) {
     default:
@@ -207,6 +217,7 @@ const EventHelpers = {
   legacyToFinalEvent,
   legacyToFinalAgenda,
   getColorPallete,
+  getPrimaryColor,
   resourcesPath
 }
 
