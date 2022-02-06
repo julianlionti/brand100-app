@@ -43,7 +43,7 @@ const prepareImage = (path: string) => {
   const lastChar = path.slice(path.length - 1)
   if (!path || lastChar === '/') return ''
   const tick = Date.now()
-  return `${imagePrefix}${path}?time?${tick}`
+  return `${imagePrefix}${path}?time=${tick}`
 }
 
 const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
