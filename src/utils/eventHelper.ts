@@ -169,6 +169,16 @@ const legacyToFinalAgenda = (ag: IOriginalOnlineAgenda): IOnlineAgenda => ({
   surname: ag.ContraparteApellido
 })
 
+const getPrimaryColor = (event: APPS_TYPE) => {
+  switch (event) {
+    default:
+    case 'BRAND':
+      return '#28c4c5'
+    case 'RETAIL':
+      return '#bb8b2a'
+  }
+}
+
 const getColorPallete = (event: APPS_TYPE) => {
   switch (event) {
     default:
@@ -207,6 +217,7 @@ const EventHelpers = {
   legacyToFinalEvent,
   legacyToFinalAgenda,
   getColorPallete,
+  getPrimaryColor,
   resourcesPath
 }
 

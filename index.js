@@ -7,6 +7,8 @@ import { AppRegistry, LogBox } from 'react-native'
 import App from './src/App'
 import { name as appName } from './app.json'
 import { initTranslations } from './src/translations'
+import messaging from '@react-native-firebase/messaging'
+import { backgroundMessageHandler } from './src/services/messaging'
 
 initTranslations()
 
@@ -16,4 +18,5 @@ LogBox.ignoreLogs([
   'new NativeEventEmitter'
 ])
 
+messaging().setBackgroundMessageHandler(backgroundMessageHandler)
 AppRegistry.registerComponent(appName, () => App)

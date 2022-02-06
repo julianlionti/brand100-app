@@ -1,6 +1,7 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { Center, Text, View } from 'native-base'
 import React, { Suspense } from 'react'
+import EmptyListRoot from '../EmptyListRoot'
 import Loading from '../Loading'
 import useTopTabs from './useTopTabs'
 
@@ -19,9 +20,9 @@ const TopTabs = <T,>(props: Props<T>) => {
   return (
     <View bgColor={'white'} flex={1}>
       {!tabs.length && (
-        <Center py="1">
+        <EmptyListRoot>
           <Text color={'darkText'}>{t('tabs.no_data')}</Text>
-        </Center>
+        </EmptyListRoot>
       )}
       {!!tabs.length && (
         <Tab.Navigator

@@ -11,6 +11,7 @@ const GeneralAgendaStack = lazy(() => import('./GeneralAgendaStack'))
 const Featured = lazy(() => import('../pages/Featured/Featured'))
 const CatalogueStack = lazy(() => import('./CatalogueStack'))
 const OneToOneAgendaStack = lazy(() => import('./OneToOneAgendaStack'))
+const Notifications = lazy(() => import('../pages/Notifications/Notifications'))
 
 export type EventDrawerParamList = {
   Home: undefined
@@ -83,6 +84,13 @@ const EventDrawer = () => {
         {() => (
           <WithSuspense>
             <CatalogueStack />
+          </WithSuspense>
+        )}
+      </Drawer.Screen>
+      <Drawer.Screen name="Notifications">
+        {() => (
+          <WithSuspense>
+            <Notifications />
           </WithSuspense>
         )}
       </Drawer.Screen>

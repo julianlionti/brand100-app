@@ -20,6 +20,7 @@ const useEventHeader = () => {
 
   const cleanEvent = () => {
     dispatch(cleanSelectedEvent())
+    dispatch(logout())
     toggleEventConfirmation()
   }
 

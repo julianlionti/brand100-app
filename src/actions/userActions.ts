@@ -1,5 +1,6 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { LoginState } from '../components/OnlineAgendaLogin/useOnlineAgendaLogin'
+import { INotification } from '../models/INotification'
 import { IOnlineAgenda } from '../models/IOnlineAgenda'
 import { IOriginalOnlineAgenda } from '../models/IOriginalOnlineAgenda'
 import { RootState } from '../store/store'
@@ -12,6 +13,8 @@ const prefix = `user/`
 export const login = createAction<LoginState>(`${prefix}login`)
 export const logout = createAction(`${prefix}logout`)
 export const cleanError = createAction(`${prefix}clean-error`)
+export const setNotification = createAction<INotification>(`${prefix}set-notification`)
+export const cleanAllNotifications = createAction(`${prefix}clean-all-notifications`)
 
 type GetUserAgendaProps = { refresh?: boolean } | undefined
 export const getUserAgenda = createAsyncThunk<IOnlineAgenda[], GetUserAgendaProps>(
