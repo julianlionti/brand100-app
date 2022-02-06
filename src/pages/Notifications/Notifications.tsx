@@ -10,6 +10,7 @@ import MaterialIcon from '../../components/MaterialIcon'
 import CustomModal from '../../components/CustomModal/CustomModal'
 import { SwipeListView } from 'react-native-swipe-list-view'
 import SwipeRemoveItem from '../../components/SwipeRemoveItem'
+import AnimatedModal from '../../components/AnimatedModal/AnimatedModal'
 
 const Notifications = () => {
   const {
@@ -18,7 +19,8 @@ const Notifications = () => {
     openConfirmationAll,
     toggleConfirmation,
     cleanNotifications,
-    removeNotification
+    removeNotification,
+    randomIndex
   } = useNotifications()
   return (
     <PageContainer bgColor={'white'}>
@@ -52,6 +54,7 @@ const Notifications = () => {
         onClose={toggleConfirmation}
         actionBtn={<Button onPress={cleanNotifications}>{t('yes')}</Button>}
       />
+      {/* <AnimatedModal itemHeight={100} index={randomIndex} /> */}
     </PageContainer>
   )
 }

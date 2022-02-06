@@ -24,13 +24,16 @@ const useNotifications = () => {
     dispatch(setNotification(noti))
   }
 
+  const randomIndex = Math.floor(Math.random() * notifications.length)
+
   return {
     t,
     notifications,
     openConfirmationAll,
     toggleConfirmation,
     cleanNotifications,
-    removeNotification
+    removeNotification,
+    randomIndex
   }
 }
 

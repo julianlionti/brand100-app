@@ -18,9 +18,7 @@ const SwipeRemoveItem: React.FC<Props> = (props) => {
         bg="red.500"
         justifyContent="center"
         onPress={onDeleteRow}
-        _pressed={{
-          opacity: 0.5
-        }}
+        _pressed={{ opacity: 0.5 }}
       >
         <VStack alignItems="center" space={2}>
           <MaterialIcon name="delete" color="white" size="xs" />
