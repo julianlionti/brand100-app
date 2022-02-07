@@ -15,9 +15,9 @@ const EventHome = () => {
       <ScrollView>
         <HasToUpdate />
         <VStack py={'2'}>
-          <VStack alignItems={'center'} pb="2" space={'2'}>
-            <Heading>{date}</Heading>
-            <Heading size={'sm'}>{place}</Heading>
+          <VStack alignItems={'center'} pb="2" px="2" space={'2'}>
+            <Heading textAlign={"center"}>{date}</Heading>
+            <Heading textAlign={"center"} size={'sm'}>{place}</Heading>
           </VStack>
           <Carousel />
           <VStack alignItems={'center'} py="3" bgColor={color}>
@@ -35,7 +35,7 @@ const EventHome = () => {
                 <Image
                   width={350}
                   height={500}
-                  resizeMode="center"
+                  resizeMode="cover"
                   alt={ad.link}
                   source={{ uri: ad.image }}
                 />

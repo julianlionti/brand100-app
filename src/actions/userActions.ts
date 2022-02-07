@@ -50,7 +50,7 @@ export const notificationPermission = createAsyncThunk<boolean>(
   async (_, { getState }) => {
     const { userReducer } = getState() as RootState
     const { hasToAskForNotificationPermission } = userReducer
-    if (hasToAskForNotificationPermission !== null) return hasToAskForNotificationPermission
+    if (hasToAskForNotificationPermission === false) return false
 
     const authorizationStatus = await messaging().requestPermission()
     console.log('Permission status:', authorizationStatus)

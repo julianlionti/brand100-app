@@ -3,12 +3,14 @@ import React from 'react'
 import PageContainer from '../../components/PageContainer'
 import useDownloadEvent from './useDownloadEvent'
 import { Circle } from 'react-native-progress'
+import { SafeAreaView } from 'react-native'
 
 const DownloadEvent = () => {
   const { t, event, percentage, isDownloading, downloadColor, unzippingColor, isUnzipping } =
     useDownloadEvent()
   return (
     <PageContainer>
+      <SafeAreaView>
       <VStack space={8} alignItems={'center'}>
         <Heading>{event.name}</Heading>
         {(isDownloading || isUnzipping) && [
@@ -25,6 +27,7 @@ const DownloadEvent = () => {
           </Text>
         ]}
       </VStack>
+      </SafeAreaView>
     </PageContainer>
   )
 }

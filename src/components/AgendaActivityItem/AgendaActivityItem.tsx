@@ -61,7 +61,7 @@ const AgendaActivityItem: React.FC<AgendaActivityItemProps> = (props) => {
             <Heading size={'sm'} flex={1} color="darkText">
               {name}
             </Heading>
-            <Text textAlign={'right'} color="darkText">
+            <Text fontWeight={"bold"} textAlign={'right'} color="darkText">
               {schedule}
             </Text>
           </Box>

@@ -32,7 +32,7 @@ const initialState: UserState = {
   errorLogin: '',
   agenda: [],
   notifications: [],
-  hasToAskForNotificationPermission: Platform.OS === 'ios'
+  hasToAskForNotificationPermission: null
 }
 
 const reducer = createReducer(initialState, (builder) => {
