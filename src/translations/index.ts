@@ -88,6 +88,8 @@ export type Translations =
   | 'notifications.delete_all_confirmation_description'
   | 'notifications.delete_confirmation_description'
   | 'notifications.delete'
+  | 'notifications.permissions_title'
+  | 'notifications.permissions_description'
 
 export type Translation = Record<Translations, string>
 

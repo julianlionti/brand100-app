@@ -1,7 +1,8 @@
 import styled from '@emotion/native'
-import { Divider, Text } from 'native-base'
+import { Button, Divider, Text } from 'native-base'
 import React from 'react'
 import { FlatList, RefreshControl } from 'react-native'
+import CustomModal from '../../components/CustomModal/CustomModal'
 import EventItem from '../../components/EventItem'
 import Header from '../../components/Header/Header'
 import PageContainer from '../../components/PageContainer'
@@ -12,7 +13,16 @@ const Title = styled(Text)`
 `
 
 const EventsSelection = () => {
-  const { t, events, isLoading, refreshEvents, selectEvent } = useEventSelection()
+  const {
+    t,
+    events,
+    isLoading,
+    refreshEvents,
+    selectEvent,
+    hasToAskForNotificationPermission,
+    closePermissions,
+    askUserPermissions
+  } = useEventSelection()
   return (
     <PageContainer>
       <Header />
@@ -25,6 +35,13 @@ const EventsSelection = () => {
         data={events}
         ItemSeparatorComponent={() => <Divider my="2" />}
         renderItem={({ item }) => <EventItem onPress={() => selectEvent(item)} {...item} />}
+      />
+      <CustomModal
+        actionBtn={<Button onPress={askUserPermissions}>Ok</Button>}
+        description={t('notifications.permissions_description')}
+        isOpen={hasToAskForNotificationPermission || false}
+        onClose={closePermissions}
+        title={t('notifications.permissions_title')}
       />
     </PageContainer>
   )

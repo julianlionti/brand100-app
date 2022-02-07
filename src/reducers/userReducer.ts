@@ -6,13 +6,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
   cleanAllNotifications,
   cleanError,
+  clearPermissions,
   getUserAgenda,
   login,
   logout,
+  notificationPermission,
   setNotification
 } from '../actions/userActions'
 import { IOnlineAgenda } from '../models/IOnlineAgenda'
 import { INotification } from '../models/INotification'
+import { Platform } from 'react-native'
 
 export interface UserState {
   username: string
@@ -20,6 +23,7 @@ export interface UserState {
   errorLogin: string
   agenda: IOnlineAgenda[]
   notifications: INotification[]
+  hasToAskForNotificationPermission: boolean | null
 }
 
 const initialState: UserState = {
@@ -27,7 +31,8 @@ const initialState: UserState = {
   password: '',
   errorLogin: '',
   agenda: [],
-  notifications: []
+  notifications: [],
+  hasToAskForNotificationPermission: Platform.OS === 'ios'
 }
 
 const reducer = createReducer(initialState, (builder) => {
@@ -59,13 +64,19 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(cleanAllNotifications, (state) => {
     state.notifications = []
   })
+  builder.addCase(notificationPermission.fulfilled, (state, { payload }) => {
+    state.hasToAskForNotificationPermission = payload
+  })
+  builder.addCase(clearPermissions, (state) => {
+    state.hasToAskForNotificationPermission = null
+  })
 })
 
 const persistConfig: PersistConfig<UserState> = {
   key: 'user',
   version: 1,
   storage: AsyncStorage,
-  whitelist: ['username', 'password', 'notifications']
+  whitelist: ['username', 'password', 'notifications', 'hasNotificationPermission']
 }
 const userReducer = persistReducer(persistConfig, reducer)
 

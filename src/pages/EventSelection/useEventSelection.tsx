@@ -3,10 +3,12 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useCallback, useEffect } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import { getEvents } from '../../actions/eventsActions'
+import { clearPermissions, notificationPermission } from '../../actions/userActions'
 import { useAppDispatch } from '../../hooks/redux'
 import { IEvent } from '../../models/IEvent'
 import { useEventsState } from '../../reducers/eventsReducer'
 import { useLoadingState } from '../../reducers/loadingReducer'
+import { useUserState } from '../../reducers/userReducer'
 import { NoEventStackParamList } from '../../routes/NoEventStack'
 import { useT } from '../../translations'
 import Urls from '../../utils/urls'
@@ -17,6 +19,7 @@ const useEventSelection = () => {
   const dispatch = useAppDispatch()
   const { events } = useEventsState()
   const { requests } = useLoadingState()
+  const { hasToAskForNotificationPermission } = useUserState()
   const t = useT()
 
   const isLoading = requests.includes(Urls.events)
@@ -40,7 +43,24 @@ const useEventSelection = () => {
     SplashScreen.hide()
   }, [])
 
-  return { t, events, isLoading, refreshEvents, selectEvent }
+  const closePermissions = () => {
+    dispatch(clearPermissions())
+  }
+
+  const askUserPermissions = () => {
+    dispatch(notificationPermission())
+  }
+
+  return {
+    t,
+    events,
+    isLoading,
+    refreshEvents,
+    selectEvent,
+    hasToAskForNotificationPermission,
+    closePermissions,
+    askUserPermissions
+  }
 }
 
 export default useEventSelection
