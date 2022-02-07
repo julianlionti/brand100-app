@@ -5,7 +5,7 @@ import DrawerListItem from '../DrawerListItem'
 import { Text } from 'native-base'
 import LogoBlanco from '../../assets/images/logo-blanco.png'
 import styled from '@emotion/native'
-import { SafeAreaView } from 'react-native'
+import { SafeAreaView, ScrollView } from 'react-native'
 
 const LogoImage = styled.Image`
   height: 80px;
@@ -28,6 +28,8 @@ const Drawer: React.FC = () => {
         />
       </View>
       <Divider />
+      <ScrollView>
+
       <VStack space="1" pt="1" mx="1">
         <Text>{t('menu.organize')}</Text>
         <VStack alignItems={'center'}>
@@ -39,6 +41,7 @@ const Drawer: React.FC = () => {
           <Text textAlign="center">{socialNetworks}</Text>
         </VStack>
       </VStack>
+      </ScrollView>
     </View>
     </SafeAreaView>
   )

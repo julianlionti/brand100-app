@@ -42,3 +42,4 @@ export const getUserAgenda = createAsyncThunk<IOnlineAgenda[], GetUserAgendaProp
     return modules.map(EventHelpers.legacyToFinalAgenda)
   }
 )
+
