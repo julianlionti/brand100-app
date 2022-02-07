@@ -5,6 +5,7 @@ import DrawerListItem from '../DrawerListItem'
 import { Text } from 'native-base'
 import LogoBlanco from '../../assets/images/logo-blanco.png'
 import styled from '@emotion/native'
+import { SafeAreaView } from 'react-native'
 
 const LogoImage = styled.Image`
   height: 80px;
@@ -14,6 +15,7 @@ const LogoImage = styled.Image`
 const Drawer: React.FC = () => {
   const { menuOptions, t, address, contact, socialNetworks, selected } = useDrawerContent()
   return (
+    <SafeAreaView>
     <View bgColor={'gray.500'} height={'full'}>
       <View bgColor={'white'}>
         <FlatList
@@ -38,6 +40,7 @@ const Drawer: React.FC = () => {
         </VStack>
       </VStack>
     </View>
+    </SafeAreaView>
   )
 }
 

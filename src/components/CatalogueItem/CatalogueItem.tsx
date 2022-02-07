@@ -16,7 +16,7 @@ const CatalogueItem: React.FC<Props> = (props) => {
           alignItems={'center'}
           height={75}
           width={150}
-          resizeMode="center"
+          resizeMode="cover"
           source={logo ? { uri: logo } : undefined}
           alt={`Image from catalogue for brand ${name}`}
         />

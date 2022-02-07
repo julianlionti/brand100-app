@@ -3,21 +3,31 @@ import persistReducer from 'redux-persist/es/persistReducer'
 import { PersistConfig } from 'redux-persist/es/types'
 import { useAppSelector } from '../hooks/redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { cleanError, getUserAgenda, login, logout } from '../actions/userActions'
+import {
+  cleanAllNotifications,
+  cleanError,
+  getUserAgenda,
+  login,
+  logout,
+  setNotification
+} from '../actions/userActions'
 import { IOnlineAgenda } from '../models/IOnlineAgenda'
+import { INotification } from '../models/INotification'
 
 export interface UserState {
   username: string
   password: string
-  agenda: IOnlineAgenda[]
   errorLogin: string
+  agenda: IOnlineAgenda[]
+  notifications: INotification[]
 }
 
 const initialState: UserState = {
   username: '',
   password: '',
+  errorLogin: '',
   agenda: [],
-  errorLogin: ''
+  notifications: []
 }
 
 const reducer = createReducer(initialState, (builder) => {
@@ -38,7 +48,16 @@ const reducer = createReducer(initialState, (builder) => {
     state.errorLogin = action.payload as string
     state.username = ''
     state.password = ''
-    state.agenda = []
+  })
+  builder.addCase(setNotification, (state, action) => {
+    if (state.notifications.some((noti) => noti.id === action.payload.id)) {
+      state.notifications = state.notifications.filter((noti) => noti.id !== action.payload.id)
+    } else {
+      state.notifications.push(action.payload)
+    }
+  })
+  builder.addCase(cleanAllNotifications, (state) => {
+    state.notifications = []
   })
 })
 
@@ -46,7 +65,7 @@ const persistConfig: PersistConfig<UserState> = {
   key: 'user',
   version: 1,
   storage: AsyncStorage,
-  whitelist: ['username', 'password']
+  whitelist: ['username', 'password', 'notifications']
 }
 const userReducer = persistReducer(persistConfig, reducer)
 

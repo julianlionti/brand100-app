@@ -76,6 +76,7 @@ const EventHeader: React.FC<Props> = (props) => {
           )}
           {!canGoBack && (
             <Menu
+              placement="left top"
               trigger={(triggerProps) => (
                 <Pressable accessibilityLabel="More options menu" {...triggerProps}>
                   <MaterialIcon disabled={loading} name="more-vert" size="sm" color="white" />
