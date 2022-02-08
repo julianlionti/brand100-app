@@ -14,7 +14,7 @@ const MapViewer: React.FC<Props> = (props) => {
   const { image } = props
   return (
     <PageContainer bgColor={'white'}>
-      <ReactNativeZoomableView zoomStep={0.5} initialZoom={1} bindToBorders={true}>
+      <ReactNativeZoomableView bindToBorders zoomStep={0.5} initialZoom={1}>
         <FullImage resizeMode="center" source={{ uri: image }} />
       </ReactNativeZoomableView>
     </PageContainer>

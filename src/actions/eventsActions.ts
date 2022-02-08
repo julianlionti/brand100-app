@@ -49,7 +49,7 @@ export const getEvents = createAsyncThunk<GetEventsReturn, GetEventProps | undef
         image: ev.imagen
       })
     )
-    // .filter(EventHelpers.filterEventBy(Config.APP_NAME))
+    .filter(EventHelpers.filterEventBy(Config.APP_NAME))
   }
 )
 
