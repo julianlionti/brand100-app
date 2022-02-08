@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Box, Heading, Image, Text, VStack } from 'native-base'
 import { IActivityDetail } from '../models/IFullEvent'
 import { parseHtml } from '../utils/textUtils'
+import normalize from 'react-native-normalize'
 
 const AgendaDetailItem: React.FC<IActivityDetail> = (props) => {
   const { title, images, description } = props
@@ -14,7 +15,7 @@ const AgendaDetailItem: React.FC<IActivityDetail> = (props) => {
         <View bgColor={'primary.800'} height={0.5} mx={2} my={1} />
         {images.map((img, i) => (
           <Image
-            height={250}
+            height={normalize(250, 'height')}
             key={img}
             my="1"
             resizeMode="cover"

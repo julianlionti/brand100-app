@@ -5,6 +5,7 @@ import EventHeader from '../../components/EventHeader/EventHeader'
 import HasToUpdate from '../../components/HasToUpdate/HasToUpdate'
 import PageContainer from '../../components/PageContainer'
 import useEventHome from './useEventHome'
+import normalize from 'react-native-normalize'
 
 const EventHome = () => {
   const { t, name, date, place, color, showAd, closeAd, ad, openAd } = useEventHome()
@@ -15,12 +16,14 @@ const EventHome = () => {
       <ScrollView>
         <HasToUpdate />
         <VStack py={'2'}>
-          <VStack alignItems={'center'} pb="2" px="2" space={'2'}>
-            <Heading textAlign={"center"}>{date}</Heading>
-            <Heading textAlign={"center"} size={'sm'}>{place}</Heading>
+          <VStack alignItems={'center'} pb="3" px="2" space={'2'}>
+            <Heading textAlign={'center'}>{date}</Heading>
+            <Heading textAlign={'center'} size={'sm'}>
+              {place}
+            </Heading>
           </VStack>
           <Carousel />
-          <VStack alignItems={'center'} py="3" bgColor={color}>
+          <VStack alignItems={'center'} p="3" bgColor={color}>
             <Heading size="sm">{t('event.home.welcome')}</Heading>
             <Heading size="sm">{name}</Heading>
           </VStack>
@@ -34,7 +37,7 @@ const EventHome = () => {
               <Pressable position={'relative'} onPress={openAd}>
                 <Image
                   width={350}
-                  height={500}
+                  height={normalize(500, 'height')}
                   resizeMode="cover"
                   alt={ad.link}
                   source={{ uri: ad.image }}

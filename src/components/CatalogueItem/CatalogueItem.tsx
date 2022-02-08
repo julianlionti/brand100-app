@@ -1,5 +1,6 @@
 import { HStack, Icon, Image, Pressable, Text } from 'native-base'
 import React from 'react'
+import normalize from 'react-native-normalize'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { ICatalogue } from '../../models/IFullEvent'
 
@@ -14,8 +15,8 @@ const CatalogueItem: React.FC<Props> = (props) => {
       <HStack alignItems={'center'} space={2} mr={4}>
         <Image
           alignItems={'center'}
-          height={70}
-          width={120}
+          height={normalize(70, 'height')}
+          width={normalize(120, 'width')}
           m={1}
           resizeMode="contain"
           source={logo ? { uri: logo } : undefined}

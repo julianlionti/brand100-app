@@ -5,6 +5,7 @@ import useSelectedEvent from '../hooks/useSelectedEvent'
 import moment from 'moment'
 import { useT } from '../translations'
 import { Trans } from 'react-i18next'
+import normalize from 'react-native-normalize'
 
 const parsedString = (noiseDate: string) => noiseDate.replace('/Date(', '').replace(')/', '')
 
@@ -28,8 +29,8 @@ const OnlineAgendaItem: React.FC<IOnlineAgenda> = (props) => {
   }, [stateId, t, colors, state])
 
   return (
-    <Box flexDirection={'row'} p={1} height={110}>
-      <Avatar source={{ uri: agendaPhtosUrl + photoUrl }} mr={4} size={100} />
+    <Box flexDirection={'row'} p={1} height={normalize(110, 'height')}>
+      <Avatar source={{ uri: agendaPhtosUrl + photoUrl }} mr={4} size={normalize(100, 'height')} />
       <VStack flex={1} space={2} height={'90%'} justifyContent={'space-between'}>
         <Heading color="darkText" size="sm">{`${name} ${surname}`}</Heading>
         <Text color="darkText">{businessName}</Text>

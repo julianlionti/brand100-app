@@ -37,7 +37,7 @@ export const getUserAgenda = createAsyncThunk<IOnlineAgenda[], GetUserAgendaProp
       url: finalUrl,
       params: { pPass: password, pUser: username.toLowerCase() }
     })
-  
+
     if (response.Retorno && response.Modulos.length === 0) {
       return rejectWithValue(response.Retorno)
     }

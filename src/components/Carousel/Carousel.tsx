@@ -4,18 +4,14 @@ import useCarousel from './useCarousel'
 import styled from '@emotion/native'
 import { FlatList } from 'react-native'
 import DotCounter from '../DotCounter'
-import { View } from 'native-base'
-
-const Root = styled(View)`
-  height: 250px;
-  position: relative;
-`
+import { Box, View } from 'native-base'
+import normalize from 'react-native-normalize'
 
 const Carousel = () => {
   const { images, ref, onScrollList, page, changePage, color } = useCarousel()
 
   return (
-    <Root bgColor={color}>
+    <Box position={'relative'} height={normalize(250, 'height')} bgColor={color}>
       <FlatList
         ref={(e) => (ref.current = e)}
         pagingEnabled
@@ -26,7 +22,7 @@ const Carousel = () => {
         renderItem={({ item }) => <CarouselItem image={item} />}
       />
       <DotCounter actualPage={page} onPress={changePage} list={images} />
-    </Root>
+    </Box>
   )
 }
 

@@ -5,6 +5,7 @@ import EventHeader from '../../components/EventHeader/EventHeader'
 import useWelcome from './useWelcome'
 import { parseHtml } from '../../utils/textUtils'
 import HasToUpdate from '../../components/HasToUpdate/HasToUpdate'
+import normalize from 'react-native-normalize'
 
 const Welcome = () => {
   const { title, welcome, hasImage, image } = useWelcome()
@@ -16,11 +17,11 @@ const Welcome = () => {
       <ScrollView>
         <VStack space="2">
           {hasImage && (
-            <Box p="8" width={'full'} height={350}>
+            <Box p="8" width={'full'} height={normalize(400, 'height')}>
               <Image
                 alt="WelcomeImage"
                 height={'full'}
-                resizeMode="cover"
+                resizeMode="contain"
                 source={{ uri: image }}
               />
             </Box>
