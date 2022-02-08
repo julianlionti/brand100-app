@@ -46,6 +46,12 @@ const prepareImage = (path: string) => {
   return `${imagePrefix}${path}?time=${tick}`
 }
 
+const generateEventUrl = (ev :IFullOriginalEvent) => {
+  const finalUrl = ev.urlAgendaPersonal.substring(0, ev.urlAgendaPersonal.indexOf('/agenda') === -1 ? ev.urlAgendaPersonal.indexOf('/Agenda') : ev.urlAgendaPersonal.indexOf('/agenda'))
+  console.log(ev.urlAgendaPersonal.indexOf('/agenda'))
+  return finalUrl
+}
+
 const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
   active: ev.activo,
   adveryisments: ev.publicidades.map((ad) => ({
@@ -132,7 +138,7 @@ const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
   },
   name: ev.nombre,
   oneToOneAgendaUrl: ev.urlAgendaPersonal,
-  eventUrl: ev.urlAgendaPersonal.substring(0, ev.urlAgendaPersonal.indexOf('/agenda')),
+  eventUrl: generateEventUrl(ev),
   place: ev.lugar,
   sponsors: prepareImage(ev.sponsors),
   startDate: ev.fechaInicio,

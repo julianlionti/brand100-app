@@ -29,14 +29,15 @@ export const getUserAgenda = createAsyncThunk<IOnlineAgenda[], GetUserAgendaProp
     if (agenda.length > 0 && !refresh) return agenda
 
     if (!selectedEvent) throw Error('No selected event')
-    const { eventUrl } = selectedEvent
+    const { eventUrl, oneToOneAgendaUrl } = selectedEvent
     // const eventUrl = oneToOneAgendaUrl.substring(0, oneToOneAgendaUrl.indexOf('/agenda'))
     const finalUrl = `${eventUrl}${Config.AGENDA_SUFFIX}`
     const response = await makeRequest({
       baseURL: '',
       url: finalUrl,
-      params: { pPass: password, pUser: username }
+      params: { pPass: password, pUser: username.toLowerCase() }
     })
+  
     if (response.Retorno && response.Modulos.length === 0) {
       return rejectWithValue(response.Retorno)
     }

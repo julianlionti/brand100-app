@@ -14,9 +14,10 @@ const CatalogueItem: React.FC<Props> = (props) => {
       <HStack alignItems={'center'} space={2} mr={4}>
         <Image
           alignItems={'center'}
-          height={75}
-          width={150}
-          resizeMode="cover"
+          height={70}
+          width={120}
+          m={1}
+          resizeMode="contain"
           source={logo ? { uri: logo } : undefined}
           alt={`Image from catalogue for brand ${name}`}
         />

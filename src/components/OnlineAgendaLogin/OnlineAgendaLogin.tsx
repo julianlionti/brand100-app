@@ -60,8 +60,10 @@ const OnlineAgendaLogin = () => {
             <Heading mb={10} mt={-10} textAlign={'center'}>
               {t('onetoone.login_title')}
             </Heading>
-            <TextInput title={t('onetoone.username')} id="username" />
-            <TextInput title={t('onetoone.password')} id="password" type="password" secure />
+      
+            <TextInput  title={t('onetoone.username')} id="username" />
+            <TextInput  title={t('onetoone.password')} id="password" type="password" secure />
+          
             <Button onPress={submitForm} mt={5}>
               {t('onetoone.login')}
             </Button>
