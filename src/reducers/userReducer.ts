@@ -4,8 +4,11 @@ import { PersistConfig } from 'redux-persist/es/types'
 import { useAppSelector } from '../hooks/redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
+  askForCalendarPermission,
+  checkCalendarPermission,
   cleanAllNotifications,
   cleanError,
+  clearCalendarPermission,
   clearPermissions,
   getUserAgenda,
   login,
@@ -15,7 +18,7 @@ import {
 } from '../actions/userActions'
 import { IOnlineAgenda } from '../models/IOnlineAgenda'
 import { INotification } from '../models/INotification'
-import { Platform } from 'react-native'
+import { PermissionStatus } from 'react-native-permissions'
 
 export interface UserState {
   username: string
@@ -24,6 +27,7 @@ export interface UserState {
   agenda: IOnlineAgenda[]
   notifications: INotification[]
   hasToAskForNotificationPermission: boolean | null
+  calendarPermissionStatus: PermissionStatus | ''
 }
 
 const initialState: UserState = {
@@ -32,7 +36,8 @@ const initialState: UserState = {
   errorLogin: '',
   agenda: [],
   notifications: [],
-  hasToAskForNotificationPermission: null
+  hasToAskForNotificationPermission: null,
+  calendarPermissionStatus: ''
 }
 
 const reducer = createReducer(initialState, (builder) => {
@@ -70,13 +75,28 @@ const reducer = createReducer(initialState, (builder) => {
   builder.addCase(clearPermissions, (state) => {
     state.hasToAskForNotificationPermission = null
   })
+  builder.addCase(checkCalendarPermission.fulfilled, (state, { payload }) => {
+    state.calendarPermissionStatus = payload
+  })
+  builder.addCase(clearCalendarPermission, (state) => {
+    state.calendarPermissionStatus = ''
+  })
+  builder.addCase(askForCalendarPermission.fulfilled, (state, { payload }) => {
+    state.calendarPermissionStatus = payload
+  })
 })
 
 const persistConfig: PersistConfig<UserState> = {
   key: 'user',
   version: 1,
   storage: AsyncStorage,
-  whitelist: ['username', 'password', 'notifications', 'hasNotificationPermission']
+  whitelist: [
+    'username',
+    'password',
+    'notifications',
+    'hasNotificationPermission'
+    // 'hasToAskForCalendarPermission'
+  ]
 }
 const userReducer = persistReducer(persistConfig, reducer)
 

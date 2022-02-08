@@ -6,9 +6,16 @@ import { DateOrEmpty } from '../../components/TimeRange/useTimeRange'
 import { useAppDispatch } from '../../hooks/redux'
 import { createOwnEvent } from '../../actions/eventsActions'
 import { useEventsState } from '../../reducers/eventsReducer'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import moment from 'moment'
+import { check, PERMISSIONS, RESULTS } from 'react-native-permissions'
+import {
+  askForCalendarPermission,
+  checkCalendarPermission,
+  clearCalendarPermission
+} from '../../actions/userActions'
+import { useUserState } from '../../reducers/userReducer'
 
 export interface CreateEventValues {
   title: string
@@ -20,18 +27,6 @@ export interface CreateEventValues {
     end: DateOrEmpty
   }
   eventAlarm: boolean
-}
-
-const initialValues: CreateEventValues = {
-  title: '',
-  description: '',
-  day: '',
-  date: '',
-  range: {
-    start: '',
-    end: ''
-  },
-  eventAlarm: true
 }
 
 const validationSchema = Yup.object().shape({
@@ -53,8 +48,21 @@ const useCreateEvent = () => {
   const dispatch = useAppDispatch()
   const { generalAgenda } = useSelectedEvent()
   const { ownEvents } = useEventsState()
+  const { calendarPermissionStatus } = useUserState()
   const [alreadyExists, setAlreadyExits] = useState(false)
   const navigation = useNavigation()
+
+  const initialValues: CreateEventValues = {
+    title: '',
+    description: '',
+    day: '',
+    date: '',
+    range: {
+      start: '',
+      end: ''
+    },
+    eventAlarm: true
+  }
 
   const onSubmitEvent = (values: CreateEventValues) => {
     const { day, range } = values
@@ -86,6 +94,18 @@ const useCreateEvent = () => {
     setAlreadyExits(false)
   }
 
+  const closePermissionModal = () => {
+    dispatch(clearCalendarPermission())
+  }
+
+  const askForPermissions = () => {
+    dispatch(askForCalendarPermission())
+  }
+
+  useEffect(() => {
+    dispatch(checkCalendarPermission())
+  }, [dispatch])
+
   return {
     t,
     initialValues,
@@ -93,7 +113,12 @@ const useCreateEvent = () => {
     onSubmitEvent,
     days,
     alreadyExists,
-    closeAlreadyExists
+    closeAlreadyExists,
+    closePermissionModal,
+    hasToAskForCalendarPermission: calendarPermissionStatus === 'denied',
+    hasGrantedCalendarPermission: calendarPermissionStatus === 'granted',
+    askForPermissions,
+    isPrepared: calendarPermissionStatus !== ''
   }
 }
 

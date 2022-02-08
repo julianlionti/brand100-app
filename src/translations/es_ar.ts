@@ -86,6 +86,9 @@ export const esAr: Translation = {
   'onetoone.pending': 'Pendiente',
   'onetoone.error_description': 'El usuario o la contraseña son incorrectos',
   'onetoone.error_title': 'Error al iniciar sesión',
+  'onetoone.calendar_permission_title': 'Necesitamos tu permiso',
+  'onetoone.calendar_permission_description':
+    'Para poder agendar un evento en el calendario, es necesario que nos des permiso. Tocá OK para continuar',
   'notifications.no_data': 'No hay notificaciones para mostrar',
   'notifications.delete_all_confirmation_title': '¡Atención!',
   'notifications.delete_all_confirmation_description':
