@@ -68,8 +68,6 @@ const prepareImage = (path: string) => {
 }
 
 const generateEventUrl = (ev: IFullOriginalEvent) => {
-  console.log(ev.urlAgendaPersonal)
-
   const alternatives = ['agenda', 'Agenda', 'Booking', 'booking']
   let agendaIndex = -1
   alternatives.forEach((name) => {
