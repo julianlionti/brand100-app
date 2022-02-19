@@ -8,6 +8,8 @@ import Config from '../utils/Config'
 import EventHelpers from '../utils/eventHelper'
 import { makeRequest } from '../utils/makeRequest'
 import messaging from '@react-native-firebase/messaging'
+import { check, PERMISSIONS, PermissionStatus, request } from 'react-native-permissions'
+import { Platform } from 'react-native'
 
 const prefix = `user/`
 
@@ -17,6 +19,7 @@ export const cleanError = createAction(`${prefix}clean-error`)
 export const setNotification = createAction<INotification>(`${prefix}set-notification`)
 export const cleanAllNotifications = createAction(`${prefix}clean-all-notifications`)
 export const clearPermissions = createAction(`${prefix}clear-permissions`)
+export const clearCalendarPermission = createAction(`${prefix}clear-calendar-permissions`)
 
 type GetUserAgendaProps = { refresh?: boolean } | undefined
 export const getUserAgenda = createAsyncThunk<IOnlineAgenda[], GetUserAgendaProps>(
@@ -63,5 +66,24 @@ export const notificationPermission = createAsyncThunk<boolean>(
     } else {
       return true
     }
+  }
+)
+
+const calendarPermission =
+  Platform.OS === 'android' ? PERMISSIONS.ANDROID.WRITE_CALENDAR : PERMISSIONS.IOS.CALENDARS
+
+export const checkCalendarPermission = createAsyncThunk<PermissionStatus>(
+  `${prefix}check-calendar-permission`,
+  async () => {
+    const status = await check(calendarPermission)
+    return status
+  }
+)
+
+export const askForCalendarPermission = createAsyncThunk<PermissionStatus>(
+  `${prefix}ask-calendar-permissions`,
+  async () => {
+    const wasGranted = await request(calendarPermission)
+    return wasGranted
   }
 )

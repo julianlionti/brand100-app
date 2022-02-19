@@ -18,8 +18,7 @@ module.exports = {
       rules: {
         '@typescript-eslint/no-shadow': ['off'],
         'no-shadow': 'off',
-        'no-undef': 'off',
-        'prettier/prettier': ['error', { endOfLine: 'auto' }]
+        'no-undef': 'off'
       }
     }
   ]
