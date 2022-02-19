@@ -11,22 +11,22 @@ const DownloadEvent = () => {
   return (
     <PageContainer>
       <SafeAreaView>
-      <VStack space={8} alignItems={'center'}>
-        <Heading>{event.name}</Heading>
-        {(isDownloading || isUnzipping) && [
-          <Circle
-            key="circle"
-            progress={percentage}
-            color={isDownloading ? downloadColor : unzippingColor}
-            size={180}
-            showsText
-            indeterminate={isUnzipping}
-          />,
-          <Text key="text" textAlign={'center'}>
-            {t(isDownloading ? 'download.information' : 'download.unzipping')}
-          </Text>
-        ]}
-      </VStack>
+        <VStack space={8} alignItems={'center'}>
+          <Heading>{event.name}</Heading>
+          {(isDownloading || isUnzipping) && [
+            <Circle
+              key="circle"
+              progress={percentage}
+              color={isDownloading ? downloadColor : unzippingColor}
+              size={180}
+              showsText
+              indeterminate={isUnzipping}
+            />,
+            <Text key="text" textAlign={'center'}>
+              {t(isDownloading ? 'download.information' : 'download.unzipping')}
+            </Text>
+          ]}
+        </VStack>
       </SafeAreaView>
     </PageContainer>
   )

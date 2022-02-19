@@ -5,7 +5,7 @@ import EventHelpers from '../utils/eventHelper'
 import { makeRequest } from '../utils/makeRequest'
 import Urls from '../utils/urls'
 import { CreateOwnEvent, FavoriteAgendaType, IDownloadProgress } from '../reducers/eventsReducer'
-import { ICatalogue, IFullEvent } from '../models/IFullEvent'
+import { ICatalogue, IFullEvent, ILang } from '../models/IFullEvent'
 import { IFullOriginalEvent, IOriginalUpdate } from '../models/IFullOriginalEvent'
 import RNFetchBlob from 'rn-fetch-blob'
 import Config from '../utils/Config'
@@ -46,7 +46,11 @@ export const getEvents = createAsyncThunk<GetEventsReturn, GetEventProps | undef
           active: ev.activo,
           id: ev.id,
           name: ev.nombre,
-          lang: ev.idiomas,
+          lang: ev.idiomas.map((lang) => ({
+            id: lang.id,
+            name: lang.nombre,
+            xmlName: lang.nombreXml
+          })),
           image: ev.imagen
         })
       )
@@ -54,12 +58,13 @@ export const getEvents = createAsyncThunk<GetEventsReturn, GetEventProps | undef
   }
 )
 
-type DownloadEventProps = { id: number }
+type DownloadEventProps = { id: number; lang: ILang[] }
 export const downloadEvent = createAsyncThunk<IFullEvent | null, DownloadEventProps>(
   `${prefix}download-event`,
-  async ({ id }, { dispatch, getState }) => {
+  async ({ id, lang }, { dispatch, getState }) => {
     const { eventsReducer } = getState() as RootState
     const { isDownloading } = eventsReducer
+    const langCode = lang.find((l) => l.id === EventHelpers.langCode)?.id || 1
 
     if (isDownloading) return eventsReducer.selectedEvent
     dispatch(setIsDownloading(true))
@@ -73,7 +78,7 @@ export const downloadEvent = createAsyncThunk<IFullEvent | null, DownloadEventPr
         'POST',
         `${Config.BASE_URL}${Urls.downloadEvent}`,
         { 'Content-Type': 'application/json' },
-        JSON.stringify({ id })
+        JSON.stringify({ id, codigoIdioma: langCode })
       )
       .progress((loaded, total) => {
         dispatch(setProgress({ loaded, total }))

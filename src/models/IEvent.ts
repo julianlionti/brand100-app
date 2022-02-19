@@ -1,8 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ILang } from './IFullEvent'
+import { IOriginalLang } from './IFullOriginalEvent'
+
 export interface IEvent {
   active?: boolean
   id: number
-  lang: any[]
+  lang: ILang[]
   image: string
   name: string
 }
@@ -10,7 +12,7 @@ export interface IEvent {
 export interface IEventOriginal {
   activo: boolean
   id: number
-  idiomas: any[]
+  idiomas: IOriginalLang[]
   imagen: string
   nombre: string
 }

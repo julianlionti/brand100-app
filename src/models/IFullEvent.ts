@@ -1,3 +1,9 @@
+export interface ILang {
+  id: number
+  name: string
+  xmlName: string
+}
+
 export interface IWelcome {
   hasImage: boolean
   image: string

@@ -22,11 +22,11 @@ const useDownloadEvent = () => {
   const { event } = params || {}
   const finalEvent = event || selectedEvent
   const { unziping } = errors
-  const { id } = finalEvent
+  const { id, lang } = finalEvent
 
   useEffect(() => {
-    dispatch(downloadEvent({ id }))
-  }, [dispatch, id])
+    dispatch(downloadEvent({ id, lang }))
+  }, [dispatch, id, lang])
 
   useEffect(() => {
     if (unziping) {

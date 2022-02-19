@@ -1,11 +1,7 @@
 import { Translation } from '.'
-import Config from '../utils/Config'
 
 export const esAr: Translation = {
-  welcome:
-    Config.APP_NAME === 'BRAND'
-      ? 'Bienvenidos #Brand100\nGrandes decisores en la compra de espacios publicitarios.\nPara empezar, seleccione el evento del que participa. Si lo desea podrá cambiarlo luego.'
-      : `Bienvenidos al evento ${'Retial 100'}. Para empezar, seleccione el evento del que participa. Si lo desea podrá cambiarlo luego.`,
+  welcome: 'Bienvenidos a {{event}}',
   yes: '¡Si!',
   cancel: 'Cancelar',
   scheduled: '{{start}} a {{end}}',
@@ -65,6 +61,7 @@ export const esAr: Translation = {
   'onetoone.delete': 'Borrar',
   'onetoone.empty_agenda': 'Todavia no tenés ningun evento favorito. ¿Qué estás esperando?',
   'onetoone.empty_catalogue': 'Todavia no tenés ningun catálogo favorito. Agregalo!',
+  'onetoone.empty_onetoone_agenda': 'No hay reuniones planeadas',
   'onetoone.save': 'Grabar evento',
   'onetoone.reset': 'Limpiar formulario',
   'onetoone.minutes': 'Minuto',

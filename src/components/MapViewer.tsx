@@ -1,22 +1,27 @@
 import React from 'react'
 import PageContainer from './PageContainer'
 import { IMap } from '../models/IFullEvent'
-import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView'
-import styled from '@emotion/native'
-
-const FullImage = styled.Image`
-  width: 100%;
-  height: 100%;
-`
+import ImageZoom from 'react-native-image-pan-zoom'
+import { Dimensions } from 'react-native'
+import normalize from 'react-native-normalize'
+import { Image } from 'native-base'
 
 type Props = IMap
 const MapViewer: React.FC<Props> = (props) => {
-  const { image } = props
+  const { image, name } = props
+
+  const imageSize = normalize(350)
+
   return (
     <PageContainer bgColor={'white'}>
-      <ReactNativeZoomableView bindToBorders zoomStep={0.5} initialZoom={1}>
-        <FullImage resizeMode="center" source={{ uri: image }} />
-      </ReactNativeZoomableView>
+      <ImageZoom
+        cropWidth={Dimensions.get('window').width}
+        cropHeight={Dimensions.get('window').height}
+        imageHeight={imageSize}
+        imageWidth={imageSize}
+      >
+        <Image alt={image} w={imageSize} h={imageSize} source={{ uri: image }} />
+      </ImageZoom>
     </PageContainer>
   )
 }

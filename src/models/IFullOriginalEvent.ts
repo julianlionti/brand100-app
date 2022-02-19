@@ -1,3 +1,9 @@
+export interface IOriginalLang {
+  id: number
+  nombre: string
+  nombreXml: string
+}
+
 export interface IOriginalWelcome {
   existeImagen: boolean
   imagen: string

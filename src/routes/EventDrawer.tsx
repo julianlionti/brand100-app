@@ -4,7 +4,7 @@ import DrawerContent from '../components/DrawerContent/DrawerContent'
 import Loading from '../components/Loading'
 import EventHeader from '../components/EventHeader/EventHeader'
 
-const EventHome = lazy(() => import('../pages/EventHome/EventHome'))
+const HomeStack = lazy(() => import('./HomeStack'))
 const Welcome = lazy(() => import('../pages/Welcome/Welcome'))
 const Maps = lazy(() => import('../pages/Maps/Maps'))
 const GeneralAgendaStack = lazy(() => import('./GeneralAgendaStack'))
@@ -41,7 +41,7 @@ const EventDrawer = () => {
       <Drawer.Screen name="Home">
         {() => (
           <WithSuspense>
-            <EventHome />
+            <HomeStack />
           </WithSuspense>
         )}
       </Drawer.Screen>

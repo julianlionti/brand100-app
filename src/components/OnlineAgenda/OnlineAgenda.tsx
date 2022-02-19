@@ -1,13 +1,23 @@
 import React from 'react'
-import { Divider, SectionList } from 'native-base'
+import { Divider, Heading, SectionList, Text } from 'native-base'
 import PageContainer from '../PageContainer'
 import useOnlineAgenda from './useOnlineAgenda'
 import OnlineAgendaItem from '../OnlineAgendaItem'
 import FavoriteAgendaSection from '../FavoriteAgendaSection/FavoriteAgendaSection'
 import { RefreshControl } from 'react-native'
+import EmptyListRoot from '../EmptyListRoot'
 
 const OnlineAgenda = () => {
-  const { agenda, isLoading, refreshItems } = useOnlineAgenda()
+  const { t, agenda, isLoading, refreshItems } = useOnlineAgenda()
+
+  if (agenda.length === 0)
+    return (
+      <EmptyListRoot>
+        <Heading textAlign={'center'} color={'darkText'}>
+          {t('onetoone.empty_onetoone_agenda')}
+        </Heading>
+      </EmptyListRoot>
+    )
 
   return (
     <PageContainer bgColor={isLoading ? undefined : 'white'}>

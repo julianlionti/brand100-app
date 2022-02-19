@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import { Text, View } from 'native-base'
 import { parseDocument, ElementType } from 'htmlparser2'
@@ -40,6 +41,7 @@ export const parseHtml = (text: string): any[] => {
   const renderTextNode = (c: any, i: number) => {
     return (
       <Text
+        py={c.parent.name === 'br' ? 10 : 0}
         fontStyle={c.parent.name === 'i' ? 'italic' : 'normal'}
         fontWeight={c.parent.name === 'b' ? 'bold' : 'normal'}
         key={i}
@@ -48,14 +50,11 @@ export const parseHtml = (text: string): any[] => {
       </Text>
     )
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderElement = (c: any, i: number) => {
     const Wrapper = ['strong', 'b', 'br', 'p', 'i'].indexOf(c.name) > -1 ? Text : View
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return <Wrapper key={i}>{c.children.map((ce: any, ie: any) => renderNode(ce, ie))}</Wrapper>
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderNode = (c: any, i: number) => {
     switch (c.type) {
       case ElementType.Text:

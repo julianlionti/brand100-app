@@ -1,6 +1,7 @@
 import i18n, { StringMap, TOptions } from 'i18next'
 import { useCallback } from 'react'
 import { initReactI18next, useTranslation } from 'react-i18next'
+import EventHelpers from '../utils/eventHelper'
 import { enUs } from './en_us'
 import { esAr } from './es_ar'
 // import { esAr } from './es_ar'
@@ -82,6 +83,7 @@ export type Translations =
   | 'onetoone.confirm'
   | 'onetoone.pending'
   | 'onetoone.error_title'
+  | 'onetoone.empty_onetoone_agenda'
   | 'onetoone.error_description'
   | 'onetoone.calendar_permission_title'
   | 'onetoone.calendar_permission_description'
@@ -103,7 +105,8 @@ export const initTranslations = (): void => {
       es: { translation: esAr }
     },
     fallbackLng: 'es',
-    interpolation: { escapeValue: false }
+    interpolation: { escapeValue: false },
+    lng: EventHelpers.deviceLang
   })
 }
 

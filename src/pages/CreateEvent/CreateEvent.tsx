@@ -64,9 +64,9 @@ const CreateEvent = () => {
               />
               <TimeRange id="range" />
               <Switch
-                onTouchEnd={() => {
-                  console.log('Touched')
-                }}
+                // onTouchEnd={() => {
+                //   console.log('Touched')
+                // }}
                 id="eventAlarm"
                 disabled={!hasGrantedCalendarPermission}
                 title={t('onetoone.create_calendar_event')}

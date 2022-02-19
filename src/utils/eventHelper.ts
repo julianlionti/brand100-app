@@ -1,3 +1,4 @@
+import { NativeModules, Platform } from 'react-native'
 import fs from 'react-native-fs'
 import { IEvent } from '../models/IEvent'
 import {
@@ -11,6 +12,26 @@ import { IFullOriginalEvent } from '../models/IFullOriginalEvent'
 import { IOnlineAgenda } from '../models/IOnlineAgenda'
 import { IOriginalOnlineAgenda } from '../models/IOriginalOnlineAgenda'
 import Config, { APPS_TYPE } from './Config'
+
+const deviceLanguage: string =
+  Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale ||
+      NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
+    : NativeModules.I18nManager.localeIdentifier
+
+const deviceLang = deviceLanguage.substring(0, deviceLanguage.indexOf('_'))
+const langCode = deviceLang === 'es' ? 1 : 2
+
+const getHashedTitle = () => {
+  switch (Config.APP_NAME) {
+    case 'BRAND':
+      return '#Brand100'
+    case 'RETAIL':
+      return '#Retail100'
+    default:
+      return 'NO EVENT IN .ENV'
+  }
+}
 
 const getTitle = () => {
   switch (Config.APP_NAME) {
@@ -46,9 +67,18 @@ const prepareImage = (path: string) => {
   return `${imagePrefix}${path}?time=${tick}`
 }
 
-const generateEventUrl = (ev :IFullOriginalEvent) => {
-  const finalUrl = ev.urlAgendaPersonal.substring(0, ev.urlAgendaPersonal.indexOf('/agenda') === -1 ? ev.urlAgendaPersonal.indexOf('/Agenda') : ev.urlAgendaPersonal.indexOf('/agenda'))
-  console.log(ev.urlAgendaPersonal.indexOf('/agenda'))
+const generateEventUrl = (ev: IFullOriginalEvent) => {
+  console.log(ev.urlAgendaPersonal)
+
+  const alternatives = ['agenda', 'Agenda', 'Booking', 'booking']
+  let agendaIndex = -1
+  alternatives.forEach((name) => {
+    if (ev.urlAgendaPersonal.indexOf(name) > agendaIndex) {
+      agendaIndex = ev.urlAgendaPersonal.indexOf(name)
+    }
+  })
+
+  const finalUrl = ev.urlAgendaPersonal.substring(0, agendaIndex)
   return finalUrl
 }
 
@@ -218,7 +248,10 @@ const getColorPallete = (event: APPS_TYPE) => {
 }
 
 const EventHelpers = {
+  deviceLang,
+  langCode,
   getTitle,
+  getHashedTitle,
   filterEventBy,
   legacyToFinalEvent,
   legacyToFinalAgenda,

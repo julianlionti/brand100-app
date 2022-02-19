@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Linking } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { useEffect } from 'react'
 import SplashScreen from 'react-native-splash-screen'
-import { checkForUpdates, setAlreadyShownAds } from '../../actions/eventsActions'
+import { checkForUpdates } from '../../actions/eventsActions'
 import { useAppDispatch } from '../../hooks/redux'
 import useSelectedEvent from '../../hooks/useSelectedEvent'
 import { useEventsState } from '../../reducers/eventsReducer'
@@ -9,36 +9,17 @@ import { useT } from '../../translations'
 
 const useEventHome = () => {
   const t = useT()
+  const { navigate } = useNavigation<any>()
   const dispatch = useAppDispatch()
   const { alreadyShownAds } = useEventsState()
   const { color, place, date, name, adveryisments } = useSelectedEvent()
-  const [showAd, setShowAdd] = useState(true)
-
-  const selectedAd = useMemo(
-    () => adveryisments[Math.floor(Math.random() * adveryisments.length)],
-    [adveryisments]
-  )
 
   useEffect(() => {
-    if (alreadyShownAds) {
-      setShowAdd(false)
+    const selectedAd = adveryisments[Math.floor(Math.random() * adveryisments.length)]
+    if (!alreadyShownAds && selectedAd) {
+      navigate('AdModal', selectedAd)
     }
-  }, [alreadyShownAds])
-
-  const closeAd = useCallback(() => {
-    dispatch(setAlreadyShownAds(true))
-    setShowAdd(false)
-  }, [dispatch])
-
-  const { link } = selectedAd || {}
-  const openAd = useCallback(async () => {
-    if (link) {
-      const canOpen = await Linking.canOpenURL(link)
-      if (canOpen) {
-        Linking.openURL(link)
-      }
-    }
-  }, [link])
+  }, [alreadyShownAds, navigate, adveryisments])
 
   useEffect(() => {
     dispatch(checkForUpdates())
@@ -53,11 +34,7 @@ const useEventHome = () => {
     color,
     place,
     date,
-    name,
-    showAd,
-    closeAd,
-    openAd,
-    ad: selectedAd ? { link: selectedAd.link, image: selectedAd.vertical } : undefined
+    name
   }
 }
 

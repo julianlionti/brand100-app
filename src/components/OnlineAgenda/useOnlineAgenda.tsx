@@ -16,18 +16,26 @@ const useOnlineAgenda = () => {
 
   const sections = useMemo(() => {
     const initialSection: { title: string; eventDay: number; data: IOnlineAgenda[] }[] = []
-    return agenda.reduce((acc, it) => {
-      const exists = acc.find((sec) => sec.eventDay === it.eventDay)
-      if (it.eventDay === 0) return acc
-      if (exists) {
-        exists.data.push(it)
-        return acc
-      }
-      return [
-        ...acc,
-        { title: `${t('agenda.day')} ${it.eventDay}`, eventDay: it.eventDay, data: [it] }
-      ].sort((a, b) => a.eventDay - b.eventDay)
-    }, initialSection)
+    return agenda
+      .reduce((acc, it) => {
+        const isCancelled = it.stateId === 5
+        const exists = acc.find((sec) => sec.eventDay === it.eventDay)
+        if (it.eventDay === 0) return acc
+        if (exists) {
+          if (!isCancelled) exists.data.push(it)
+          return acc
+        }
+
+        const data = []
+        if (!isCancelled) {
+          data.push(it)
+        }
+        return [
+          ...acc,
+          { title: `${t('agenda.day')} ${it.eventDay}`, eventDay: it.eventDay, data }
+        ].sort((a, b) => a.eventDay - b.eventDay)
+      }, initialSection)
+      .filter((e) => e.data.length > 0)
   }, [agenda, t])
 
   const isLoading = !!username && !agenda.length
@@ -36,7 +44,7 @@ const useOnlineAgenda = () => {
     dispatch(getUserAgenda({ refresh: true }))
   }, [dispatch])
 
-  return { agenda: sections, username, isLoading, refreshItems }
+  return { t, agenda: sections, username, isLoading, refreshItems }
 }
 
 export default useOnlineAgenda

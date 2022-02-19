@@ -1,14 +1,16 @@
 import styled from '@emotion/native'
-import { Button, Divider, Text } from 'native-base'
+import { Button, Divider, Heading } from 'native-base'
 import React from 'react'
+import { Trans } from 'react-i18next'
 import { FlatList, RefreshControl } from 'react-native'
 import CustomModal from '../../components/CustomModal/CustomModal'
 import EventItem from '../../components/EventItem'
 import Header from '../../components/Header/Header'
 import PageContainer from '../../components/PageContainer'
+import EventHelpers from '../../utils/eventHelper'
 import useEventSelection from './useEventSelection'
 
-const Title = styled(Text)`
+const Title = styled(Heading)`
   margin: 8px 0;
 `
 
@@ -27,7 +29,7 @@ const EventsSelection = () => {
     <PageContainer>
       <Header />
       <Title textAlign="center" bold>
-        {t('welcome')}
+        <Trans i18nKey={'welcome'} values={{ event: EventHelpers.getHashedTitle() }} />
       </Title>
       <FlatList
         keyExtractor={(item) => item.name}

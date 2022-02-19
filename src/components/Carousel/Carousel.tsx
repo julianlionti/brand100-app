@@ -1,10 +1,9 @@
 import React from 'react'
 import CarouselItem from '../CarouselItem'
 import useCarousel from './useCarousel'
-import styled from '@emotion/native'
 import { FlatList } from 'react-native'
 import DotCounter from '../DotCounter'
-import { Box, View } from 'native-base'
+import { Box } from 'native-base'
 import normalize from 'react-native-normalize'
 
 const Carousel = () => {
@@ -16,6 +15,7 @@ const Carousel = () => {
         ref={(e) => (ref.current = e)}
         pagingEnabled
         horizontal
+        showsHorizontalScrollIndicator={false}
         onMomentumScrollEnd={onScrollList}
         keyExtractor={(item) => item}
         data={images}

@@ -1,14 +1,13 @@
-import { Heading, Image, Modal, VStack, Pressable, Button, ScrollView } from 'native-base'
+import { Heading, VStack, ScrollView } from 'native-base'
 import React from 'react'
 import Carousel from '../../components/Carousel/Carousel'
 import EventHeader from '../../components/EventHeader/EventHeader'
 import HasToUpdate from '../../components/HasToUpdate/HasToUpdate'
 import PageContainer from '../../components/PageContainer'
 import useEventHome from './useEventHome'
-import normalize from 'react-native-normalize'
 
 const EventHome = () => {
-  const { t, name, date, place, color, showAd, closeAd, ad, openAd } = useEventHome()
+  const { t, name, date, place, color } = useEventHome()
 
   return (
     <PageContainer>
@@ -29,15 +28,15 @@ const EventHome = () => {
           </VStack>
         </VStack>
       </ScrollView>
-      {ad && (
+      {/* {ad && (
         <Modal isOpen={showAd} onClose={closeAd}>
           <Modal.Content>
             <Modal.CloseButton />
             <Modal.Body>
               <Pressable position={'relative'} onPress={openAd}>
                 <Image
-                  width={350}
-                  height={normalize(500, 'height')}
+                  width={Dimensions.get('window').width - normalize(10, 'width')}
+                  height={Dimensions.get('window').height - normalize(10, 'height')}
                   resizeMode="cover"
                   alt={ad.link}
                   source={{ uri: ad.image }}
@@ -56,7 +55,7 @@ const EventHome = () => {
             </Modal.Body>
           </Modal.Content>
         </Modal>
-      )}
+      )} */}
     </PageContainer>
   )
 }

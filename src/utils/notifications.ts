@@ -16,7 +16,7 @@ const displayNotification = async (noti: NotificationProps) => {
     id: Config.APP_NAME,
     name: EventHelpers.getTitle()
   })
-  console.log(largeIcon)
+
   await notifee.displayNotification({
     title,
     body,

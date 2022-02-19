@@ -36,7 +36,7 @@ const Drawer: React.FC = () => {
               <Box py="1">
                 <Image
                   alt={EventHelpers.getTitle()}
-                  width={120}
+                  width={normalize(100, 'width')}
                   height={normalize(60, 'height')}
                   source={LogoBlanco}
                   resizeMode="center"
