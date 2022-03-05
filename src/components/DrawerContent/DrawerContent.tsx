@@ -39,7 +39,7 @@ const Drawer: React.FC = () => {
                   width={normalize(100, 'width')}
                   height={normalize(60, 'height')}
                   source={LogoBlanco}
-                  resizeMode="center"
+                  resizeMode="contain"
                 />
               </Box>
               <Text textAlign="center">{address}</Text>

@@ -11,6 +11,7 @@ import RNFetchBlob from 'rn-fetch-blob'
 import Config from '../utils/Config'
 import { unzip } from 'react-native-zip-archive'
 import { FavoriteType } from '../pages/OneToOneAgenda/useOneToOneAgenda'
+import messaging from '@react-native-firebase/messaging'
 
 const fs = RNFetchBlob.fs
 const prefix = `events/`
@@ -99,13 +100,21 @@ export const downloadEvent = createAsyncThunk<IFullEvent | null, DownloadEventPr
     const legacyEvent = JSON.parse(legacyString) as IFullOriginalEvent
     const selectedEvent = EventHelpers.legacyToFinalEvent(legacyEvent)
     dispatch(setIsUnzipping(false))
+
+    messaging().subscribeToTopic(EventHelpers.generateEventTopic({ id, langCode }))
     return selectedEvent
   }
 )
 
 export const cleanSelectedEvent = createAsyncThunk<null>(
   `${prefix}clean-selected-event`,
-  async () => {
+  async (_, { getState }) => {
+    const { eventsReducer } = getState() as RootState
+    const { selectedEvent } = eventsReducer
+    if (selectedEvent) {
+      const { id, lang } = selectedEvent
+      messaging().unsubscribeFromTopic(EventHelpers.generateEventTopic({ id, langCode: lang }))
+    }
     await fs.unlink(EventHelpers.resourcesPath)
     return null
   }

@@ -20,7 +20,7 @@ const MapViewer: React.FC<Props> = (props) => {
         imageHeight={imageSize}
         imageWidth={imageSize}
       >
-        <Image alt={image} w={imageSize} h={imageSize} source={{ uri: image }} />
+        <Image alt={image} resizeMode="contain" w={imageSize} h={imageSize} source={{ uri: image }} />
       </ImageZoom>
     </PageContainer>
   )

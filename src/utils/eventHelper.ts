@@ -67,6 +67,9 @@ const prepareImage = (path: string) => {
   return `${imagePrefix}${path}?time=${tick}`
 }
 
+type GenerateEventTopicProps = {id:number, langCode:number}
+const generateEventTopic = ({id,langCode}:GenerateEventTopicProps) => `i-evento-${id}-${langCode}` 
+
 const generateEventUrl = (ev: IFullOriginalEvent) => {
   const alternatives = ['agenda', 'Agenda', 'Booking', 'booking']
   let agendaIndex = -1
@@ -249,6 +252,7 @@ const EventHelpers = {
   deviceLang,
   langCode,
   getTitle,
+  generateEventTopic,
   getHashedTitle,
   filterEventBy,
   legacyToFinalEvent,

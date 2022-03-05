@@ -34,8 +34,6 @@ const useMain = () => {
       })
     })
 
-    messaging().subscribeToTopic('testtopic')
-
     return unsubscribe
   }, [dispatch, selectedEvent])
 

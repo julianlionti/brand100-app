@@ -49,7 +49,7 @@ const EventHeader: React.FC<Props> = (props) => {
     <>
       <StatusBar barStyle="light-content" backgroundColor={colors.gray[800]} />
       <Box safeAreaTop bg={colors.gray[400]} />
-      <HStack bg="gray.700" px="1" justifyContent="space-between" alignItems="center">
+      <HStack bg="gray.700" px="1" zIndex={50} justifyContent="space-between" alignItems="center">
         <HStack alignItems="center">
           <IconButton
             disabled={loading}
