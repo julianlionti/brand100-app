@@ -59,13 +59,19 @@ export const getEvents = createAsyncThunk<GetEventsReturn, GetEventProps | undef
   }
 )
 
-type DownloadEventProps = { id: number; lang: ILang[] }
+type DownloadEventProps = { id: number; lang: ILang[] | number }
 export const downloadEvent = createAsyncThunk<IFullEvent | null, DownloadEventProps>(
   `${prefix}download-event`,
   async ({ id, lang }, { dispatch, getState }) => {
     const { eventsReducer } = getState() as RootState
     const { isDownloading } = eventsReducer
-    const langCode = lang.find((l) => l.id === EventHelpers.langCode)?.id || 1
+    let langCode = 1
+    if (typeof lang === "number") {
+      langCode = lang
+    }
+    else {
+      langCode =  lang.find((l) => l.id === EventHelpers.langCode)?.id || 1
+    }
 
     if (isDownloading) return eventsReducer.selectedEvent
     dispatch(setIsDownloading(true))

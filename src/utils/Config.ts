@@ -4,7 +4,8 @@ export type APPS_TYPE = 'BRAND' | 'RETAIL'
 const Config = {
   APP_NAME: APP_NAME as APPS_TYPE,
   BASE_URL: BASE_URL as string,
-  AGENDA_SUFFIX: '/Agenda/Agenda/getJson.asmx/Agenda'
+  AGENDA_SUFFIX: '/Agenda/Agenda/getJson.asmx/Agenda',
+  BOOKING_SUFFIX: '/Booking/Booking/getJson.asmx/Booking'
 }
 
 export default Config

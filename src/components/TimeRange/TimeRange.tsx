@@ -21,7 +21,7 @@ const TimeRange: React.FC<TimeRangeProps> = (props) => {
                 {t('onetoone.event_start')}
               </FormControl.Label>
               <Input
-                value={start ? moment(start).format('HH:mm') : ''}
+                value={start ? moment(start).zone("-0300").format('HH:mm') : ''}
                 placeholder={t('onetoone.event_start_placeholder') as string}
                 editable={false}
               />
@@ -33,7 +33,7 @@ const TimeRange: React.FC<TimeRangeProps> = (props) => {
             <FormControl isInvalid={isInvalid}>
               <FormControl.Label>{t('onetoone.event_end')}</FormControl.Label>
               <Input
-                value={end ? moment(end).format('HH:mm') : ''}
+                value={end ? moment(end).zone("-0300").format('HH:mm') : ''}
                 placeholder={t('onetoone.event_end_placeholder') as string}
                 editable={false}
               />

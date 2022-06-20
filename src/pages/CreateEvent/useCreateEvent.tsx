@@ -68,8 +68,8 @@ const useCreateEvent = () => {
     const { day, range } = values
     const numberDay = parseInt(day, 10)
     const finalRange = {
-      end: range.end ? moment(range.end).format('HH:mm') : '',
-      start: range.start ? moment(range.start).format('HH:mm') : ''
+      end: range.end ? moment(range.end).zone("-0300").format('HH:mm') : '',
+      start: range.start ? moment(range.start).zone("-0300").format('HH:mm') : ''
     }
 
     const exists = ownEvents.find(
