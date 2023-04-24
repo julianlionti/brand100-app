@@ -67,19 +67,23 @@ const prepareImage = (path: string) => {
   return `${imagePrefix}${path}?time=${tick}`
 }
 
-type GenerateEventTopicProps = {id:number, langCode:number}
-const generateEventTopic = ({id,langCode}:GenerateEventTopicProps) => `i-evento-${id}-${langCode}` 
+type GenerateEventTopicProps = { id: number; langCode: number }
+const generateEventTopic = ({ id, langCode }: GenerateEventTopicProps) =>
+  `i-evento-${id}-${langCode}`
 
 const generateEventUrl = (ev: IFullOriginalEvent) => {
+  let isBooking = false
   const alternatives = ['agenda', 'Agenda', 'Booking', 'booking']
   let agendaIndex = -1
   alternatives.forEach((name) => {
     if (ev.urlAgendaPersonal.indexOf(name) > agendaIndex) {
+      if (name === 'Booking' || name === 'booking') isBooking = true
       agendaIndex = ev.urlAgendaPersonal.indexOf(name)
     }
   })
 
-  const finalUrl = ev.urlAgendaPersonal.substring(0, agendaIndex)
+  const finalUrl = ev.urlAgendaPersonal.substring(0, agendaIndex).replace(/\/$/, '');
+  console.log(finalUrl)
   return finalUrl
 }
 

@@ -16,8 +16,8 @@ const OnlineAgendaItem: React.FC<IOnlineAgenda> = (props) => {
   const { agendaPhtosUrl } = useSelectedEvent()
 
   const schedule = useMemo(() => {
-    const start = moment(parsedString(startHour), 'x').format('HH:mm')
-    const end = moment(parsedString(endHour), 'x').format('HH:mm')
+    const start = moment(parsedString(startHour), 'x').zone("-0300").format('HH:mm')
+    const end = moment(parsedString(endHour), 'x').zone("-0300").format('HH:mm')
 
     return { start, end }
   }, [startHour, endHour])
