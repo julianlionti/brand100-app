@@ -12,7 +12,13 @@ const CatalogueItem: React.FC<Props> = (props) => {
   const { name, logo, onPress } = props
   return (
     <Pressable onPress={onPress}>
-      <HStack alignItems={'center'} space={2} mr={4}>
+      <HStack
+        minHeight={normalize(80, 'height')}
+        maxHeight={normalize(80, 'height')}
+        alignItems={'center'}
+        space={2}
+        mr={4}
+      >
         <Image
           alignItems={'center'}
           height={normalize(70, 'height')}
