@@ -6,6 +6,7 @@ import moment from 'moment'
 import { useT } from '../translations'
 import { Trans } from 'react-i18next'
 import normalize from 'react-native-normalize'
+import 'moment-timezone'
 
 const parsedString = (noiseDate: string) => noiseDate.replace('/Date(', '').replace(')/', '')
 
@@ -16,8 +17,12 @@ const OnlineAgendaItem: React.FC<IOnlineAgenda> = (props) => {
   const { agendaPhtosUrl } = useSelectedEvent()
 
   const schedule = useMemo(() => {
-    const start = moment(parsedString(startHour), 'x').zone("-0300").format('HH:mm')
-    const end = moment(parsedString(endHour), 'x').zone("-0300").format('HH:mm')
+    const start = moment(parsedString(startHour), 'x')
+      .tz('America/Argentina/Buenos_Aires')
+      .format('HH:mm')
+    const end = moment(parsedString(endHour), 'x')
+      .tz('America/Argentina/Buenos_Aires')
+      .format('HH:mm')
 
     return { start, end }
   }, [startHour, endHour])
@@ -40,7 +45,7 @@ const OnlineAgendaItem: React.FC<IOnlineAgenda> = (props) => {
           <Trans i18nKey={'scheduled'} values={schedule} />
         </Heading>
         <Text fontWeight={'bold'} color={meetingState.color} textAlign={'right'}>
-          {meetingState.text}
+          {meetingState.text?.toString()}
         </Text>
       </VStack>
     </Box>

@@ -7,9 +7,9 @@ const FormButtons = () => {
   return (
     <HStack space={2} justifyContent={'flex-end'} pt="3">
       <Button onPress={() => resetForm()} variant={'link'}>
-        {t('onetoone.reset')}
+        {t('onetoone.reset')?.toString()}
       </Button>
-      <Button onPress={submitForm}>{t('onetoone.save')}</Button>
+      <Button onPress={submitForm}>{t('onetoone.save')?.toString()}</Button>
     </HStack>
   )
 }

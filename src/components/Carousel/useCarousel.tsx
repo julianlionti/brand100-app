@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import useSelectedEvent from '../../hooks/useSelectedEvent'
 
@@ -10,12 +10,13 @@ const useCarousel = () => {
   const { images } = useSelectedEvent()
   const [restart, setRestart] = useState(false)
   const { color } = useSelectedEvent()
+  const finalImages = useMemo(() => [...new Set(images)], [images])
 
   useEffect(() => {
     if (interval.current) clearInterval(interval.current)
     interval.current = setInterval(() => {
       setPage((act) => {
-        if (act === images.length - 1) return 0
+        if (act === finalImages.length - 1) return 0
         return act + 1
       })
     }, timeLapse)
@@ -24,7 +25,7 @@ const useCarousel = () => {
         clearInterval(interval.current)
       }
     }
-  }, [images, restart])
+  }, [finalImages, restart])
 
   useEffect(() => {
     if (!flatListRef.current) throw Error('No ref set to flatlist')
@@ -44,7 +45,7 @@ const useCarousel = () => {
     setRestart((e) => !e)
   }, [])
 
-  return { images, page, ref: flatListRef, onScrollList, changePage, color }
+  return { images: finalImages, page, ref: flatListRef, onScrollList, changePage, color }
 }
 
 export default useCarousel

@@ -4,7 +4,7 @@ import { IOriginalLang } from './IFullOriginalEvent'
 export interface IEvent {
   active?: boolean
   id: number
-  lang: ILang[]
+  availableLangs: ILang[]
   image: string
   name: string
 }

@@ -14,7 +14,7 @@ const OnlineAgenda = () => {
     return (
       <EmptyListRoot>
         <Heading textAlign={'center'} color={'darkText'}>
-          {t('onetoone.empty_onetoone_agenda')}
+          {t('onetoone.empty_onetoone_agenda')?.toString()}
         </Heading>
       </EmptyListRoot>
     )

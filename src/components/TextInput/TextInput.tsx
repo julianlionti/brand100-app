@@ -29,7 +29,6 @@ const TextInput: React.FC<Props> = memo((props) => {
         }}
         placeholder={placeholder as string}
         type={isSecure ? 'password' : undefined}
-        
         InputRightElement={
           secure ? (
             <IconButton size="sm" onPress={() => setSecure((sec) => !sec)}>
@@ -37,7 +36,6 @@ const TextInput: React.FC<Props> = memo((props) => {
                 mt={1}
                 ml={1}
                 size="sm"
-               
                 name={isSecure ? 'visibility' : 'visibility-off'}
               />
             </IconButton>

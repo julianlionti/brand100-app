@@ -35,7 +35,7 @@ const OnlineAgendaLogin = () => {
                   <HStack flexShrink={1} space={2} alignItems="center">
                     <Alert.Icon />
                     <Text fontSize="md" fontWeight="medium" color="coolGray.800">
-                      {t('onetoone.error_title')}
+                      {t('onetoone.error_title')?.toString()}
                     </Text>
                   </HStack>
                   <IconButton
@@ -58,14 +58,12 @@ const OnlineAgendaLogin = () => {
         {({ submitForm }) => (
           <Center flex={1} mt={-eventHeaderHeight} p={2}>
             <Heading mb={10} mt={-10} textAlign={'center'}>
-              {t('onetoone.login_title')}
+              {t('onetoone.login_title')?.toString()}
             </Heading>
-      
-            <TextInput  title={t('onetoone.username')} id="username" />
-            <TextInput  title={t('onetoone.password')} id="password" type="password" secure />
-          
+            <TextInput title={t('onetoone.username')} id="username" />
+            <TextInput title={t('onetoone.password')} id="password" type="password" secure />
             <Button onPress={submitForm} mt={5}>
-              {t('onetoone.login')}
+              {t('onetoone.login')?.toString()}
             </Button>
           </Center>
         )}

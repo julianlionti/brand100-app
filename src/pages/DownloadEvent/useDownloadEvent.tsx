@@ -1,6 +1,6 @@
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { useTheme, useToast } from 'native-base'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { downloadEvent } from '../../actions/eventsActions'
 import { removeError } from '../../actions/loadingActions'
 import { useAppDispatch } from '../../hooks/redux'
@@ -17,23 +17,31 @@ const useDownloadEvent = () => {
   const { progress, isDownloading, isUnzipping, selectedEvent } = useEventsState()
   const { errors } = useLoadingState()
   const { colors } = useTheme()
+  const downloadRef = useRef(false)
 
   const t = useT()
   const { event } = params || {}
   const finalEvent = event || selectedEvent
   const { unziping } = errors
-  const { id, lang } = finalEvent
+  const { id, availableLangs } = finalEvent
 
   useEffect(() => {
-    dispatch(downloadEvent({ id, lang }))
-  }, [dispatch, id, lang])
+    if (!downloadRef.current) {
+      dispatch(downloadEvent({ id, availableLangs }))
+      downloadRef.current = true
+    }
+
+    return () => {
+      downloadRef.current = false
+    }
+  }, [dispatch, id, availableLangs])
 
   useEffect(() => {
     if (unziping) {
       const errorKey = 'unziping'
       if (!isActive(errorKey))
         show({
-          title: t('download.unzipping_error'),
+          title: t('download.unzipping_error')?.toString(),
           id: errorKey,
           variant: 'solid',
           status: 'error'

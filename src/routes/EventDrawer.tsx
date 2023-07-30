@@ -25,7 +25,7 @@ export type EventDrawerParamList = {
   Notifications: undefined
 }
 
-const WithSuspense: React.FC = ({ children }) => {
+const WithSuspense: React.FC<any> = ({ children }) => {
   return (
     <Suspense fallback={<Loading full Header={<EventHeader loading />} />}>{children}</Suspense>
   )

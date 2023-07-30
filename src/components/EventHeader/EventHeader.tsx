@@ -1,15 +1,5 @@
 import styled from '@emotion/native'
-import {
-  Box,
-  Button,
-  Divider,
-  HStack,
-  IconButton,
-  Menu,
-  Pressable,
-  StatusBar,
-  View
-} from 'native-base'
+import { Box, Button, Divider, HStack, IconButton, Menu, StatusBar, View } from 'native-base'
 import React from 'react'
 import { eventHeaderHeight } from '../../themes/darkTheme'
 import CustomModal from '../CustomModal/CustomModal'
@@ -78,9 +68,9 @@ const EventHeader: React.FC<Props> = (props) => {
             <Menu
               placement="left top"
               trigger={(triggerProps) => (
-                <Pressable accessibilityLabel="More options menu" {...triggerProps}>
+                <IconButton {...triggerProps}>
                   <MaterialIcon disabled={loading} name="more-vert" size="sm" color="white" />
-                </Pressable>
+                </IconButton>
               )}
             >
               <Menu.Item onPress={toggleEventConfirmation}>
@@ -102,7 +92,7 @@ const EventHeader: React.FC<Props> = (props) => {
         onClose={toggleEventConfirmation}
         title={t('header.change_event_title')}
         description={t('header.change_event_description')}
-        actionBtn={<Button onPress={cleanEvent}>{t('yes')}</Button>}
+        actionBtn={<Button onPress={cleanEvent}>{t('yes')?.toString()}</Button>}
       />
     </>
   )

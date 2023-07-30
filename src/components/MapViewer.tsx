@@ -8,19 +8,26 @@ import { Image } from 'native-base'
 
 type Props = IMap
 const MapViewer: React.FC<Props> = (props) => {
-  const { image, name } = props
+  const { image } = props
 
-  const imageSize = normalize(350)
+  const width = normalize(350, 'width')
+  const height = normalize(550, 'height')
 
   return (
     <PageContainer bgColor={'white'}>
       <ImageZoom
         cropWidth={Dimensions.get('window').width}
         cropHeight={Dimensions.get('window').height}
-        imageHeight={imageSize}
-        imageWidth={imageSize}
+        imageHeight={height}
+        imageWidth={width}
       >
-        <Image alt={image} resizeMode="contain" w={imageSize} h={imageSize} source={{ uri: image }} />
+        <Image
+          alt={image}
+          resizeMode="center"
+          width={width}
+          height={height}
+          source={{ uri: image }}
+        />
       </ImageZoom>
     </PageContainer>
   )

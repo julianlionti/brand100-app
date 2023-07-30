@@ -16,7 +16,9 @@ import messaging from '@react-native-firebase/messaging'
 const fs = RNFetchBlob.fs
 const prefix = `events/`
 
-export const setHasToUpdate = createAction<boolean>(`${prefix}set-show-has-to-update`)
+export const setSelectedEvent = createAction<IFullEvent | null>(`${prefix}set-selected-event`)
+export const setShowHasToUpdate = createAction<boolean>(`${prefix}set-show-has-to-update`)
+export const setHasToUpdate = createAction<boolean>(`${prefix}set-has-to-update`)
 export const setProgress = createAction<IDownloadProgress>(`${prefix}download-progress`)
 export const setIsDownloading = createAction<boolean>(`${prefix}set-is-downloading`)
 export const setIsUnzipping = createAction<boolean>(`${prefix}set-is-unzipping`)
@@ -38,7 +40,6 @@ export const getEvents = createAsyncThunk<GetEventsReturn, GetEventProps | undef
     const { eventsReducer } = getState() as RootState
     const { events } = eventsReducer
     if (events.length > 0 && !refresh) return events
-
     const data = await makeRequest({ url: Urls.events, method: 'POST' })
     if (!data) return []
     return (data.Eventos as IEventOriginal[])
@@ -47,7 +48,7 @@ export const getEvents = createAsyncThunk<GetEventsReturn, GetEventProps | undef
           active: ev.activo,
           id: ev.id,
           name: ev.nombre,
-          lang: ev.idiomas.map((lang) => ({
+          availableLangs: ev.idiomas.map((lang) => ({
             id: lang.id,
             name: lang.nombre,
             xmlName: lang.nombreXml
@@ -59,27 +60,23 @@ export const getEvents = createAsyncThunk<GetEventsReturn, GetEventProps | undef
   }
 )
 
-type DownloadEventProps = { id: number; lang: ILang[] | number }
+type DownloadEventProps = { id: number; availableLangs: ILang[] }
 export const downloadEvent = createAsyncThunk<IFullEvent | null, DownloadEventProps>(
   `${prefix}download-event`,
-  async ({ id, lang }, { dispatch, getState }) => {
+  async ({ id, availableLangs }, { dispatch, getState }) => {
     const { eventsReducer } = getState() as RootState
     const { isDownloading } = eventsReducer
-    let langCode = 1
-    if (typeof lang === "number") {
-      langCode = lang
-    }
-    else {
-      langCode =  lang.find((l) => l.id === EventHelpers.langCode)?.id || 1
-    }
+    const langCode = availableLangs.find((l) => l.id === EventHelpers.langCode)?.id || 1
 
     if (isDownloading) return eventsReducer.selectedEvent
     dispatch(setIsDownloading(true))
+    dispatch(setProgress({ loaded: 0, total: 0 }))
 
     const zipPath = `${fs.dirs.CacheDir}/resources.zip`
     const { path } = await RNFetchBlob.config({
-      fileCache: true,
-      path: zipPath
+      fileCache: false,
+      path: zipPath,
+      overwrite: true
     })
       .fetch(
         'POST',
@@ -90,6 +87,7 @@ export const downloadEvent = createAsyncThunk<IFullEvent | null, DownloadEventPr
       .progress((loaded, total) => {
         dispatch(setProgress({ loaded, total }))
       })
+
     dispatch(setProgress({ loaded: 1, total: 1 }))
     dispatch(setIsDownloading(false))
     dispatch(setIsUnzipping(true))
@@ -104,8 +102,11 @@ export const downloadEvent = createAsyncThunk<IFullEvent | null, DownloadEventPr
 
     const legacyString = await fs.readFile(`${resPath}textos.json`, 'utf8')
     const legacyEvent = JSON.parse(legacyString) as IFullOriginalEvent
-    const selectedEvent = EventHelpers.legacyToFinalEvent(legacyEvent)
-    dispatch(setIsUnzipping(false))
+    const selectedEvent = EventHelpers.legacyToFinalEvent(legacyEvent, availableLangs)
+
+    setTimeout(() => {
+      dispatch(setHasToUpdate(false))
+    }, 1000)
 
     messaging().subscribeToTopic(EventHelpers.generateEventTopic({ id, langCode }))
     return selectedEvent

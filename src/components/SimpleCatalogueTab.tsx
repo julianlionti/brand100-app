@@ -14,7 +14,7 @@ const SimpleCatalogueTab: React.FC<Props> = (props) => {
     <VStack padding={'2'}>
       <HasToUpdate />
       <Text fontWeight={!textToShow ? 'bold' : 'normal'} color={'darkText'}>
-        {textToShow ? parseHtml(textToShow) : t('catalogue.news.no_data')}
+        {textToShow ? parseHtml(textToShow) : t('catalogue.news.no_data')?.toString()}
       </Text>
     </VStack>
   )

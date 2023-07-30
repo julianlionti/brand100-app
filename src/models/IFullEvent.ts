@@ -94,6 +94,7 @@ export interface IAd {
 
 export interface IFullEvent {
   id: number
+  availableLangs: ILang[]
   lang: number
   name: string
   startDate: string

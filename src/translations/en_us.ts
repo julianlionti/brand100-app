@@ -8,7 +8,7 @@ export const enUs: Translation = {
   'home.ads_see_more': 'See more',
   'home.has_to_update': "It's necesary to download updates of the event",
   'home.has_to_update_title': 'Important!',
-  'home.has_to_update_button': 'Updte',
+  'home.has_to_update_button': 'Upadte',
   'menu.catalogue': 'Catalogue',
   'menu.featured': 'Featured',
   'menu.maps': 'Maps',

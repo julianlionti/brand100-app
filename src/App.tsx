@@ -9,7 +9,6 @@ import { PersistGate } from 'redux-persist/integration/react'
 import Loading from './components/Loading'
 
 injectStore(store)
-
 const App = () => {
   return (
     <NativeBaseProvider theme={darkTheme}>

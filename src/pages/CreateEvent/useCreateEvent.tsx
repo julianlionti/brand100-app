@@ -9,7 +9,6 @@ import { useEventsState } from '../../reducers/eventsReducer'
 import { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import moment from 'moment'
-import { check, PERMISSIONS, RESULTS } from 'react-native-permissions'
 import {
   askForCalendarPermission,
   checkCalendarPermission,
@@ -68,8 +67,10 @@ const useCreateEvent = () => {
     const { day, range } = values
     const numberDay = parseInt(day, 10)
     const finalRange = {
-      end: range.end ? moment(range.end).zone("-0300").format('HH:mm') : '',
-      start: range.start ? moment(range.start).zone("-0300").format('HH:mm') : ''
+      end: range.end ? moment(range.end).tz('America/Argentina/Buenos_Aires').format('HH:mm') : '',
+      start: range.start
+        ? moment(range.start).tz('America/Argentina/Buenos_Aires').format('HH:mm')
+        : ''
     }
 
     const exists = ownEvents.find(

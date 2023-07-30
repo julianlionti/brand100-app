@@ -12,7 +12,7 @@ const FavoriteCatalogueTab = () => {
     return (
       <EmptyListRoot fab={Fab} onPressAdd={goToCatalogue}>
         <Heading textAlign={'center'} color={'darkText'}>
-          {t('onetoone.empty_catalogue')}
+          {t('onetoone.empty_catalogue')?.toString()}
         </Heading>
       </EmptyListRoot>
     )

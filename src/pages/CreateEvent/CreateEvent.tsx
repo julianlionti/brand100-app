@@ -32,7 +32,7 @@ const CreateEvent = () => {
     <PageContainer>
       <EventHeader canGoBack />
       <Heading py={2} mx={2}>
-        {t('onetoone.new_event')}
+        {t('onetoone.new_event')?.toString()}
       </Heading>
       {!isPrepared && <Loading full />}
       {isPrepared && (

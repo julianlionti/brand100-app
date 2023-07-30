@@ -8,6 +8,7 @@ import { SafeAreaView } from 'react-native'
 const DownloadEvent = () => {
   const { t, event, percentage, isDownloading, downloadColor, unzippingColor, isUnzipping } =
     useDownloadEvent()
+
   return (
     <PageContainer>
       <SafeAreaView>
@@ -23,7 +24,7 @@ const DownloadEvent = () => {
               indeterminate={isUnzipping}
             />,
             <Text key="text" textAlign={'center'}>
-              {t(isDownloading ? 'download.information' : 'download.unzipping')}
+              {t(isDownloading ? 'download.information' : 'download.unzipping')?.toString()}
             </Text>
           ]}
         </VStack>

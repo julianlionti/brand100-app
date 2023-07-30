@@ -15,7 +15,7 @@ const FavoriteAgendaTab = () => {
     return (
       <EmptyListRoot fab={Fab} onPressAdd={openCreate}>
         <Heading textAlign={'center'} color={'darkText'}>
-          {t('onetoone.empty_agenda')}
+          {t('onetoone.empty_agenda')?.toString()}
         </Heading>
       </EmptyListRoot>
     )
@@ -32,7 +32,7 @@ const FavoriteAgendaTab = () => {
       <CustomModal
         title={t('onetoone.delete_title')}
         description={t('onetoone.delete_description')}
-        actionBtn={<Button onPress={onAcceptDelete}>{t('onetoone.delete')}</Button>}
+        actionBtn={<Button onPress={onAcceptDelete}>{t('onetoone.delete')?.toString()}</Button>}
         isOpen={showDelete}
         onClose={onCloseDelete}
       />

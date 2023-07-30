@@ -5,14 +5,17 @@ import EventHeader from '../../components/EventHeader/EventHeader'
 import HasToUpdate from '../../components/HasToUpdate/HasToUpdate'
 import PageContainer from '../../components/PageContainer'
 import useEventHome from './useEventHome'
+import Sponsor from '../../components/Sponsor/Sponsor'
+import normalize from 'react-native-normalize'
 
 const EventHome = () => {
-  const { t, name, date, place, color } = useEventHome()
+  const { information, date, place, color } = useEventHome()
 
   return (
     <PageContainer>
       <EventHeader />
       <ScrollView>
+        <Sponsor />
         <HasToUpdate />
         <VStack py={'2'}>
           <VStack alignItems={'center'} pb="3" px="2" space={'2'}>
@@ -22,40 +25,14 @@ const EventHome = () => {
             </Heading>
           </VStack>
           <Carousel />
-          <VStack alignItems={'center'} p="3" bgColor={color}>
-            <Heading size="sm">{t('event.home.welcome')}</Heading>
-            <Heading size="sm">{name}</Heading>
+          <VStack alignItems="center" p="3" bgColor={color} minHeight={normalize(60, 'height')}>
+            <Heading textAlign="center" size="md">
+              {information}
+            </Heading>
+            {/* <Heading size="sm">{name}</Heading> */}
           </VStack>
         </VStack>
       </ScrollView>
-      {/* {ad && (
-        <Modal isOpen={showAd} onClose={closeAd}>
-          <Modal.Content>
-            <Modal.CloseButton />
-            <Modal.Body>
-              <Pressable position={'relative'} onPress={openAd}>
-                <Image
-                  width={Dimensions.get('window').width - normalize(10, 'width')}
-                  height={Dimensions.get('window').height - normalize(10, 'height')}
-                  resizeMode="cover"
-                  alt={ad.link}
-                  source={{ uri: ad.image }}
-                />
-                <Button
-                  variant="link"
-                  color={'primary.900'}
-                  onPress={openAd}
-                  position="absolute"
-                  right={4}
-                  bottom={4}
-                >
-                  {t('home.ads_see_more')?.toUpperCase()}
-                </Button>
-              </Pressable>
-            </Modal.Body>
-          </Modal.Content>
-        </Modal>
-      )} */}
     </PageContainer>
   )
 }

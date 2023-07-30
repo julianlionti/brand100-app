@@ -31,7 +31,7 @@ const Drawer: React.FC = () => {
         <Divider />
         <ScrollView>
           <VStack space="1" pt="1" mx="1">
-            <Text>{t('menu.organize')}</Text>
+            <Text>{t('menu.organize')?.toString()}</Text>
             <VStack alignItems={'center'}>
               <Box py="1">
                 <Image

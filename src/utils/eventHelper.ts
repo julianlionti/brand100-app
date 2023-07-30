@@ -6,6 +6,7 @@ import {
   IAgendaActivity,
   IAgendaSponsor,
   IFullEvent,
+  ILang,
   IParticipant
 } from '../models/IFullEvent'
 import { IFullOriginalEvent } from '../models/IFullOriginalEvent'
@@ -20,7 +21,7 @@ const deviceLanguage: string =
     : NativeModules.I18nManager.localeIdentifier
 
 const deviceLang = deviceLanguage.substring(0, deviceLanguage.indexOf('_'))
-const langCode = deviceLang === 'es' ? 1 : 2
+const langCode = { es: 1, en: 2, pt: 3 }[deviceLang]
 
 const getHashedTitle = () => {
   switch (Config.APP_NAME) {
@@ -52,7 +53,10 @@ const filterEventBy =
 
     predicate =
       predicate &&
-      (app === 'BRAND' ? name.toUpperCase().includes(app) : !name.toUpperCase().includes(app))
+      (app === 'BRAND'
+        ? name.toUpperCase().includes('BRAND')
+        : !name.toUpperCase().includes('BRAND'))
+
     return predicate
   }
 
@@ -72,23 +76,21 @@ const generateEventTopic = ({ id, langCode }: GenerateEventTopicProps) =>
   `i-evento-${id}-${langCode}`
 
 const generateEventUrl = (ev: IFullOriginalEvent) => {
-  let isBooking = false
   const alternatives = ['agenda', 'Agenda', 'Booking', 'booking']
   let agendaIndex = -1
   alternatives.forEach((name) => {
     if (ev.urlAgendaPersonal.indexOf(name) > agendaIndex) {
-      if (name === 'Booking' || name === 'booking') isBooking = true
       agendaIndex = ev.urlAgendaPersonal.indexOf(name)
     }
   })
 
-  const finalUrl = ev.urlAgendaPersonal.substring(0, agendaIndex).replace(/\/$/, '');
-  console.log(finalUrl)
+  const finalUrl = ev.urlAgendaPersonal.substring(0, agendaIndex)
   return finalUrl
 }
 
-const legacyToFinalEvent = (ev: IFullOriginalEvent): IFullEvent => ({
+const legacyToFinalEvent = (ev: IFullOriginalEvent, availableLangs: ILang[]): IFullEvent => ({
   active: ev.activo,
+  availableLangs,
   adveryisments: ev.publicidades.map((ad) => ({
     ...ad,
     vertical: prepareImage(ad.vertical)

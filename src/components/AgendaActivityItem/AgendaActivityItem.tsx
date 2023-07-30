@@ -87,14 +87,14 @@ const AgendaActivityItem: React.FC<AgendaActivityItemProps> = (props) => {
         description={
           <Trans i18nKey={'onetoone.delete_confirmation_description'} values={{ name }} />
         }
-        actionBtn={<Button onPress={removeOwn}>{t('yes')}</Button>}
+        actionBtn={<Button onPress={removeOwn}>{t('yes')?.toString()}</Button>}
       />
       <CustomModal
         onClose={closeFavDlg}
         isOpen={favConfirmation}
         title={t('onetoone.fav_confirmation_title')}
         description={<Trans i18nKey={'onetoone.fav_confirmation_description'} values={{ name }} />}
-        actionBtn={<Button onPress={setFavorite}>{t('yes')}</Button>}
+        actionBtn={<Button onPress={setFavorite}>{t('yes')?.toString()}</Button>}
       />
     </>
   )

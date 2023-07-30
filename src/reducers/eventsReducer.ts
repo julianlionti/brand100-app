@@ -15,7 +15,9 @@ import {
   setHasToUpdate,
   emptyFavorites,
   createOwnEvent,
-  deleteOwnEvent
+  deleteOwnEvent,
+  setShowHasToUpdate,
+  setSelectedEvent
 } from '../actions/eventsActions'
 import { useAppSelector } from '../hooks/redux'
 import { IEvent } from '../models/IEvent'
@@ -69,8 +71,13 @@ const reducer = createReducer(initialState, (builder) => {
   })
   builder.addCase(downloadEvent.fulfilled, (state, action) => {
     state.selectedEvent = action.payload
-    state.hasToUpdate = false
     state.showHasToUpdate = false
+  })
+  builder.addCase(setSelectedEvent, (state, action) => {
+    state.selectedEvent = action.payload
+  })
+  builder.addCase(setShowHasToUpdate, (state, action) => {
+    state.showHasToUpdate = action.payload
   })
   builder.addCase(setProgress, (state, action) => {
     state.progress = action.payload

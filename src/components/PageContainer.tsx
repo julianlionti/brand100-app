@@ -7,6 +7,7 @@ type StyleProps = Partial<Record<'noSpace', boolean>>
 const Root = styled(View)<StyleProps>`
   height: 100%;
   width: 100%;
+  z-index: 0;
 `
 
 const PageContainer: React.FC<IViewProps> = (props) => {

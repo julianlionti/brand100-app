@@ -23,7 +23,7 @@ const SwipeRemoveItem: React.FC<Props> = (props) => {
         <VStack alignItems="center" space={2}>
           <MaterialIcon name="delete" color="white" size="xs" />
           <Text color="white" fontSize="xs" fontWeight="medium">
-            {t('notifications.delete')}
+            {t('notifications.delete')?.toString()}
           </Text>
         </VStack>
       </Pressable>

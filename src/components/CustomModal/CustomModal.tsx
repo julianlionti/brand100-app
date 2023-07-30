@@ -22,13 +22,13 @@ const CustomModal: React.FC<Props> = (props) => {
         <AlertDialog.CloseButton />
         <AlertDialog.Header>{title}</AlertDialog.Header>
         <AlertDialog.Body>
-          <Text>{description}</Text>
+          <Text>{description?.toString()}</Text>
         </AlertDialog.Body>
         <AlertDialog.Footer>
           <Button.Group space={2}>
             {!noCancel ? (
               <Button variant="unstyled" colorScheme="coolGray" onPress={onClose} ref={cancelRef}>
-                {t('cancel')}
+                {t('cancel')?.toString()}
               </Button>
             ) : (
               <></>

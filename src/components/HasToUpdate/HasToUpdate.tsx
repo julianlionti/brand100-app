@@ -18,7 +18,7 @@ const HasToUpdate = () => {
               <HStack flexShrink={1} space={2} alignItems="center">
                 <Alert.Icon />
                 <Text fontSize="md" fontWeight="medium" color="coolGray.800">
-                  {t('home.has_to_update_title')}
+                  {t('home.has_to_update_title')?.toString()}
                 </Text>
               </HStack>
             </HStack>

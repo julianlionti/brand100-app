@@ -4,10 +4,10 @@ import { eventHeaderHeight } from '../themes/darkTheme'
 import MaterialIcon from './MaterialIcon'
 import PageContainer from './PageContainer'
 
-interface Props {
+type Props = React.PropsWithChildren<{
   onPressAdd?: () => void
   fab?: JSX.Element
-}
+}>
 
 const EmptyListRoot: React.FC<Props> = (props) => {
   const { children, onPressAdd, fab } = props

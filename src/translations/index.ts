@@ -4,7 +4,7 @@ import { initReactI18next, useTranslation } from 'react-i18next'
 import EventHelpers from '../utils/eventHelper'
 import { enUs } from './en_us'
 import { esAr } from './es_ar'
-// import { esAr } from './es_ar'
+import { ptBr } from './br_pt'
 
 export type Translations =
   | 'welcome'
@@ -102,7 +102,8 @@ export const initTranslations = (): void => {
     compatibilityJSON: 'v3',
     resources: {
       en: { translation: enUs },
-      es: { translation: esAr }
+      es: { translation: esAr },
+      pt: { translation: ptBr }
     },
     fallbackLng: 'es',
     interpolation: { escapeValue: false },
