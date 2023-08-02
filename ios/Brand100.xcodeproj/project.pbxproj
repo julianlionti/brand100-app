@@ -578,7 +578,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Brand100/Brand100.entitlements;
-				CURRENT_PROJECT_VERSION = 2043;
+				CURRENT_PROJECT_VERSION = 2050;
 				DEVELOPMENT_TEAM = 464S895A3E;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Brand100/Info.plist;
@@ -586,7 +586,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.43;
+				MARKETING_VERSION = 2.0.50;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -608,14 +608,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Brand100/Brand100.entitlements;
-				CURRENT_PROJECT_VERSION = 2043;
+				CURRENT_PROJECT_VERSION = 2050;
 				DEVELOPMENT_TEAM = 464S895A3E;
 				INFOPLIST_FILE = Brand100/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.43;
+				MARKETING_VERSION = 2.0.50;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
